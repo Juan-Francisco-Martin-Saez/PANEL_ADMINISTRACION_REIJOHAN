@@ -291,7 +291,7 @@ class DataTable extends HTMLElement {
           color:
             var(--color-texto-secundario);
 
-          font-size: 0.8rem;
+          font-size: 0.9rem;
         }
 
 
@@ -419,11 +419,11 @@ class DataTable extends HTMLElement {
             <div class="dato">
 
               <span class="etiqueta">
-                Nombre
+                Nombre:
               </span>
 
               <span class="valor">
-                —
+                Juan Francisco Martín Sáez
               </span>
 
             </div>
@@ -432,11 +432,11 @@ class DataTable extends HTMLElement {
             <div class="dato">
 
               <span class="etiqueta">
-                Email
+                Email:
               </span>
 
               <span class="valor">
-                —
+                reijohan@gmail.com
               </span>
 
             </div>
