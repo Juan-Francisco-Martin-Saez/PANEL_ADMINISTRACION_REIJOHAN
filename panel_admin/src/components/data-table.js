@@ -42,7 +42,11 @@ class DataTable extends HTMLElement {
 
           box-sizing: border-box;
 
-          padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+          padding:
+            1.25rem
+            1.25rem
+            1.25rem
+            1.25rem;
         }
 
 
@@ -155,13 +159,11 @@ class DataTable extends HTMLElement {
 
 
         /* =====================================
-           CONTENEDOR DE CONTROLES Y TEXTO
+           CONTENEDOR DE CONTROLES
         ===================================== */
 
         .grupo-paginacion {
           display: flex;
-
-          flex-direction: column;
 
           align-items: center;
 
@@ -375,9 +377,6 @@ class DataTable extends HTMLElement {
 
         .total-paginas {
 
-          margin-top:
-            0.6rem;
-
           color:
             var(--color-texto-secundario);
 
@@ -387,9 +386,6 @@ class DataTable extends HTMLElement {
 
           font-size:
             0.85rem;
-
-          text-align:
-            center;
 
           line-height:
             1.2;
@@ -579,17 +575,6 @@ class DataTable extends HTMLElement {
           }
 
 
-          .total-paginas {
-
-            margin-top:
-              0.55rem;
-
-            font-size:
-              0.8rem;
-
-          }
-
-
           .boton-pagina,
           .boton-filtro {
 
@@ -631,6 +616,14 @@ class DataTable extends HTMLElement {
 
             font-size:
               0.85rem;
+
+          }
+
+
+          .total-paginas {
+
+            font-size:
+              0.8rem;
 
           }
 
@@ -716,6 +709,14 @@ class DataTable extends HTMLElement {
               >
 
 
+              <span
+                class="total-paginas"
+                aria-live="polite"
+              >
+                de 1 páginas
+              </span>
+
+
               <button
                 class="boton-pagina siguiente"
                 type="button"
@@ -724,14 +725,6 @@ class DataTable extends HTMLElement {
                 &gt;
               </button>
 
-            </div>
-
-
-            <div
-              class="total-paginas"
-              aria-live="polite"
-            >
-              de 1 páginas
             </div>
 
           </div>
