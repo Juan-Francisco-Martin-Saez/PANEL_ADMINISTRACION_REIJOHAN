@@ -42,7 +42,7 @@ class DataTable extends HTMLElement {
 
           box-sizing: border-box;
 
-          padding: 1.25rem;
+          padding: 1.25rem 1.25rem 1.25rem 1.25rem;
         }
 
 
@@ -53,14 +53,139 @@ class DataTable extends HTMLElement {
         .paginacion {
           display: flex;
 
-          align-items: center;
-          justify-content: flex-end;
+          flex-direction: row;
 
-          gap: 0.4rem;
+          align-items: flex-start;
+          justify-content: space-between;
 
           width: 100%;
 
           margin-bottom: 1rem;
+
+          box-sizing: border-box;
+        }
+
+
+        /* =====================================
+           BOTÓN DE FILTRADO
+        ===================================== */
+
+        .boton-filtro {
+
+          display: flex;
+
+          align-items: center;
+          justify-content: center;
+
+          width: 2.5rem;
+          height: 2.5rem;
+
+          padding: 0;
+
+          border:
+            0.0625rem solid
+            var(--color-borde);
+
+          border-radius:
+            0.55rem;
+
+          background:
+            var(--color-elemento);
+
+          color:
+            var(--color-texto);
+
+          cursor:
+            pointer;
+
+          transition:
+            background 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease;
+
+        }
+
+
+        .boton-filtro:hover {
+
+          background:
+            var(--color-elemento-hover);
+
+          border-color:
+            var(--color-borde-hover);
+
+        }
+
+
+        .boton-filtro:active {
+
+          background:
+            var(--color-elemento-activo);
+
+          border-color:
+            var(--color-borde-activo);
+
+        }
+
+
+        .icono-filtro {
+
+          width:
+            1.2rem;
+
+          height:
+            1.2rem;
+
+          fill:
+            none;
+
+          stroke:
+            currentColor;
+
+          stroke-width:
+            1.8;
+
+          stroke-linecap:
+            round;
+
+          stroke-linejoin:
+            round;
+
+        }
+
+
+        /* =====================================
+           CONTENEDOR DE CONTROLES Y TEXTO
+        ===================================== */
+
+        .grupo-paginacion {
+          display: flex;
+
+          flex-direction: column;
+
+          align-items: center;
+
+          width: max-content;
+
+          max-width: 100%;
+        }
+
+
+        /* =====================================
+           CONTROLES DE PAGINACIÓN
+        ===================================== */
+
+        .controles-paginacion {
+          display: flex;
+
+          align-items: center;
+          justify-content: center;
+
+          gap: 0.4rem;
+
+          width: max-content;
+
+          max-width: 100%;
         }
 
 
@@ -91,13 +216,21 @@ class DataTable extends HTMLElement {
           color:
             var(--color-texto);
 
-          font-family: Arial, sans-serif;
-          font-size: 1.5rem;
-          font-weight: 500;
+          font-family:
+            Arial,
+            sans-serif;
 
-          line-height: 1;
+          font-size:
+            1.5rem;
 
-          cursor: pointer;
+          font-weight:
+            500;
+
+          line-height:
+            1;
+
+          cursor:
+            pointer;
 
           transition:
             background 0.2s ease,
@@ -108,6 +241,7 @@ class DataTable extends HTMLElement {
 
 
         .boton-pagina:hover:not(:disabled) {
+
           background:
             var(--color-elemento-hover);
 
@@ -116,22 +250,29 @@ class DataTable extends HTMLElement {
 
           border-color:
             var(--color-borde-hover);
+
         }
 
 
         .boton-pagina:active:not(:disabled) {
+
           background:
             var(--color-elemento-activo);
 
           border-color:
             var(--color-borde-activo);
+
         }
 
 
         .boton-pagina:disabled {
-          opacity: 0.3;
 
-          cursor: default;
+          opacity:
+            0.3;
+
+          cursor:
+            default;
+
         }
 
 
@@ -140,10 +281,15 @@ class DataTable extends HTMLElement {
         ===================================== */
 
         .numero-pagina {
-          width: 3.5rem;
-          height: 2.5rem;
 
-          box-sizing: border-box;
+          width:
+            3.5rem;
+
+          height:
+            2.5rem;
+
+          box-sizing:
+            border-box;
 
           padding:
             0.4rem
@@ -153,7 +299,8 @@ class DataTable extends HTMLElement {
             0.0625rem solid
             var(--color-borde);
 
-          border-radius: 0.55rem;
+          border-radius:
+            0.55rem;
 
           background:
             var(--color-elemento);
@@ -161,12 +308,18 @@ class DataTable extends HTMLElement {
           color:
             var(--color-texto);
 
-          font-family: Arial, sans-serif;
-          font-size: 0.9rem;
+          font-family:
+            Arial,
+            sans-serif;
 
-          text-align: center;
+          font-size:
+            0.9rem;
 
-          outline: none;
+          text-align:
+            center;
+
+          outline:
+            none;
 
           transition:
             background 0.2s ease,
@@ -175,17 +328,21 @@ class DataTable extends HTMLElement {
 
 
         .numero-pagina:hover {
+
           background:
             var(--color-elemento-hover);
+
         }
 
 
         .numero-pagina:focus {
+
           background:
             var(--color-elemento-hover);
 
           border-color:
             var(--color-borde-hover);
+
         }
 
 
@@ -196,14 +353,49 @@ class DataTable extends HTMLElement {
         .numero-pagina::-webkit-inner-spin-button,
         .numero-pagina::-webkit-outer-spin-button {
 
-          margin: 0;
+          margin:
+            0;
 
-          appearance: none;
+          appearance:
+            none;
         }
 
 
         .numero-pagina {
-          appearance: textfield;
+
+          appearance:
+            textfield;
+
+        }
+
+
+        /* =====================================
+           TOTAL DE PÁGINAS
+        ===================================== */
+
+        .total-paginas {
+
+          margin-top:
+            0.6rem;
+
+          color:
+            var(--color-texto-secundario);
+
+          font-family:
+            Arial,
+            sans-serif;
+
+          font-size:
+            0.85rem;
+
+          text-align:
+            center;
+
+          line-height:
+            1.2;
+
+          white-space:
+            nowrap;
         }
 
 
@@ -212,14 +404,21 @@ class DataTable extends HTMLElement {
         ===================================== */
 
         .entradas {
-          display: flex;
 
-          flex-direction: column;
+          display:
+            flex;
 
-          gap: 0.75rem;
+          flex-direction:
+            column;
 
-          width: 100%;
-          min-width: 0;
+          gap:
+            0.75rem;
+
+          width:
+            100%;
+
+          min-width:
+            0;
         }
 
 
@@ -228,16 +427,24 @@ class DataTable extends HTMLElement {
         ===================================== */
 
         .tarjeta {
-          display: flex;
 
-          flex-direction: column;
+          display:
+            flex;
 
-          width: 100%;
-          min-width: 0;
+          flex-direction:
+            column;
 
-          box-sizing: border-box;
+          width:
+            100%;
 
-          padding: 1rem;
+          min-width:
+            0;
+
+          box-sizing:
+            border-box;
+
+          padding:
+            1rem;
 
           background:
             var(--color-elemento);
@@ -246,7 +453,8 @@ class DataTable extends HTMLElement {
             0.0625rem solid
             var(--color-borde);
 
-          border-radius: 0.7rem;
+          border-radius:
+            0.7rem;
 
           transition:
             background 0.2s ease,
@@ -255,11 +463,13 @@ class DataTable extends HTMLElement {
 
 
         .tarjeta:hover {
+
           background:
             var(--color-elemento-hover);
 
           border-color:
             var(--color-borde-hover);
+
         }
 
 
@@ -268,42 +478,60 @@ class DataTable extends HTMLElement {
         ===================================== */
 
         .dato {
-          display: flex;
 
-          align-items: baseline;
+          display:
+            flex;
 
-          gap: 0.5rem;
+          align-items:
+            baseline;
 
-          width: 100%;
+          gap:
+            0.5rem;
 
-          margin-bottom: 0.35rem;
+          width:
+            100%;
+
+          margin-bottom:
+            0.35rem;
         }
 
 
         .dato:last-child {
-          margin-bottom: 0;
+
+          margin-bottom:
+            0;
+
         }
 
 
         .etiqueta {
-          flex-shrink: 0;
+
+          flex-shrink:
+            0;
 
           color:
             var(--color-texto-secundario);
 
-          font-size: 0.9rem;
+          font-size:
+            0.9rem;
+
         }
 
 
         .valor {
-          min-width: 0;
+
+          min-width:
+            0;
 
           color:
             var(--color-texto);
 
-          font-size: 0.9rem;
+          font-size:
+            0.9rem;
 
-          overflow-wrap: anywhere;
+          overflow-wrap:
+            anywhere;
+
         }
 
 
@@ -314,7 +542,13 @@ class DataTable extends HTMLElement {
         @media (max-width: 48rem) {
 
           .tabla {
-            padding: 1rem;
+
+            padding:
+              2.5rem
+              1rem
+              1rem
+              1rem;
+
           }
 
         }
@@ -327,35 +561,85 @@ class DataTable extends HTMLElement {
         @media (max-width: 30rem) {
 
           .tabla {
-            padding: 0.75rem;
+
+            padding:
+              2.25rem
+              0.75rem
+              0.75rem
+              0.75rem;
+
           }
 
 
-          .paginacion {
-            gap: 0.3rem;
+          .controles-paginacion {
 
-            margin-bottom: 0.75rem;
+            gap:
+              0.3rem;
+
+          }
+
+
+          .total-paginas {
+
+            margin-top:
+              0.55rem;
+
+            font-size:
+              0.8rem;
+
+          }
+
+
+          .boton-pagina,
+          .boton-filtro {
+
+            width:
+              2.25rem;
+
+            height:
+              2.25rem;
+
           }
 
 
           .boton-pagina {
-            width: 2.25rem;
-            height: 2.25rem;
 
-            font-size: 1.3rem;
+            font-size:
+              1.3rem;
+
+          }
+
+
+          .icono-filtro {
+
+            width:
+              1.05rem;
+
+            height:
+              1.05rem;
+
           }
 
 
           .numero-pagina {
-            width: 3.25rem;
-            height: 2.25rem;
 
-            font-size: 0.85rem;
+            width:
+              3.25rem;
+
+            height:
+              2.25rem;
+
+            font-size:
+              0.85rem;
+
           }
 
 
           .tarjeta {
-            padding: 0.85rem;
+
+            padding:
+              0.85rem;
+
           }
 
         }
@@ -379,31 +663,79 @@ class DataTable extends HTMLElement {
           aria-label="Paginación"
         >
 
+
+          <!-- ===============================
+               BOTÓN DE FILTRADO
+          ================================ -->
+
           <button
-            class="boton-pagina anterior"
+            class="boton-filtro"
             type="button"
-            aria-label="Página anterior"
+            aria-label="Filtrar"
+            title="Filtrar"
           >
-            &lt;
+
+            <svg
+              class="icono-filtro"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M4 5h16M7 12h10M10 19h4"
+              ></path>
+
+            </svg>
+
           </button>
 
 
-          <input
-            class="numero-pagina"
-            type="number"
-            min="1"
-            value="1"
-            aria-label="Número de página"
-          >
+          <!-- ===============================
+               PAGINACIÓN
+          ================================ -->
+
+          <div class="grupo-paginacion">
+
+            <div class="controles-paginacion">
+
+              <button
+                class="boton-pagina anterior"
+                type="button"
+                aria-label="Página anterior"
+              >
+                &lt;
+              </button>
 
 
-          <button
-            class="boton-pagina siguiente"
-            type="button"
-            aria-label="Página siguiente"
-          >
-            &gt;
-          </button>
+              <input
+                class="numero-pagina"
+                type="number"
+                min="1"
+                value="1"
+                aria-label="Número de página"
+              >
+
+
+              <button
+                class="boton-pagina siguiente"
+                type="button"
+                aria-label="Página siguiente"
+              >
+                &gt;
+              </button>
+
+            </div>
+
+
+            <div
+              class="total-paginas"
+              aria-live="polite"
+            >
+              de 1 páginas
+            </div>
+
+          </div>
+
 
         </nav>
 
@@ -473,19 +805,22 @@ class DataTable extends HTMLElement {
       );
 
 
+    this.totalPaginasTexto =
+      this.shadowRoot.querySelector(
+        ".total-paginas"
+      );
+
+
     /* =====================================
        PAGINACIÓN
     ===================================== */
 
-    this.paginaActual = 1;
+    this.paginaActual =
+      1;
 
-    /*
-       El número total de páginas
-       se establecerá posteriormente
-       según la cantidad real de datos.
-    */
 
-    this.totalPaginas = 1;
+    this.totalPaginas =
+      1;
 
 
     /* =====================================
@@ -597,7 +932,8 @@ class DataTable extends HTMLElement {
       numero < 1
     ) {
 
-      numero = 1;
+      numero =
+        1;
 
     }
 
@@ -642,6 +978,10 @@ class DataTable extends HTMLElement {
     this.botonSiguiente.disabled =
       this.paginaActual ===
       this.totalPaginas;
+
+
+    this.totalPaginasTexto.textContent =
+      `de ${this.totalPaginas} páginas`;
 
   }
 
