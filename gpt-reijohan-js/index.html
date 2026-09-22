@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReijohanGPT</title>
+
+  <style>
+    /* Estilos mínimos globales para asegurar el comportamiento de la pantalla */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+      font-family: Arial, sans-serif;
+      background: hsl(0, 0%, 9%);
+      overflow: hidden;
+    }
+
+    /* Contenedor principal que replica el layout estructural original */
+    .chat-app {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+      background: hsl(0, 0%, 9%);
+    }
+
+    /* Estado cuando la app tiene mensajes activos */
+    .chat-app.chat-has-messages {
+      /* Estilos condicionales globales si se necesitan heredar */
+    }
+
+    /* Modificador estructural para pantallas móviles */
+    @media (max-width: 64rem) {
+      .chat-app {
+        display: block;
+      }
+    }
+  </style>
+
+  <!-- Importación de los módulos de cada Web Component -->
+  <script type="module" src="./components/SidebarComponent.js"></script>
+  <script type="module" src="./components/ChatMain.js"></script>
+  <script type="module" src="./components/ChatHeader.js"></script>
+  <script type="module" src="./components/ChatInput.js"></script>
+</head>
+
+<body>
+
+  <!-- Contenedor estructural nativo -->
+  <div class="chat-app" id="app-root">
+
+    <!-- Componente del Menú Lateral -->
+    <sidebar-component></sidebar-component>
+
+    <!-- Componente del Contenido Principal -->
+    <chat-main></chat-main>
+
+  </div>
+
+</body>
+
+</html>
