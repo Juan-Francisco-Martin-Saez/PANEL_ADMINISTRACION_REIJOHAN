@@ -737,38 +737,7 @@ class DataTable extends HTMLElement {
              ENTRADAS
         ================================== -->
 
-        <div class="entradas">
-
-          <article class="tarjeta">
-
-            <div class="dato">
-
-              <span class="etiqueta">
-                Nombre:
-              </span>
-
-              <span class="valor">
-                Juan Francisco Martín Sáez
-              </span>
-
-            </div>
-
-
-            <div class="dato">
-
-              <span class="etiqueta">
-                Email:
-              </span>
-
-              <span class="valor">
-                reijohan@gmail.com
-              </span>
-
-            </div>
-
-          </article>
-
-        </div>
+        <div class="entradas"></div>
 
 
       </section>
@@ -779,6 +748,12 @@ class DataTable extends HTMLElement {
     /* =====================================
        ELEMENTOS
     ===================================== */
+
+    this.entradas =
+      this.shadowRoot.querySelector(
+        ".entradas"
+      );
+
 
     this.botonAnterior =
       this.shadowRoot.querySelector(
@@ -802,6 +777,16 @@ class DataTable extends HTMLElement {
       this.shadowRoot.querySelector(
         ".total-paginas"
       );
+
+
+    /* =====================================
+       DATOS
+    ===================================== */
+
+    this.data = [];
+
+
+    this.elementosPorPagina = 8;
 
 
     /* =====================================
@@ -887,12 +872,371 @@ class DataTable extends HTMLElement {
       }
     );
 
+  }
 
-    /* =====================================
-       ESTADO INICIAL
-    ===================================== */
+
+  /* =====================================
+     CONECTAR COMPONENTE
+  ===================================== */
+
+  async connectedCallback() {
+
+    await this.loadData();
+
+    await this.render();
 
     this.actualizarPaginacion();
+
+  }
+
+
+  /* =====================================
+     CARGAR DATOS
+  ===================================== */
+
+  async loadData() {
+
+    this.data = [
+
+      {
+        nombre:
+          "Juan Francisco Martín Sáez",
+
+        email:
+          "reijohan@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Pedro García",
+
+        email:
+          "pedro@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Ana López",
+
+        email:
+          "ana@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Carlos Martínez",
+
+        email:
+          "carlos@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Laura Sánchez",
+
+        email:
+          "laura@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Miguel Torres",
+
+        email:
+          "miguel@gmail.com"
+      },
+
+      {
+        nombre:
+          "Juan Francisco Martín Sáez",
+
+        email:
+          "reijohan@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Pedro García",
+
+        email:
+          "pedro@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Ana López",
+
+        email:
+          "ana@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Carlos Martínez",
+
+        email:
+          "carlos@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Laura Sánchez",
+
+        email:
+          "laura@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Miguel Torres",
+
+        email:
+          "miguel@gmail.com"
+      },
+
+      {
+        nombre:
+          "Juan Francisco Martín Sáez",
+
+        email:
+          "reijohan@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Pedro García",
+
+        email:
+          "pedro@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Ana López",
+
+        email:
+          "ana@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Carlos Martínez",
+
+        email:
+          "carlos@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Laura Sánchez",
+
+        email:
+          "laura@gmail.com"
+      },
+
+
+      {
+        nombre:
+          "Miguel Torres",
+
+        email:
+          "miguel@gmail.com"
+      }
+
+    ];
+
+  }
+
+
+  /* =====================================
+     RENDERIZAR DATOS
+  ===================================== */
+
+  async render() {
+
+    this.entradas.innerHTML = "";
+
+
+    /* -------------------------------------
+       CALCULAR TOTAL DE PÁGINAS
+    ------------------------------------- */
+
+    this.totalPaginas =
+      Math.max(
+        1,
+        Math.ceil(
+          this.data.length /
+          this.elementosPorPagina
+        )
+      );
+
+
+    /* -------------------------------------
+       ASEGURAR PÁGINA VÁLIDA
+    ------------------------------------- */
+
+    if (
+      this.paginaActual >
+      this.totalPaginas
+    ) {
+
+      this.paginaActual =
+        this.totalPaginas;
+
+    }
+
+
+    /* -------------------------------------
+       POSICIÓN INICIAL
+    ------------------------------------- */
+
+    const inicio =
+      (
+        this.paginaActual - 1
+      ) *
+      this.elementosPorPagina;
+
+
+    /* -------------------------------------
+       POSICIÓN FINAL
+    ------------------------------------- */
+
+    const fin =
+      inicio +
+      this.elementosPorPagina;
+
+
+    /* -------------------------------------
+       DATOS DE LA PÁGINA ACTUAL
+    ------------------------------------- */
+
+    const datosPagina =
+      this.data.slice(
+        inicio,
+        fin
+      );
+
+
+    /* -------------------------------------
+       CREAR TARJETAS
+    ------------------------------------- */
+
+    datosPagina.forEach(
+      dato => {
+
+        const tarjeta =
+          document.createElement(
+            "article"
+          );
+
+
+        tarjeta.className =
+          "tarjeta";
+
+
+        /* -------------------------------
+           CAMPOS DEL DATO
+        -------------------------------- */
+
+        Object.entries(
+          dato
+        ).forEach(
+          ([clave, valor]) => {
+
+            const elementoDato =
+              document.createElement(
+                "div"
+              );
+
+
+            elementoDato.className =
+              "dato";
+
+
+            const etiqueta =
+              document.createElement(
+                "span"
+              );
+
+
+            etiqueta.className =
+              "etiqueta";
+
+
+            etiqueta.textContent =
+              `${this.formatearEtiqueta(
+                clave
+              )}:`;
+
+
+            const elementoValor =
+              document.createElement(
+                "span"
+              );
+
+
+            elementoValor.className =
+              "valor";
+
+
+            elementoValor.textContent =
+              valor;
+
+
+            elementoDato.append(
+              etiqueta,
+              elementoValor
+            );
+
+
+            tarjeta.append(
+              elementoDato
+            );
+
+          }
+        );
+
+
+        this.entradas.append(
+          tarjeta
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     FORMATEAR ETIQUETA
+  ===================================== */
+
+  formatearEtiqueta(clave) {
+
+    return clave
+      .replaceAll(
+        "_",
+        " "
+      )
+      .replace(
+        /^./,
+        letra =>
+          letra.toUpperCase()
+      );
 
   }
 
@@ -944,6 +1288,8 @@ class DataTable extends HTMLElement {
     this.paginaActual =
       numero;
 
+
+    this.render();
 
     this.actualizarPaginacion();
 
