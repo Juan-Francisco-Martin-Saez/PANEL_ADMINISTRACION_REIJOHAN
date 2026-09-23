@@ -1,3 +1,7 @@
+/* =====================================================
+   COMPONENTES
+===================================================== */
+
 import "./components/logo.js";
 import "./components/header.js";
 import "./components/sidebar.js";
@@ -27,11 +31,11 @@ const sidebar =
 const newChat =
   document.querySelector("chat-new-button");
 
-const chatHeader =
-  document.querySelector("chat-header");
+const chatInput =
+  document.querySelector("chat-input");
 
-const conversation =
-  document.querySelector("chat-conversation");
+const filePreview =
+  document.querySelector("chat-file-preview");
 
 const welcome =
   document.querySelector("chat-welcome");
@@ -41,12 +45,6 @@ const status =
 
 const messages =
   document.querySelector("chat-messages");
-
-const chatInput =
-  document.querySelector("chat-input");
-
-const filePreview =
-  document.querySelector("chat-file-preview");
 
 
 /* =====================================================
@@ -68,7 +66,9 @@ function syncTheme() {
 
 
   const theme =
-    sidebar.getAttribute("data-theme");
+    sidebar.getAttribute(
+      "data-theme"
+    );
 
 
   if (theme === "light") {
@@ -95,55 +95,6 @@ function syncTheme() {
 
   }
 
-
-  if (chatHeader) {
-
-    chatHeader.syncWithTheme();
-
-  }
-
-
-  if (conversation) {
-
-    conversation.syncWithTheme();
-
-  }
-
-
-  if (welcome) {
-
-    welcome.syncWithChatApp();
-
-  }
-
-
-  if (status) {
-
-    status.syncWithChatApp();
-
-  }
-
-
-  if (messages) {
-
-    messages.syncWithTheme();
-
-  }
-
-
-  if (chatInput) {
-
-    chatInput.syncWithChatApp();
-
-  }
-
-
-  if (filePreview) {
-
-    filePreview.syncWithTheme();
-
-  }
-
 }
 
 
@@ -163,6 +114,8 @@ function syncChatState() {
       "chat-has-messages"
     );
 
+
+  /* ---------- BIENVENIDA ---------- */
 
   if (welcome) {
 
@@ -184,6 +137,8 @@ function syncChatState() {
   }
 
 
+  /* ---------- ESTADO DE BÚSQUEDA ---------- */
+
   if (status) {
 
     if (hasMessages) {
@@ -193,16 +148,27 @@ function syncChatState() {
         ""
       );
 
+      status.setAttribute(
+        "chat-has-messages",
+        ""
+      );
+
     } else {
 
       status.removeAttribute(
         "visible"
       );
 
+      status.removeAttribute(
+        "chat-has-messages"
+      );
+
     }
 
   }
 
+
+  /* ---------- INPUT ---------- */
 
   if (chatInput) {
 
@@ -233,7 +199,7 @@ function syncChatState() {
 function handleFileSelected(event) {
 
   const file =
-    event.detail.file;
+    event.detail?.file;
 
 
   if (!file) {
@@ -304,10 +270,18 @@ function sendMessage(event) {
   }
 
 
-  chatApp.classList.add(
-    "chat-has-messages"
-  );
+  /* ---------- ACTUALIZAR ESTADO ---------- */
 
+  if (chatApp) {
+
+    chatApp.classList.add(
+      "chat-has-messages"
+    );
+
+  }
+
+
+  /* ---------- ARCHIVO ---------- */
 
   if (file) {
 
@@ -329,6 +303,8 @@ function sendMessage(event) {
   }
 
 
+  /* ---------- LIMPIAR INPUT ---------- */
+
   if (chatInput) {
 
     chatInput.clear();
@@ -336,9 +312,17 @@ function sendMessage(event) {
   }
 
 
+  /* ---------- LIMPIAR ARCHIVO ---------- */
+
   removeSelectedFile();
 
+
+  /* ---------- CERRAR SIDEBAR MÓVIL ---------- */
+
   closeMobileMenu();
+
+
+  /* ---------- ACTUALIZAR INTERFAZ ---------- */
 
   syncChatState();
 
@@ -351,10 +335,18 @@ function sendMessage(event) {
 
 function resetChat() {
 
-  chatApp.classList.remove(
-    "chat-has-messages"
-  );
+  /* ---------- ESTADO ---------- */
 
+  if (chatApp) {
+
+    chatApp.classList.remove(
+      "chat-has-messages"
+    );
+
+  }
+
+
+  /* ---------- MENSAJES ---------- */
 
   if (messages) {
 
@@ -363,6 +355,8 @@ function resetChat() {
   }
 
 
+  /* ---------- INPUT ---------- */
+
   if (chatInput) {
 
     chatInput.clear();
@@ -370,9 +364,17 @@ function resetChat() {
   }
 
 
+  /* ---------- ARCHIVO ---------- */
+
   removeSelectedFile();
 
+
+  /* ---------- SIDEBAR ---------- */
+
   closeMobileMenu();
+
+
+  /* ---------- INTERFAZ ---------- */
 
   syncChatState();
 
@@ -387,7 +389,7 @@ function closeMobileMenu() {
 
   if (
     !sidebar ||
-    window.innerWidth > 1024
+    window.innerWidth > 64 * 16
   ) {
 
     return;
@@ -488,6 +490,7 @@ if (sidebar) {
     sidebar,
     {
       attributes: true,
+
       attributeFilter: [
         "data-theme"
       ]

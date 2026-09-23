@@ -1,165 +1,1001 @@
 class ChatInput extends HTMLElement {
+
   constructor() {
+
     super();
-    this.attachShadow({ mode: "open" });
+
+    this.attachShadow({
+      mode: "open"
+    });
+
     this.shadowRoot.innerHTML = /* html */ `
+
       <style>
+
+        /* =====================================
+           COMPONENTE INPUT DEL CHAT
+        ===================================== */
+
         :host {
           display: block;
+
           width: 100%;
+          min-width: 0;
+
           flex-shrink: 0;
-          color: hsl(0, 0%, 96%);
-          transition: color 0.3s ease;
+
+          box-sizing: border-box;
+
+          color:
+            hsl(0, 0%, 96%);
+
+          transition:
+            color 0.3s ease;
         }
+
+
+        /* =====================================
+           SECCIÓN DEL INPUT
+        ===================================== */
 
         .chat-input-section {
           width: 100%;
-          padding: 0 1.25rem 1.25rem;
-          background: hsl(0, 0%, 9%);
-          transition: background-color 0.3s ease, color 0.3s ease;
+          min-width: 0;
+
+          box-sizing: border-box;
+
+          padding:
+            0 1.25rem 1.25rem;
+
+          background:
+            hsl(0, 0%, 9%);
+
+          color:
+            hsl(0, 0%, 96%);
+
+          transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
         }
+
+
+        /* =====================================
+           CONTENEDOR
+        ===================================== */
 
         .chat-input-wrapper {
           width: 100%;
-          max-width: 56.25rem;
-          margin: 0 auto;
+          min-width: 0;
+
+          max-width:
+            56.25rem;
+
+          margin:
+            0 auto;
+
           display: flex;
-          flex-direction: column; /* Cambiado para apilar la previsualización del archivo limpiamente arriba */
+          flex-direction: column;
+
+          box-sizing: border-box;
         }
+
+
+        /* =====================================
+           CONTENEDOR PRINCIPAL
+        ===================================== */
 
         .chat-input-container {
           width: 100%;
+          min-width: 0;
+
           display: flex;
           align-items: flex-end;
-          gap: 0.625rem;
-          padding: 0.625rem;
-          border: 0.0625rem solid hsl(0, 0%, 25%);
-          border-radius: 0.75rem;
-          background: hsl(0, 0%, 12%);
-          transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+
+          gap:
+            0.625rem;
+
+          padding:
+            0.625rem;
+
+          box-sizing: border-box;
+
+          border:
+            0.0625rem solid
+            hsl(0, 0%, 25%);
+
+          border-radius:
+            0.75rem;
+
+          background:
+            hsl(0, 0%, 12%);
+
+          color:
+            hsl(0, 0%, 96%);
+
+          transition:
+            background-color 0.3s ease,
+            border-color 0.3s ease,
+            color 0.3s ease;
         }
 
-        .file-attach-container { flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-        .file-attach-input { position: absolute; width: 0.0625rem; height: 0.0625rem; opacity: 0; overflow: hidden; pointer-events: none; }
-        
+
+        /* =====================================
+           ADJUNTAR ARCHIVO
+        ===================================== */
+
+        .file-attach-container {
+          flex-shrink: 0;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+
+        .file-attach-input {
+          position: absolute;
+
+          width:
+            0.0625rem;
+
+          height:
+            0.0625rem;
+
+          opacity: 0;
+
+          overflow: hidden;
+
+          pointer-events: none;
+        }
+
+
         .file-attach-button {
-          width: 2.25rem; height: 2.25rem; display: flex; align-items: center; justify-content: center;
-          border-radius: 0.5rem; cursor: pointer; color: hsl(0, 0%, 80%); transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .file-attach-button:hover { background: hsl(0, 0%, 20%); color: hsl(0, 0%, 100%); }
-        .file-attach-icon { font-size: 1.5rem; line-height: 1; }
+          width:
+            2.25rem;
 
-        .message-input-container { flex: 1; min-width: 0; display: flex; align-items: flex-end; }
+          height:
+            2.25rem;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          flex-shrink: 0;
+
+          border-radius:
+            0.5rem;
+
+          color:
+            hsl(0, 0%, 80%);
+
+          cursor: pointer;
+
+          transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
+        }
+
+
+        .file-attach-button:hover {
+          background:
+            hsl(0, 0%, 20%);
+
+          color:
+            hsl(0, 0%, 100%);
+        }
+
+
+        .file-attach-icon {
+          font-size:
+            1.5rem;
+
+          line-height:
+            1;
+        }
+
+
+        /* =====================================
+           CAMPO DE MENSAJE
+        ===================================== */
+
+        .message-input-container {
+          flex: 1 1 auto;
+
+          min-width: 0;
+
+          display: flex;
+          align-items: flex-end;
+        }
+
+
         .message-input {
-          width: 100%; min-width: 0; min-height: 2.25rem; max-height: 11.25rem; resize: none; overflow-y: auto;
-          border: 0; outline: 0; background: transparent; color: hsl(0, 0%, 96%); font-size: 0.9375rem; line-height: 1.4; padding: 0.5rem 0;
-        }
-        .message-input::placeholder { color: hsl(0, 0%, 55%); opacity: 1; }
+          width: 100%;
+          min-width: 0;
 
-        .message-send-container { flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+          min-height:
+            2.25rem;
+
+          max-height:
+            11.25rem;
+
+          resize: none;
+
+          overflow-y: auto;
+
+          padding:
+            0.5rem 0;
+
+          box-sizing: border-box;
+
+          border: none;
+
+          outline: none;
+
+          background:
+            transparent;
+
+          color:
+            hsl(0, 0%, 96%);
+
+          font-family:
+            inherit;
+
+          font-size:
+            0.9375rem;
+
+          line-height:
+            1.4;
+
+          scrollbar-width:
+            thin;
+
+          scrollbar-color:
+            hsl(0, 0%, 32%)
+            transparent;
+        }
+
+
+        .message-input::-webkit-scrollbar {
+          width:
+            0.45rem;
+        }
+
+
+        .message-input::-webkit-scrollbar-track {
+          background:
+            transparent;
+        }
+
+
+        .message-input::-webkit-scrollbar-thumb {
+          background:
+            hsl(0, 0%, 28%);
+
+          border:
+            0.1rem solid transparent;
+
+          border-radius:
+            1rem;
+
+          background-clip:
+            padding-box;
+        }
+
+
+        .message-input::-webkit-scrollbar-thumb:hover {
+          background:
+            hsl(0, 0%, 45%);
+
+          border:
+            0.1rem solid transparent;
+
+          background-clip:
+            padding-box;
+        }
+
+
+        .message-input::placeholder {
+          color:
+            hsl(0, 0%, 55%);
+
+          opacity:
+            1;
+        }
+
+
+        /* =====================================
+           BOTÓN ENVIAR
+        ===================================== */
+
+        .message-send-container {
+          flex-shrink: 0;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+
         .message-send-button {
-          width: 2.25rem; height: 2.25rem; display: flex; align-items: center; justify-content: center;
-          border: 0; border-radius: 0.5rem; background: hsl(0, 0%, 96%); color: hsl(0, 0%, 10%); cursor: pointer; transition: all 0.3s ease;
+          width:
+            2.25rem;
+
+          height:
+            2.25rem;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          flex-shrink: 0;
+
+          padding: 0;
+
+          border: none;
+
+          border-radius:
+            0.5rem;
+
+          background:
+            hsl(0, 0%, 96%);
+
+          color:
+            hsl(0, 0%, 10%);
+
+          cursor: pointer;
+
+          transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
         }
-        .message-send-button:hover { background: hsl(0, 0%, 82%); }
 
-        :host([data-theme="light"]) .chat-input-section { background: hsl(0, 0%, 98%); color: hsl(0, 0%, 10%); }
-        :host([data-theme="light"]) .chat-input-container { background: hsl(0, 0%, 100%); border-color: hsl(0, 0%, 80%); }
-        :host([data-theme="light"]) .message-input { color: hsl(0, 0%, 10%); }
-        :host([data-theme="light"]) .file-attach-button { color: hsl(0, 0%, 35%); }
-        :host([data-theme="light"]) .file-attach-button:hover { background: hsl(0, 0%, 92%); }
-        :host([data-theme="light"]) .message-send-button { background: hsl(0, 0%, 10%); color: hsl(0, 0%, 96%); }
-        :host([data-theme="light"]) .message-send-button:hover { background: hsl(0, 0%, 22%); }
 
-        @media (min-width: 120rem) { .chat-input-wrapper { max-width: 62rem; } }
-        @media (max-width: 64rem) { .chat-input-section { padding: 0 1rem 1rem; } }
+        .message-send-button:hover {
+          background:
+            hsl(0, 0%, 82%);
+        }
+
+
+        .message-send-icon {
+          font-size:
+            1.25rem;
+
+          line-height:
+            1;
+        }
+
+
+        /* =====================================
+           TEMA CLARO
+        ===================================== */
+
+        :host([data-theme="light"]) {
+
+          color:
+            hsl(0, 0%, 10%);
+        }
+
+
+        :host([data-theme="light"])
+        .chat-input-section {
+
+          background:
+            hsl(0, 0%, 97%);
+
+          color:
+            hsl(0, 0%, 10%);
+        }
+
+
+        :host([data-theme="light"])
+        .chat-input-container {
+
+          background:
+            hsl(0, 0%, 100%);
+
+          border-color:
+            hsl(0, 0%, 80%);
+
+          color:
+            hsl(0, 0%, 10%);
+        }
+
+
+        :host([data-theme="light"])
+        .message-input {
+
+          color:
+            hsl(0, 0%, 10%);
+        }
+
+
+        :host([data-theme="light"])
+        .message-input::placeholder {
+
+          color:
+            hsl(0, 0%, 55%);
+        }
+
+
+        :host([data-theme="light"])
+        .file-attach-button {
+
+          color:
+            hsl(0, 0%, 35%);
+        }
+
+
+        :host([data-theme="light"])
+        .file-attach-button:hover {
+
+          background:
+            hsl(0, 0%, 92%);
+
+          color:
+            hsl(0, 0%, 10%);
+        }
+
+
+        :host([data-theme="light"])
+        .message-send-button {
+
+          background:
+            hsl(0, 0%, 10%);
+
+          color:
+            hsl(0, 0%, 96%);
+        }
+
+
+        :host([data-theme="light"])
+        .message-send-button:hover {
+
+          background:
+            hsl(0, 0%, 22%);
+        }
+
+
+        /* =====================================
+           ESCRITORIO GRANDE
+        ===================================== */
+
+        @media (min-width: 120rem) {
+
+          .chat-input-wrapper {
+            max-width:
+              62rem;
+          }
+
+        }
+
+
+        /* =====================================
+           TABLET / MÓVIL
+        ===================================== */
+
+        @media (max-width: 64rem) {
+
+          .chat-input-section {
+
+            padding:
+              0 1rem 1rem;
+
+          }
+
+
+          .chat-input-wrapper {
+            max-width:
+              100%;
+          }
+
+        }
+
+
+        /* =====================================
+           MÓVIL
+        ===================================== */
+
+        @media (max-width: 48rem) {
+
+          .chat-input-section {
+
+            padding:
+              0 0.875rem 0.875rem;
+
+          }
+
+        }
+
+
+        @media (max-width: 30rem) {
+
+          .chat-input-section {
+
+            padding:
+              0 0.75rem 0.75rem;
+
+          }
+
+
+          .chat-input-container {
+
+            gap:
+              0.5rem;
+
+            padding:
+              0.5rem;
+
+          }
+
+        }
+
+
+        @media (max-width: 22rem) {
+
+          .chat-input-section {
+
+            padding:
+              0 0.625rem 0.625rem;
+
+          }
+
+        }
+
+
+        /* =====================================
+           ALTURA REDUCIDA
+        ===================================== */
+
+        @media (max-height: 40rem) {
+
+          .chat-input-section {
+
+            padding-bottom:
+              0.875rem;
+
+          }
+
+        }
+
+
+        @media (max-width: 30rem)
+        and (max-height: 40rem) {
+
+          .chat-input-section {
+
+            padding-bottom:
+              0.75rem;
+
+          }
+
+        }
+
       </style>
 
+
       <section class="chat-input-section">
+
         <div class="chat-input-wrapper">
+
           <slot name="file-preview"></slot>
-          
+
+
           <div class="chat-input-container">
+
             <div class="file-attach-container">
-              <input type="file" id="file-attach" class="file-attach-input">
-              <label for="file-attach" class="file-attach-button" aria-label="Adjuntar archivo">
-                <span class="file-attach-icon">+</span>
+
+              <input
+                type="file"
+                id="file-attach"
+                class="file-attach-input">
+
+              <label
+                for="file-attach"
+                class="file-attach-button"
+                aria-label="Adjuntar archivo">
+
+                <span class="file-attach-icon">
+                  +
+                </span>
+
               </label>
+
             </div>
+
 
             <div class="message-input-container">
-              <textarea class="message-input" placeholder="Escribe tu consulta..." rows="1"></textarea>
+
+              <textarea
+                class="message-input"
+                placeholder="Escribe tu consulta..."
+                rows="1"></textarea>
+
             </div>
+
 
             <div class="message-send-container">
-              <button type="button" class="message-send-button" aria-label="Enviar consulta">
-                <span class="message-send-icon">↑</span>
+
+              <button
+                type="button"
+                class="message-send-button"
+                aria-label="Enviar consulta">
+
+                <span class="message-send-icon">
+                  ↑
+                </span>
+
               </button>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
+
     `;
 
-    this.messageInput = this.shadowRoot.querySelector(".message-input");
-    this.sendButton = this.shadowRoot.querySelector(".message-send-button");
-    this.fileInput = this.shadowRoot.querySelector("#file-attach");
 
-    this.handleInput = this.handleInput.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleSend = this.handleSend.bind(this);
-    this.handleFileSelection = this.handleFileSelection.bind(this);
-    this.syncWithChatApp();
+    this.messageInput =
+      this.shadowRoot.querySelector(
+        ".message-input"
+      );
+
+
+    this.sendButton =
+      this.shadowRoot.querySelector(
+        ".message-send-button"
+      );
+
+
+    this.fileInput =
+      this.shadowRoot.querySelector(
+        "#file-attach"
+      );
+
+
+    this.handleInput =
+      this.handleInput.bind(this);
+
+    this.handleKeyDown =
+      this.handleKeyDown.bind(this);
+
+    this.handleSend =
+      this.handleSend.bind(this);
+
+    this.handleFileSelection =
+      this.handleFileSelection.bind(this);
+
+    this.handleThemeChange =
+      this.handleThemeChange.bind(this);
+
   }
+
+
+  /* =====================================
+     CONECTAR COMPONENTE
+  ===================================== */
 
   connectedCallback() {
-    this.messageInput.addEventListener("input", this.handleInput);
-    this.messageInput.addEventListener("keydown", this.handleKeyDown);
-    this.sendButton.addEventListener("click", this.handleSend);
-    this.fileInput.addEventListener("change", this.handleFileSelection);
+
+    this.messageInput.addEventListener(
+      "input",
+      this.handleInput
+    );
+
+    this.messageInput.addEventListener(
+      "keydown",
+      this.handleKeyDown
+    );
+
+    this.sendButton.addEventListener(
+      "click",
+      this.handleSend
+    );
+
+    this.fileInput.addEventListener(
+      "change",
+      this.handleFileSelection
+    );
+
+
     this.syncWithChatApp();
+
+    this.observeTheme();
+
   }
+
+
+  /* =====================================
+     DESCONECTAR COMPONENTE
+  ===================================== */
 
   disconnectedCallback() {
-    this.messageInput.removeEventListener("input", this.handleInput);
-    this.messageInput.removeEventListener("keydown", this.handleKeyDown);
-    this.sendButton.removeEventListener("click", this.handleSend);
-    this.fileInput.removeEventListener("change", this.handleFileSelection);
+
+    this.messageInput.removeEventListener(
+      "input",
+      this.handleInput
+    );
+
+    this.messageInput.removeEventListener(
+      "keydown",
+      this.handleKeyDown
+    );
+
+    this.sendButton.removeEventListener(
+      "click",
+      this.handleSend
+    );
+
+    this.fileInput.removeEventListener(
+      "change",
+      this.handleFileSelection
+    );
+
+
+    if (this.themeObserver) {
+
+      this.themeObserver.disconnect();
+
+      this.themeObserver = null;
+
+    }
+
   }
 
-  handleInput() { this.autoResize(); }
-  handleKeyDown(event) { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); this.handleSend(); } }
+
+  /* =====================================
+     CAMBIO DEL TEXTO
+  ===================================== */
+
+  handleInput() {
+
+    this.autoResize();
+
+  }
+
+
+  /* =====================================
+     TECLA ENTER
+  ===================================== */
+
+  handleKeyDown(event) {
+
+    if (
+      event.key === "Enter" &&
+      !event.shiftKey
+    ) {
+
+      event.preventDefault();
+
+      this.handleSend();
+
+    }
+
+  }
+
+
+  /* =====================================
+     ENVIAR MENSAJE
+  ===================================== */
 
   handleSend() {
-    const message = this.messageInput.value.trim();
-    const file = this.fileInput.files[0] || null;
-    if (!message && !file) return;
 
-    this.dispatchEvent(new CustomEvent("send-message-request", {
-      bubbles: true, composed: true, detail: { message, file }
-    }));
+    const message =
+      this.messageInput.value.trim();
+
+
+    const file =
+      this.fileInput.files[0] || null;
+
+
+    if (
+      !message &&
+      !file
+    ) {
+
+      return;
+
+    }
+
+
+    this.dispatchEvent(
+      new CustomEvent(
+        "send-message-request",
+        {
+          bubbles: true,
+          composed: true,
+
+          detail: {
+            message,
+            file
+          }
+
+        }
+      )
+    );
+
   }
+
+
+  /* =====================================
+     SELECCIONAR ARCHIVO
+  ===================================== */
 
   handleFileSelection() {
-    const file = this.fileInput.files[0];
-    if (!file) return;
-    this.dispatchEvent(new CustomEvent("file-selected", { bubbles: true, composed: true, detail: { file } }));
+
+    const file =
+      this.fileInput.files[0];
+
+
+    if (!file) {
+
+      return;
+
+    }
+
+
+    this.dispatchEvent(
+      new CustomEvent(
+        "file-selected",
+        {
+          bubbles: true,
+          composed: true,
+
+          detail: {
+            file
+          }
+
+        }
+      )
+    );
+
   }
+
+
+  /* =====================================
+     REDIMENSIONAR TEXTAREA
+  ===================================== */
 
   autoResize() {
-    this.messageInput.style.height = "auto";
-    const maxHeight = parseFloat(getComputedStyle(this.messageInput).maxHeight);
-    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    this.messageInput.style.height = `${Math.min(this.messageInput.scrollHeight / rootFontSize, maxHeight / rootFontSize)}rem`;
+
+    this.messageInput.style.height =
+      "auto";
+
+
+    const maxHeight =
+      parseFloat(
+        getComputedStyle(
+          this.messageInput
+        ).maxHeight
+      );
+
+
+    const rootFontSize =
+      parseFloat(
+        getComputedStyle(
+          document.documentElement
+        ).fontSize
+      );
+
+
+    const height =
+      Math.min(
+        this.messageInput.scrollHeight,
+        maxHeight
+      );
+
+
+    this.messageInput.style.height =
+      `${height / rootFontSize}rem`;
+
   }
 
-  clear() { this.messageInput.value = ""; this.messageInput.style.height = "auto"; }
-  clearFile() { this.fileInput.value = ""; }
+
+  /* =====================================
+     LIMPIAR MENSAJE
+  ===================================== */
+
+  clear() {
+
+    this.messageInput.value =
+      "";
+
+    this.messageInput.style.height =
+      "auto";
+
+  }
+
+
+  /* =====================================
+     LIMPIAR ARCHIVO
+  ===================================== */
+
+  clearFile() {
+
+    this.fileInput.value =
+      "";
+
+  }
+
+
+  /* =====================================
+     SINCRONIZAR TEMA
+  ===================================== */
 
   syncWithChatApp() {
-    const theme = document.documentElement.getAttribute("data-theme");
-    if (theme === "light") this.setAttribute("data-theme", "light");
-    else this.removeAttribute("data-theme");
+
+    const theme =
+      document.documentElement.getAttribute(
+        "data-theme"
+      );
+
+
+    if (
+      theme === "light"
+    ) {
+
+      this.setAttribute(
+        "data-theme",
+        "light"
+      );
+
+    } else {
+
+      this.removeAttribute(
+        "data-theme"
+      );
+
+    }
+
   }
+
+
+  /* =====================================
+     OBSERVAR CAMBIOS DE TEMA
+  ===================================== */
+
+  observeTheme() {
+
+    if (this.themeObserver) {
+
+      this.themeObserver.disconnect();
+
+    }
+
+
+    this.themeObserver =
+      new MutationObserver(
+        this.handleThemeChange
+      );
+
+
+    this.themeObserver.observe(
+      document.documentElement,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "data-theme"
+        ]
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     CAMBIO DE TEMA
+  ===================================== */
+
+  handleThemeChange() {
+
+    this.syncWithChatApp();
+
+  }
+
 }
+
+
 customElements.define("chat-input", ChatInput);

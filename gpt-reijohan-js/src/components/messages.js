@@ -12,6 +12,10 @@ class ChatMessages extends HTMLElement {
 
       <style>
 
+        /* =====================================
+           COMPONENTE MENSAJES
+        ===================================== */
+
         :host {
           display: block;
 
@@ -19,6 +23,8 @@ class ChatMessages extends HTMLElement {
 
           min-width: 0;
 
+          box-sizing: border-box;
+
           color:
             hsl(0, 0%, 96%);
 
@@ -27,17 +33,21 @@ class ChatMessages extends HTMLElement {
         }
 
 
+        /* =====================================
+           CONTENEDOR DE MENSAJES
+        ===================================== */
+
         .messages-container {
+          display: flex;
+          flex-direction: column;
+
           width: 100%;
 
           min-width: 0;
 
-          display: flex;
+          gap: 1rem;
 
-          flex-direction: column;
-
-          gap:
-            1rem;
+          box-sizing: border-box;
 
           color:
             hsl(0, 0%, 96%);
@@ -47,49 +57,64 @@ class ChatMessages extends HTMLElement {
         }
 
 
+        /* =====================================
+           TEMA CLARO
+        ===================================== */
+
         :host([data-theme="light"])
         .messages-container {
-
           color:
             hsl(0, 0%, 10%);
         }
 
 
+        /* =====================================
+           TABLET
+        ===================================== */
+
         @media (max-width: 64rem) {
 
           .messages-container {
-            gap:
-              0.875rem;
+            gap: 0.875rem;
           }
 
         }
 
+
+        /* =====================================
+           MÓVIL
+        ===================================== */
 
         @media (max-width: 48rem) {
 
           .messages-container {
-            gap:
-              0.75rem;
+            gap: 0.75rem;
           }
 
         }
 
+
+        /* =====================================
+           MÓVIL PEQUEÑO
+        ===================================== */
 
         @media (max-width: 30rem) {
 
           .messages-container {
-            gap:
-              0.625rem;
+            gap: 0.625rem;
           }
 
         }
 
 
+        /* =====================================
+           MÓVIL MUY PEQUEÑO
+        ===================================== */
+
         @media (max-width: 22rem) {
 
           .messages-container {
-            gap:
-              0.5rem;
+            gap: 0.5rem;
           }
 
         }
@@ -102,23 +127,59 @@ class ChatMessages extends HTMLElement {
     `;
 
 
+    /* =====================================
+       REFERENCIAS
+    ===================================== */
+
     this.messagesContainer =
       this.shadowRoot.querySelector(
         ".messages-container"
       );
 
 
-    this.syncWithTheme();
+    /* =====================================
+       BIND
+    ===================================== */
+
+    this.handleThemeChange =
+      this.handleThemeChange.bind(this);
 
   }
 
+
+  /* =====================================
+     COMPONENTE CONECTADO
+  ===================================== */
 
   connectedCallback() {
 
     this.syncWithTheme();
 
+    this.observeTheme();
+
   }
 
+
+  /* =====================================
+     COMPONENTE DESCONECTADO
+  ===================================== */
+
+  disconnectedCallback() {
+
+    if (this.themeObserver) {
+
+      this.themeObserver.disconnect();
+
+      this.themeObserver = null;
+
+    }
+
+  }
+
+
+  /* =====================================
+     SINCRONIZAR TEMA
+  ===================================== */
 
   syncWithTheme() {
 
@@ -145,6 +206,54 @@ class ChatMessages extends HTMLElement {
 
   }
 
+
+  /* =====================================
+     OBSERVAR TEMA
+  ===================================== */
+
+  observeTheme() {
+
+    if (this.themeObserver) {
+
+      this.themeObserver.disconnect();
+
+    }
+
+
+    this.themeObserver =
+      new MutationObserver(
+        this.handleThemeChange
+      );
+
+
+    this.themeObserver.observe(
+      document.documentElement,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "data-theme"
+        ]
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     CAMBIO DE TEMA
+  ===================================== */
+
+  handleThemeChange() {
+
+    this.syncWithTheme();
+
+  }
+
+
+  /* =====================================
+     LIMPIAR MENSAJES
+  ===================================== */
 
   clear() {
 

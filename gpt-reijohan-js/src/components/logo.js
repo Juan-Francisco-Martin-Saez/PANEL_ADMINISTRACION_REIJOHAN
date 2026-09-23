@@ -8,15 +8,17 @@ class ChatLogo extends HTMLElement {
       mode: "open"
     });
 
+
     this.shadowRoot.innerHTML = /* html */ `
 
       <style>
 
         /* =====================================
-           COMPONENTE
+           COMPONENTE CHAT LOGO
         ===================================== */
 
         :host {
+
           display: block;
 
           width: 100%;
@@ -26,9 +28,11 @@ class ChatLogo extends HTMLElement {
 
           box-sizing: border-box;
 
-          flex: 0 0 auto;
+          flex:
+            0 0 auto;
 
-          color: hsl(0, 0%, 96%);
+          color:
+            hsl(0, 0%, 96%);
 
           transition:
             color 0.3s ease;
@@ -36,37 +40,58 @@ class ChatLogo extends HTMLElement {
 
 
         /* =====================================
-           CONTENEDOR DEL LOGO
+           LOGO
         ===================================== */
 
         .sidebar-logo {
-          display: flex;
-
-          align-items: center;
 
           width: 100%;
           max-width: 100%;
 
           min-width: 0;
 
+          height: 4.375rem;
+
+          display: flex;
+
+          align-items: center;
+          justify-content: flex-start;
+
           box-sizing: border-box;
 
-          padding: 1.25rem 1rem;
+          padding:
+            0 1.25rem;
 
-          color: inherit;
+          overflow: hidden;
+
+          background:
+            hsl(0, 0%, 6%);
+
+          border-bottom:
+            0.0625rem solid
+            hsl(0, 0%, 19%);
+
+          color:
+            inherit;
 
           white-space: nowrap;
+
+          transition:
+            background-color 0.3s ease,
+            border-color 0.3s ease,
+            color 0.3s ease,
+            padding 0.3s ease,
+            justify-content 0.3s ease;
         }
 
 
         /* =====================================
-           TEXTO
+           TEXTO DEL LOGO
         ===================================== */
 
         .sidebar-logo span {
-          display: block;
 
-          flex: 1 1 auto;
+          display: block;
 
           width: auto;
           max-width: 100%;
@@ -75,12 +100,20 @@ class ChatLogo extends HTMLElement {
 
           overflow: hidden;
 
-          font-size: 1.25rem;
-          font-weight: 600;
+          color:
+            inherit;
 
-          line-height: 1.2;
+          font-size:
+            1.25rem;
 
-          text-overflow: ellipsis;
+          font-weight:
+            700;
+
+          line-height:
+            1.2;
+
+          text-overflow:
+            ellipsis;
 
           white-space: nowrap;
 
@@ -98,7 +131,20 @@ class ChatLogo extends HTMLElement {
         ===================================== */
 
         :host([data-theme="light"]) {
-          color: hsl(0, 0%, 10%);
+
+          color:
+            hsl(0, 0%, 10%);
+        }
+
+
+        :host([data-theme="light"])
+        .sidebar-logo {
+
+          background:
+            hsl(0, 0%, 98%);
+
+          border-bottom-color:
+            hsl(0, 0%, 84%);
         }
 
 
@@ -106,16 +152,20 @@ class ChatLogo extends HTMLElement {
            SIDEBAR CONTRAÍDO
         ===================================== */
 
-        :host([collapsed]) .sidebar-logo {
-          justify-content: center;
+        :host([collapsed])
+        .sidebar-logo {
 
-          padding-left: 0.5rem;
-          padding-right: 0.5rem;
+          justify-content:
+            center;
+
+          padding:
+            0;
+
         }
 
 
-        :host([collapsed]) .sidebar-logo span {
-          flex: 0 0 auto;
+        :host([collapsed])
+        .sidebar-logo span {
 
           width: 0;
           max-width: 0;
@@ -125,33 +175,45 @@ class ChatLogo extends HTMLElement {
 
 
         /* =====================================
-           TABLET
+           TABLET / MÓVIL
         ===================================== */
+
+        /*
+          En el layout móvil el sidebar funciona
+          como un drawer. Cuando está abierto no
+          debe conservar el aspecto contraído.
+        */
 
         @media (max-width: 64rem) {
 
           .sidebar-logo {
-            padding: 1.125rem 1rem;
+
+            height: 4rem;
+
+            padding:
+              0 1.25rem;
           }
 
 
-          :host([collapsed]) .sidebar-logo {
-            justify-content: flex-start;
+          :host([collapsed])
+          .sidebar-logo {
 
-            padding-left: 1rem;
-            padding-right: 1rem;
+            justify-content:
+              flex-start;
+
+            padding:
+              0 1.25rem;
           }
 
 
-          :host([collapsed]) .sidebar-logo span {
-            flex: 1 1 auto;
+          :host([collapsed])
+          .sidebar-logo span {
 
             width: auto;
             max-width: 100%;
 
             opacity: 1;
           }
-
         }
 
 
@@ -162,10 +224,20 @@ class ChatLogo extends HTMLElement {
         @media (max-width: 48rem) {
 
           .sidebar-logo {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+
+            height: 3.875rem;
+
+            padding:
+              0 1rem;
           }
 
+
+          :host([collapsed])
+          .sidebar-logo {
+
+            padding:
+              0 1rem;
+          }
         }
 
 
@@ -176,10 +248,20 @@ class ChatLogo extends HTMLElement {
         @media (max-width: 30rem) {
 
           .sidebar-logo {
-            padding-top: 0.875rem;
-            padding-bottom: 0.875rem;
+
+            height: 3.75rem;
+
+            padding:
+              0 0.875rem;
           }
 
+
+          :host([collapsed])
+          .sidebar-logo {
+
+            padding:
+              0 0.875rem;
+          }
         }
 
 
@@ -190,10 +272,47 @@ class ChatLogo extends HTMLElement {
         @media (max-width: 22rem) {
 
           .sidebar-logo {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
+
+            height: 3.5rem;
+
+            padding:
+              0 0.75rem;
           }
 
+
+          :host([collapsed])
+          .sidebar-logo {
+
+            padding:
+              0 0.75rem;
+          }
+        }
+
+
+        /* =====================================
+           POCA ALTURA
+        ===================================== */
+
+        @media (max-height: 40rem) {
+
+          .sidebar-logo {
+
+            height: 3.5rem;
+          }
+        }
+
+
+        /* =====================================
+           POCA ALTURA + MÓVIL
+        ===================================== */
+
+        @media (max-width: 64rem)
+        and (max-height: 40rem) {
+
+          .sidebar-logo {
+
+            height: 3.375rem;
+          }
         }
 
       </style>
@@ -201,11 +320,20 @@ class ChatLogo extends HTMLElement {
 
       <div class="sidebar-logo">
 
-        <span>ReijohanGPT</span>
+        <span>
+          ReijohanGPT
+        </span>
 
       </div>
 
     `;
+
+
+    /* =====================================
+       OBSERVADOR DEL SIDEBAR
+    ===================================== */
+
+    this.sidebarObserver = null;
 
   }
 
@@ -217,6 +345,25 @@ class ChatLogo extends HTMLElement {
   connectedCallback() {
 
     this.syncWithSidebar();
+
+    this.observeSidebar();
+
+  }
+
+
+  /* =====================================
+     COMPONENTE DESCONECTADO
+  ===================================== */
+
+  disconnectedCallback() {
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
+
+      this.sidebarObserver = null;
+
+    }
 
   }
 
@@ -232,21 +379,26 @@ class ChatLogo extends HTMLElement {
 
 
     if (!sidebar) {
+
       return;
     }
 
 
-    /* =====================================
+    /* =================================
        TEMA
-    ===================================== */
+    ================================= */
 
-    if (
-      sidebar.hasAttribute("data-theme")
-    ) {
+    const theme =
+      sidebar.getAttribute(
+        "data-theme"
+      );
+
+
+    if (theme) {
 
       this.setAttribute(
         "data-theme",
-        sidebar.getAttribute("data-theme")
+        theme
       );
 
     } else {
@@ -258,9 +410,9 @@ class ChatLogo extends HTMLElement {
     }
 
 
-    /* =====================================
-       ESTADO DEL SIDEBAR
-    ===================================== */
+    /* =================================
+       ESTADO CONTRAÍDO
+    ================================= */
 
     if (
       sidebar.hasAttribute("collapsed")
@@ -278,6 +430,72 @@ class ChatLogo extends HTMLElement {
       );
 
     }
+
+  }
+
+
+  /* =====================================
+     OBSERVAR CAMBIOS DEL SIDEBAR
+  ===================================== */
+
+  observeSidebar() {
+
+    const sidebar =
+      this.closest("chat-sidebar");
+
+
+    if (!sidebar) {
+
+      return;
+    }
+
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
+
+    }
+
+
+    this.sidebarObserver =
+      new MutationObserver(
+        (mutations) => {
+
+          const relevantChange =
+            mutations.some(
+              (mutation) =>
+                mutation.type === "attributes" &&
+                (
+                  mutation.attributeName ===
+                  "data-theme" ||
+
+                  mutation.attributeName ===
+                  "collapsed"
+                )
+            );
+
+
+          if (relevantChange) {
+
+            this.syncWithSidebar();
+
+          }
+
+        }
+      );
+
+
+    this.sidebarObserver.observe(
+      sidebar,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "data-theme",
+          "collapsed"
+        ]
+      }
+    );
 
   }
 

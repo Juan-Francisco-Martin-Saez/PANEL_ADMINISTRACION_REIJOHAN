@@ -8,6 +8,7 @@ class ChatSidebar extends HTMLElement {
       mode: "open"
     });
 
+
     this.shadowRoot.innerHTML = /* html */ `
 
       <style>
@@ -17,35 +18,43 @@ class ChatSidebar extends HTMLElement {
         ===================================== */
 
         :host {
+
           display: block;
 
-          width: 18%;
+          width: 17.5rem;
           height: 100%;
 
           min-width: 0;
           min-height: 0;
 
-          flex: 0 0 18%;
+          flex:
+            0 0 17.5rem;
 
           position: relative;
-          z-index: 100;
 
           box-sizing: border-box;
 
+          z-index: 100;
+
+          color:
+            hsl(0, 0%, 96%);
+
           transition:
-            width 0.3s ease,
-            flex-basis 0.3s ease,
-            transform 0.3s ease;
+            width 0.35s ease,
+            flex-basis 0.35s ease,
+            color 0.3s ease;
         }
 
 
         /* =====================================
-           SIDEBAR
+           CONTENEDOR PRINCIPAL
         ===================================== */
 
         .sidebar {
-          display: flex;
-          flex-direction: column;
+
+          position: relative;
+
+          z-index: 2;
 
           width: 100%;
           height: 100%;
@@ -53,32 +62,38 @@ class ChatSidebar extends HTMLElement {
           min-width: 0;
           min-height: 0;
 
+          display: flex;
+
+          flex-direction: column;
+
           box-sizing: border-box;
 
           overflow: hidden;
 
-          background: hsl(0, 0%, 6%);
+          flex-shrink: 0;
+
+          background:
+            hsl(0, 0%, 6%);
 
           border-right:
-            0.0625rem solid hsl(0, 0%, 19%);
+            0.0625rem solid
+            hsl(0, 0%, 19%);
 
-          color: hsl(0, 0%, 96%);
+          color:
+            hsl(0, 0%, 96%);
 
           transition:
             background-color 0.3s ease,
-            color 0.3s ease,
             border-color 0.3s ease,
-            box-shadow 0.3s ease;
+            color 0.3s ease;
         }
 
 
         /* =====================================
-           CONTENEDOR DE LOS HIJOS
+           CONTENEDOR INTERNO
         ===================================== */
 
         .sidebar-content-wrapper {
-          display: flex;
-          flex-direction: column;
 
           width: 100%;
           height: 100%;
@@ -86,45 +101,9 @@ class ChatSidebar extends HTMLElement {
           min-width: 0;
           min-height: 0;
 
-          box-sizing: border-box;
-
-          overflow: hidden;
-        }
-
-
-        /* =====================================
-           ELEMENTOS SUPERIORES
-        ===================================== */
-
-        ::slotted(chat-logo),
-        ::slotted(chat-sidebar-header) {
-          display: block;
-
-          width: 100%;
-          max-width: 100%;
-
-          min-width: 0;
-
-          flex: 0 0 auto;
-
-          box-sizing: border-box;
-        }
-
-
-        /* =====================================
-           CONTENIDO PRINCIPAL
-        ===================================== */
-
-        ::slotted(chat-sidebar-content) {
           display: flex;
 
           flex-direction: column;
-
-          width: 100%;
-          max-width: 100%;
-
-          min-width: 0;
-          min-height: 0;
 
           flex: 1 1 auto;
 
@@ -135,51 +114,83 @@ class ChatSidebar extends HTMLElement {
 
 
         /* =====================================
-           ELEMENTOS INFERIORES
+           HEADER DEL SIDEBAR
         ===================================== */
 
-        ::slotted(chat-new-button),
-        ::slotted(chat-history),
-        ::slotted(chat-theme),
-        ::slotted(chat-user) {
+        ::slotted(chat-sidebar-header) {
+
+          display: block;
+
           width: 100%;
-          max-width: 100%;
+
+          flex:
+            0 0 auto;
 
           min-width: 0;
 
           box-sizing: border-box;
-
-          flex: 0 0 auto;
         }
 
 
         /* =====================================
-           OVERLAY
+           CONTENIDO DEL SIDEBAR
+        ===================================== */
+
+        ::slotted(chat-sidebar-content) {
+
+          display: flex;
+
+          width: 100%;
+
+          flex:
+            1 1 auto;
+
+          min-width: 0;
+          min-height: 0;
+
+          box-sizing: border-box;
+        }
+
+
+        /* =====================================
+           LOGO DIRECTO
+        ===================================== */
+
+        ::slotted(chat-logo) {
+
+          min-width: 0;
+        }
+
+
+        /* =====================================
+           OVERLAY MÓVIL
         ===================================== */
 
         .sidebar-overlay {
-          display: none;
 
           position: fixed;
 
           inset: 0;
 
+          z-index: 1;
+
+          display: block;
+
           width: 100%;
           height: 100%;
 
-          box-sizing: border-box;
-
           background:
-            hsla(0, 0%, 0%, 0.45);
+            hsla(0, 0%, 0%, 0.5);
 
           opacity: 0;
+
+          visibility: hidden;
 
           pointer-events: none;
 
           transition:
-            opacity 0.3s ease;
-
-          z-index: 90;
+            opacity 0.35s ease,
+            visibility 0.35s ease;
         }
 
 
@@ -187,9 +198,18 @@ class ChatSidebar extends HTMLElement {
            TEMA CLARO
         ===================================== */
 
-        :host([data-theme="light"]) .sidebar {
+        :host([data-theme="light"]) {
 
-          background: hsl(0, 0%, 98%);
+          color:
+            hsl(0, 0%, 10%);
+        }
+
+
+        :host([data-theme="light"])
+        .sidebar {
+
+          background:
+            hsl(0, 0%, 98%);
 
           border-right-color:
             hsl(0, 0%, 84%);
@@ -201,14 +221,14 @@ class ChatSidebar extends HTMLElement {
 
         /* =====================================
            SIDEBAR CONTRAÍDO
-           4.25rem
         ===================================== */
 
         :host([collapsed]) {
 
           width: 4.25rem;
 
-          flex-basis: 4.25rem;
+          flex-basis:
+            4.25rem;
         }
 
 
@@ -225,16 +245,23 @@ class ChatSidebar extends HTMLElement {
             top: 0;
             left: 0;
 
-            width: min(20rem, 85vw);
+            width:
+              min(20rem, 85vw);
 
             height: 100dvh;
 
             min-height: 100dvh;
 
-            flex: 0 0 auto;
+            flex:
+              0 0 min(20rem, 85vw);
 
             transform:
               translateX(-100%);
+
+            transition:
+              transform 0.35s ease;
+
+            z-index: 100;
           }
 
 
@@ -245,73 +272,67 @@ class ChatSidebar extends HTMLElement {
           }
 
 
-          /*
-             En móvil el estado collapsed
-             no reduce el sidebar.
-          */
-
-          :host([collapsed]) {
-
-            width: min(20rem, 85vw);
-
-            flex-basis: auto;
-          }
-
-
-          .sidebar {
-
-            box-shadow: none;
-          }
-
-
-          :host([open]) .sidebar {
-
-            box-shadow:
-              0 0 2rem
-              hsla(0, 0%, 0%, 0.35);
-          }
-
-
+          :host([open])
           .sidebar-overlay {
 
-            display: block;
-
-            position: fixed;
-
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-          }
-
-
-          :host([open]) .sidebar-overlay {
-
             opacity: 1;
+
+            visibility: visible;
 
             pointer-events: auto;
           }
 
+
+          /*
+             En móvil el sidebar nunca utiliza
+             el estado visual contraído.
+          */
+
+          :host([collapsed]) {
+
+            width:
+              min(20rem, 85vw);
+
+            flex-basis:
+              min(20rem, 85vw);
+
+            transform:
+              translateX(-100%);
+          }
+
+
+          :host([collapsed][open]) {
+
+            transform:
+              translateX(0);
+          }
         }
 
 
         /* =====================================
-           MÓVIL
+           MÓVIL PEQUEÑO
         ===================================== */
 
         @media (max-width: 48rem) {
 
           :host {
 
-            width: min(19rem, 88vw);
+            width:
+              min(19rem, 88vw);
+
+            flex-basis:
+              min(19rem, 88vw);
           }
 
 
           :host([collapsed]) {
 
-            width: min(19rem, 88vw);
-          }
+            width:
+              min(19rem, 88vw);
 
+            flex-basis:
+              min(19rem, 88vw);
+          }
         }
 
 
@@ -323,15 +344,22 @@ class ChatSidebar extends HTMLElement {
 
           :host {
 
-            width: min(18rem, 90vw);
+            width:
+              min(18rem, 90vw);
+
+            flex-basis:
+              min(18rem, 90vw);
           }
 
 
           :host([collapsed]) {
 
-            width: min(18rem, 90vw);
-          }
+            width:
+              min(18rem, 90vw);
 
+            flex-basis:
+              min(18rem, 90vw);
+          }
         }
 
 
@@ -343,21 +371,71 @@ class ChatSidebar extends HTMLElement {
 
           :host {
 
-            width: min(16.5rem, 92vw);
+            width:
+              min(16.5rem, 92vw);
+
+            flex-basis:
+              min(16.5rem, 92vw);
           }
 
 
           :host([collapsed]) {
 
-            width: min(16.5rem, 92vw);
+            width:
+              min(16.5rem, 92vw);
+
+            flex-basis:
+              min(16.5rem, 92vw);
+          }
+        }
+
+
+        /* =====================================
+           ESCRITORIO
+        ===================================== */
+
+        @media (min-width: 64.0001rem) {
+
+          :host([open]) {
+
+            transform: none;
+          }
+        }
+
+
+        /* =====================================
+           PANTALLAS GRANDES
+        ===================================== */
+
+        @media (min-width: 120rem) {
+
+          :host {
+
+            width: 19rem;
+
+            flex-basis:
+              19rem;
           }
 
+
+          :host([collapsed]) {
+
+            width: 4.25rem;
+
+            flex-basis:
+              4.25rem;
+          }
         }
 
       </style>
 
 
+      <!-- =====================================
+           SIDEBAR
+      ===================================== -->
+
       <aside class="sidebar">
+
 
         <div class="sidebar-content-wrapper">
 
@@ -365,8 +443,13 @@ class ChatSidebar extends HTMLElement {
 
         </div>
 
+
       </aside>
 
+
+      <!-- =====================================
+           OVERLAY MÓVIL
+      ===================================== -->
 
       <div
         class="sidebar-overlay"
@@ -381,10 +464,15 @@ class ChatSidebar extends HTMLElement {
     ===================================== */
 
     this.sidebar =
-      this.shadowRoot.querySelector(".sidebar");
+      this.shadowRoot.querySelector(
+        ".sidebar"
+      );
 
-    this.sidebarOverlay =
-      this.shadowRoot.querySelector(".sidebar-overlay");
+
+    this.overlay =
+      this.shadowRoot.querySelector(
+        ".sidebar-overlay"
+      );
 
 
     /* =====================================
@@ -397,7 +485,7 @@ class ChatSidebar extends HTMLElement {
 
 
     /* =====================================
-       BIND DE EVENTOS
+       EVENTOS
     ===================================== */
 
     this.handleToggleRequest =
@@ -412,8 +500,18 @@ class ChatSidebar extends HTMLElement {
     this.handleOverlayClick =
       this.handleOverlayClick.bind(this);
 
-    this.handleResize =
-      this.handleResize.bind(this);
+    this.handleMediaChange =
+      this.handleMediaChange.bind(this);
+
+
+    /* =====================================
+       MEDIA QUERY
+    ===================================== */
+
+    this.mobileMediaQuery =
+      window.matchMedia(
+        "(max-width: 64rem)"
+      );
 
   }
 
@@ -429,25 +527,32 @@ class ChatSidebar extends HTMLElement {
       this.handleToggleRequest
     );
 
+
     this.addEventListener(
       "sidebar-open-request",
       this.handleOpenRequest
     );
+
 
     this.addEventListener(
       "sidebar-close-request",
       this.handleCloseRequest
     );
 
-    this.sidebarOverlay.addEventListener(
+
+    this.overlay.addEventListener(
       "click",
       this.handleOverlayClick
     );
 
-    window.addEventListener(
-      "resize",
-      this.handleResize
+
+    this.mobileMediaQuery.addEventListener(
+      "change",
+      this.handleMediaChange
     );
+
+
+    this.normalizeState();
 
     this.updateState();
 
@@ -465,90 +570,90 @@ class ChatSidebar extends HTMLElement {
       this.handleToggleRequest
     );
 
+
     this.removeEventListener(
       "sidebar-open-request",
       this.handleOpenRequest
     );
+
 
     this.removeEventListener(
       "sidebar-close-request",
       this.handleCloseRequest
     );
 
-    this.sidebarOverlay.removeEventListener(
+
+    this.overlay.removeEventListener(
       "click",
       this.handleOverlayClick
     );
 
-    window.removeEventListener(
-      "resize",
-      this.handleResize
+
+    this.mobileMediaQuery.removeEventListener(
+      "change",
+      this.handleMediaChange
     );
 
   }
 
 
   /* =====================================
-     DETECTAR MÓVIL
-     64rem = 1024px
+     PETICIÓN DE TOGGLE
   ===================================== */
 
-  isMobile() {
+  handleToggleRequest(event) {
 
-    return window.innerWidth <= 1024;
-
-  }
-
-
-  /* =====================================
-     EVENTOS
-  ===================================== */
-
-  handleToggleRequest() {
+    event.stopPropagation();
 
     this.toggle();
 
   }
 
 
-  handleOpenRequest() {
+  /* =====================================
+     PETICIÓN DE APERTURA
+  ===================================== */
+
+  handleOpenRequest(event) {
+
+    event.stopPropagation();
 
     this.open();
 
   }
 
 
-  handleCloseRequest() {
+  /* =====================================
+     PETICIÓN DE CIERRE
+  ===================================== */
+
+  handleCloseRequest(event) {
+
+    event.stopPropagation();
 
     this.close();
 
   }
 
 
+  /* =====================================
+     CLICK EN OVERLAY
+  ===================================== */
+
   handleOverlayClick() {
 
-    if (this.isMobile()) {
-
-      this.close();
-
-    }
+    this.close();
 
   }
 
 
   /* =====================================
-     CAMBIO DE TAMAÑO
+     CAMBIO DESKTOP / MÓVIL
   ===================================== */
 
-  handleResize() {
+  handleMediaChange() {
 
-    if (!this.isMobile()) {
-
-      this.isOpen = false;
-
-      this.isCollapsed = false;
-
-    }
+    this.normalizeState();
 
     this.updateState();
 
@@ -561,15 +666,19 @@ class ChatSidebar extends HTMLElement {
 
   open() {
 
-    if (this.isMobile()) {
+    if (this.mobileMediaQuery.matches) {
 
       this.isOpen = true;
 
-    } else {
-
       this.isCollapsed = false;
 
+    } else {
+
+      this.isOpen = false;
+
+      this.isCollapsed = false;
     }
+
 
     this.updateState();
 
@@ -582,15 +691,19 @@ class ChatSidebar extends HTMLElement {
 
   close() {
 
-    if (this.isMobile()) {
+    if (this.mobileMediaQuery.matches) {
 
       this.isOpen = false;
 
+      this.isCollapsed = false;
+
     } else {
 
-      this.isCollapsed = true;
+      this.isOpen = false;
 
+      this.isCollapsed = true;
     }
+
 
     this.updateState();
 
@@ -598,20 +711,26 @@ class ChatSidebar extends HTMLElement {
 
 
   /* =====================================
-     ALTERNAR
+     TOGGLE
   ===================================== */
 
   toggle() {
 
-    if (this.isMobile()) {
+    if (this.mobileMediaQuery.matches) {
 
-      this.isOpen = !this.isOpen;
+      this.isOpen =
+        !this.isOpen;
+
+      this.isCollapsed = false;
 
     } else {
 
-      this.isCollapsed = !this.isCollapsed;
+      this.isCollapsed =
+        !this.isCollapsed;
 
+      this.isOpen = false;
     }
+
 
     this.updateState();
 
@@ -624,13 +743,19 @@ class ChatSidebar extends HTMLElement {
 
   expand() {
 
-    if (!this.isMobile()) {
+    if (this.mobileMediaQuery.matches) {
 
-      this.isCollapsed = false;
+      this.open();
 
-      this.updateState();
-
+      return;
     }
+
+
+    this.isCollapsed = false;
+
+    this.isOpen = false;
+
+    this.updateState();
 
   }
 
@@ -641,11 +766,44 @@ class ChatSidebar extends HTMLElement {
 
   collapse() {
 
-    if (!this.isMobile()) {
+    if (this.mobileMediaQuery.matches) {
 
-      this.isCollapsed = true;
+      this.close();
 
-      this.updateState();
+      return;
+    }
+
+
+    this.isCollapsed = true;
+
+    this.isOpen = false;
+
+    this.updateState();
+
+  }
+
+
+  /* =====================================
+     NORMALIZAR ESTADO
+  ===================================== */
+
+  normalizeState() {
+
+    if (this.mobileMediaQuery.matches) {
+
+      /*
+        En móvil solo existe open.
+      */
+
+      this.isCollapsed = false;
+
+    } else {
+
+      /*
+        En escritorio solo existe collapsed.
+      */
+
+      this.isOpen = false;
 
     }
 
@@ -658,9 +816,14 @@ class ChatSidebar extends HTMLElement {
 
   updateState() {
 
-    /* ---------- OPEN ---------- */
+    /* =================================
+       OPEN
+    ================================= */
 
-    if (this.isOpen) {
+    if (
+      this.mobileMediaQuery.matches &&
+      this.isOpen
+    ) {
 
       this.setAttribute(
         "open",
@@ -672,15 +835,16 @@ class ChatSidebar extends HTMLElement {
       this.removeAttribute(
         "open"
       );
-
     }
 
 
-    /* ---------- COLLAPSED ---------- */
+    /* =================================
+       COLLAPSED
+    ================================= */
 
     if (
-      this.isCollapsed &&
-      !this.isMobile()
+      !this.mobileMediaQuery.matches &&
+      this.isCollapsed
     ) {
 
       this.setAttribute(
@@ -693,16 +857,19 @@ class ChatSidebar extends HTMLElement {
       this.removeAttribute(
         "collapsed"
       );
-
     }
 
 
-    /* ---------- HIJOS ---------- */
+    /* =================================
+       SINCRONIZAR HIJOS
+    ================================= */
 
     this.syncChildren();
 
 
-    /* ---------- EVENTO ---------- */
+    /* =================================
+       NOTIFICAR CAMBIO
+    ================================= */
 
     this.dispatchEvent(
       new CustomEvent(
@@ -712,11 +879,14 @@ class ChatSidebar extends HTMLElement {
           composed: true,
 
           detail: {
-            open: this.isOpen,
+            open:
+              this.isOpen,
 
             collapsed:
-              this.isCollapsed &&
-              !this.isMobile()
+              this.isCollapsed,
+
+            mobile:
+              this.mobileMediaQuery.matches
           }
         }
       )
@@ -726,17 +896,21 @@ class ChatSidebar extends HTMLElement {
 
 
   /* =====================================
-     SINCRONIZAR HIJOS
+     SINCRONIZAR COMPONENTES HIJOS
   ===================================== */
 
   syncChildren() {
 
     const theme =
-      this.getAttribute("data-theme");
+      this.getAttribute(
+        "data-theme"
+      );
+
 
     const collapsed =
-      this.isCollapsed &&
-      !this.isMobile();
+      this.hasAttribute(
+        "collapsed"
+      );
 
 
     const children =
@@ -744,25 +918,23 @@ class ChatSidebar extends HTMLElement {
         `
         chat-logo,
         chat-sidebar-header,
-        chat-sidebar-content,
-        chat-new-button,
-        chat-history,
-        chat-theme,
-        chat-user
+        chat-sidebar-content
         `
       );
 
 
     children.forEach(
-      child => {
+      (child) => {
 
-        /* ---------- TEMA ---------- */
+        /* ===============================
+           TEMA
+        =============================== */
 
-        if (theme) {
+        if (theme === "light") {
 
           child.setAttribute(
             "data-theme",
-            theme
+            "light"
           );
 
         } else {
@@ -770,11 +942,12 @@ class ChatSidebar extends HTMLElement {
           child.removeAttribute(
             "data-theme"
           );
-
         }
 
 
-        /* ---------- COLLAPSED ---------- */
+        /* ===============================
+           CONTRAÍDO
+        =============================== */
 
         if (collapsed) {
 
@@ -788,11 +961,12 @@ class ChatSidebar extends HTMLElement {
           child.removeAttribute(
             "collapsed"
           );
-
         }
 
 
-        /* ---------- SINCRONIZACIÓN ---------- */
+        /* ===============================
+           SINCRONIZACIÓN PROPIA
+        =============================== */
 
         if (
           typeof child.syncWithSidebar ===
@@ -810,7 +984,7 @@ class ChatSidebar extends HTMLElement {
 
 
   /* =====================================
-     TEMA
+     CAMBIAR TEMA
   ===================================== */
 
   setTheme(theme) {
@@ -827,10 +1001,25 @@ class ChatSidebar extends HTMLElement {
       this.removeAttribute(
         "data-theme"
       );
-
     }
 
-    this.updateState();
+
+    this.syncChildren();
+
+
+    this.dispatchEvent(
+      new CustomEvent(
+        "sidebar-state-change",
+        {
+          bubbles: true,
+          composed: true,
+
+          detail: {
+            theme
+          }
+        }
+      )
+    );
 
   }
 

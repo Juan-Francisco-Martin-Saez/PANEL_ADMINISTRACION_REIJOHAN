@@ -12,12 +12,17 @@ class ChatStatus extends HTMLElement {
 
       <style>
 
+        /* =====================================
+           COMPONENTE ESTADO DE BÚSQUEDA
+        ===================================== */
+
         :host {
           display: none;
 
           width: 100%;
-
           min-width: 0;
+
+          box-sizing: border-box;
 
           color:
             hsl(0, 0%, 72%);
@@ -28,8 +33,13 @@ class ChatStatus extends HTMLElement {
         }
 
 
+        /* =====================================
+           CONTENEDOR
+        ===================================== */
+
         .search-status-container {
           width: 100%;
+          min-width: 0;
 
           max-width:
             56.25rem;
@@ -40,7 +50,10 @@ class ChatStatus extends HTMLElement {
           padding:
             0.5rem 0 1.5rem;
 
-          text-align: center;
+          box-sizing: border-box;
+
+          text-align:
+            center;
 
           color:
             hsl(0, 0%, 72%);
@@ -49,6 +62,10 @@ class ChatStatus extends HTMLElement {
             color 0.3s ease;
         }
 
+
+        /* =====================================
+           ESTADO PRINCIPAL
+        ===================================== */
 
         .search-status {
           margin:
@@ -65,8 +82,13 @@ class ChatStatus extends HTMLElement {
         }
 
 
+        /* =====================================
+           MENSAJE SECUNDARIO
+        ===================================== */
+
         .search-funny-message {
-          margin: 0;
+          margin:
+            0;
 
           font-size:
             0.8125rem;
@@ -82,10 +104,19 @@ class ChatStatus extends HTMLElement {
         }
 
 
+        /* =====================================
+           VISIBILIDAD
+        ===================================== */
+
         :host([visible]) {
-          display: block;
+          display:
+            block;
         }
 
+
+        /* =====================================
+           TEMA CLARO
+        ===================================== */
 
         :host([data-theme="light"])
         .search-status-container {
@@ -103,6 +134,10 @@ class ChatStatus extends HTMLElement {
         }
 
 
+        /* =====================================
+           TABLET
+        ===================================== */
+
         @media (max-width: 64rem) {
 
           .search-status-container {
@@ -113,6 +148,10 @@ class ChatStatus extends HTMLElement {
 
         }
 
+
+        /* =====================================
+           MÓVIL
+        ===================================== */
 
         @media (max-width: 48rem) {
 
@@ -185,6 +224,10 @@ class ChatStatus extends HTMLElement {
         }
 
 
+        /* =====================================
+           ESCRITORIO GRANDE
+        ===================================== */
+
         @media (min-width: 120rem) {
 
           .search-status-container {
@@ -227,33 +270,75 @@ class ChatStatus extends HTMLElement {
     `;
 
 
-    this.syncWithChatApp();
+    this.handleThemeChange =
+      this.handleThemeChange.bind(this);
+
+    this.handleAttributeChange =
+      this.handleAttributeChange.bind(this);
 
   }
 
+
+  /* =====================================
+     CONECTAR COMPONENTE
+  ===================================== */
 
   connectedCallback() {
 
     this.syncWithChatApp();
 
+    this.observeTheme();
+
+    this.observeAttributes();
+
   }
 
 
-  syncWithChatApp() {
+  /* =====================================
+     DESCONECTAR COMPONENTE
+  ===================================== */
 
-    const chatApp =
-      this.closest(".chat-app");
+  disconnectedCallback() {
 
+    if (this.themeObserver) {
 
-    if (!chatApp) {
-      return;
+      this.themeObserver.disconnect();
+
+      this.themeObserver = null;
+
     }
 
 
+    if (this.attributeObserver) {
+
+      this.attributeObserver.disconnect();
+
+      this.attributeObserver = null;
+
+    }
+
+  }
+
+
+  /* =====================================
+     SINCRONIZACIÓN GENERAL
+  ===================================== */
+
+  syncWithChatApp() {
+
+    /*
+      La visibilidad se controla mediante
+      el atributo "visible".
+
+      El componente puede recibir también
+      "chat-has-messages" como atributo para
+      mantener compatibilidad con la lógica
+      anterior.
+    */
+
     if (
-      chatApp.classList.contains(
-        "chat-has-messages"
-      )
+      this.hasAttribute("chat-has-messages") ||
+      this.hasAttribute("visible")
     ) {
 
       this.setAttribute(
@@ -261,7 +346,10 @@ class ChatStatus extends HTMLElement {
         ""
       );
 
-    } else {
+    }
+
+
+    else {
 
       this.removeAttribute(
         "visible"
@@ -270,26 +358,141 @@ class ChatStatus extends HTMLElement {
     }
 
 
+    this.syncTheme();
+
+  }
+
+
+  /* =====================================
+     TEMA
+  ===================================== */
+
+  syncTheme() {
+
     const theme =
       document.documentElement.getAttribute(
         "data-theme"
       );
 
 
-    if (theme === "light") {
+    if (
+      theme === "light"
+    ) {
 
       this.setAttribute(
         "data-theme",
         "light"
       );
 
-    } else {
+    }
+
+
+    else {
 
       this.removeAttribute(
         "data-theme"
       );
 
     }
+
+  }
+
+
+  /* =====================================
+     OBSERVAR TEMA
+  ===================================== */
+
+  observeTheme() {
+
+    if (this.themeObserver) {
+
+      this.themeObserver.disconnect();
+
+    }
+
+
+    this.themeObserver =
+      new MutationObserver(
+        this.handleThemeChange
+      );
+
+
+    this.themeObserver.observe(
+      document.documentElement,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "data-theme"
+        ]
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     CAMBIO DE TEMA
+  ===================================== */
+
+  handleThemeChange() {
+
+    this.syncTheme();
+
+  }
+
+
+  /* =====================================
+     OBSERVAR ATRIBUTOS
+  ===================================== */
+
+  observeAttributes() {
+
+    if (this.attributeObserver) {
+
+      this.attributeObserver.disconnect();
+
+    }
+
+
+    this.attributeObserver =
+      new MutationObserver(
+        this.handleAttributeChange
+      );
+
+
+    this.attributeObserver.observe(
+      this,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "visible",
+          "chat-has-messages"
+        ]
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     CAMBIO DE ESTADO
+  ===================================== */
+
+  handleAttributeChange() {
+
+    /*
+      Si se modifica "visible" no debemos
+      volver a ejecutar syncWithChatApp(),
+      porque eso podría provocar un ciclo
+      de modificaciones.
+
+      La presencia del atributo ya controla
+      directamente el CSS mediante:
+
+      :host([visible])
+    */
 
   }
 

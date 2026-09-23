@@ -12,12 +12,19 @@ class ChatTheme extends HTMLElement {
 
       <style>
 
+        /* =====================================
+           COMPONENTE TEMA
+        ===================================== */
+
         :host {
           display: block;
 
           width: 100%;
+          min-width: 0;
 
           flex-shrink: 0;
+
+          box-sizing: border-box;
 
           color:
             hsl(0, 0%, 75%);
@@ -27,23 +34,38 @@ class ChatTheme extends HTMLElement {
         }
 
 
+        /* =====================================
+           CONTENEDOR
+        ===================================== */
+
         .theme-switch-container {
           width: 100%;
+          min-width: 0;
 
           display: flex;
           align-items: center;
           justify-content: space-between;
 
-          gap: 0.75rem;
+          gap:
+            0.75rem;
 
           padding:
             0.875rem 1rem;
 
+          box-sizing: border-box;
+
           border-top:
             0.0625rem solid
             hsl(0, 0%, 15%);
+
+          transition:
+            border-color 0.3s ease;
         }
 
+
+        /* =====================================
+           ETIQUETA
+        ===================================== */
 
         .theme-switch-label {
           min-width: 0;
@@ -57,7 +79,8 @@ class ChatTheme extends HTMLElement {
           font-size:
             0.8125rem;
 
-          line-height: 1.3;
+          line-height:
+            1.3;
 
           color:
             hsl(0, 0%, 70%);
@@ -68,11 +91,18 @@ class ChatTheme extends HTMLElement {
         }
 
 
+        /* =====================================
+           INTERRUPTOR
+        ===================================== */
+
         .theme-switch {
           position: relative;
 
-          width: 4.125rem;
-          height: 2rem;
+          width:
+            4.125rem;
+
+          height:
+            2rem;
 
           flex-shrink: 0;
 
@@ -82,6 +112,8 @@ class ChatTheme extends HTMLElement {
 
           padding:
             0 0.4375rem;
+
+          box-sizing: border-box;
 
           border:
             0.0625rem solid
@@ -104,12 +136,14 @@ class ChatTheme extends HTMLElement {
 
 
         .theme-switch:hover {
+
           border-color:
             hsl(0, 0%, 36%);
         }
 
 
         .theme-switch:focus-visible {
+
           outline:
             0.125rem solid
             hsl(0, 0%, 70%);
@@ -119,39 +153,59 @@ class ChatTheme extends HTMLElement {
         }
 
 
+        /* =====================================
+           ICONOS
+        ===================================== */
+
         .theme-icon {
           position: relative;
 
           z-index: 2;
 
+          width:
+            1rem;
+
+          height:
+            1rem;
+
           display: flex;
           align-items: center;
           justify-content: center;
 
-          width: 1rem;
-          height: 1rem;
-
           font-size:
             0.875rem;
 
-          line-height: 1;
+          line-height:
+            1;
 
           color:
             hsl(0, 0%, 75%);
+
+          pointer-events: none;
 
           transition:
             color 0.3s ease;
         }
 
 
+        /* =====================================
+           DESLIZADOR
+        ===================================== */
+
         .theme-switch-slider {
           position: absolute;
 
-          top: 0.1875rem;
-          left: 0.1875rem;
+          top:
+            0.1875rem;
 
-          width: 1.5rem;
-          height: 1.5rem;
+          left:
+            0.1875rem;
+
+          width:
+            1.5rem;
+
+          height:
+            1.5rem;
 
           border-radius:
             50%;
@@ -168,6 +222,10 @@ class ChatTheme extends HTMLElement {
             background-color 0.3s ease;
         }
 
+
+        /* =====================================
+           TEMA CLARO
+        ===================================== */
 
         :host([data-theme="light"]) {
 
@@ -204,6 +262,14 @@ class ChatTheme extends HTMLElement {
 
 
         :host([data-theme="light"])
+        .theme-switch:hover {
+
+          border-color:
+            hsl(0, 0%, 68%);
+        }
+
+
+        :host([data-theme="light"])
         .theme-icon-dark {
 
           color:
@@ -230,29 +296,90 @@ class ChatTheme extends HTMLElement {
         }
 
 
+        /* =====================================
+           SIDEBAR COLAPSADO
+        ===================================== */
+
         :host([collapsed])
         .theme-switch-container {
 
-          justify-content: center;
+          justify-content:
+            center;
 
           padding:
-            0.875rem 0.625rem;
+            0.375rem 0;
         }
 
 
         :host([collapsed])
         .theme-switch-label {
 
-          display: none;
+          display:
+            none;
         }
 
+
+        :host([collapsed])
+        .theme-switch {
+
+          width:
+            2.75rem;
+
+          height:
+            1.625rem;
+        }
+
+
+        :host([collapsed])
+        .theme-icon {
+
+          width:
+            0.8rem;
+
+          height:
+            0.8rem;
+
+          font-size:
+            0.65rem;
+        }
+
+
+        :host([collapsed])
+        .theme-switch-slider {
+
+          top:
+            0.1625rem;
+
+          left:
+            0.1625rem;
+
+          width:
+            1.2rem;
+
+          height:
+            1.2rem;
+        }
+
+
+        :host([collapsed][data-theme="light"])
+        .theme-switch-slider {
+
+          transform:
+            translateX(1.125rem);
+        }
+
+
+        /* =====================================
+           TABLET / MÓVIL
+        ===================================== */
 
         @media (max-width: 64rem) {
 
           :host([collapsed])
           .theme-switch-container {
 
-            justify-content: space-between;
+            justify-content:
+              space-between;
 
             padding:
               0.875rem 1rem;
@@ -262,11 +389,66 @@ class ChatTheme extends HTMLElement {
           :host([collapsed])
           .theme-switch-label {
 
-            display: block;
+            display:
+              block;
+          }
+
+
+          :host([collapsed])
+          .theme-switch {
+
+            width:
+              4.125rem;
+
+            height:
+              2rem;
+          }
+
+
+          :host([collapsed])
+          .theme-icon {
+
+            width:
+              1rem;
+
+            height:
+              1rem;
+
+            font-size:
+              0.875rem;
+          }
+
+
+          :host([collapsed])
+          .theme-switch-slider {
+
+            top:
+              0.1875rem;
+
+            left:
+              0.1875rem;
+
+            width:
+              1.5rem;
+
+            height:
+              1.5rem;
+          }
+
+
+          :host([collapsed][data-theme="light"])
+          .theme-switch-slider {
+
+            transform:
+              translateX(2.125rem);
           }
 
         }
 
+
+        /* =====================================
+           MÓVIL
+        ===================================== */
 
         @media (max-width: 30rem) {
 
@@ -285,6 +467,24 @@ class ChatTheme extends HTMLElement {
 
             padding:
               0.625rem 0.75rem;
+          }
+
+        }
+
+
+        /* =====================================
+           ALTURA REDUCIDA
+        ===================================== */
+
+        @media (max-height: 40rem) {
+
+          .theme-switch-container {
+
+            padding-top:
+              0.625rem;
+
+            padding-bottom:
+              0.625rem;
           }
 
         }
@@ -309,7 +509,9 @@ class ChatTheme extends HTMLElement {
             ☾
           </span>
 
+
           <span class="theme-switch-slider"></span>
+
 
           <span class="theme-icon theme-icon-light">
             ☀
@@ -334,8 +536,15 @@ class ChatTheme extends HTMLElement {
     this.handleKeyDown =
       this.handleKeyDown.bind(this);
 
+    this.handleSidebarChange =
+      this.handleSidebarChange.bind(this);
+
   }
 
+
+  /* =====================================
+     CONECTAR COMPONENTE
+  ===================================== */
 
   connectedCallback() {
 
@@ -353,8 +562,14 @@ class ChatTheme extends HTMLElement {
 
     this.syncWithSidebar();
 
+    this.observeSidebar();
+
   }
 
+
+  /* =====================================
+     DESCONECTAR COMPONENTE
+  ===================================== */
 
   disconnectedCallback() {
 
@@ -369,8 +584,21 @@ class ChatTheme extends HTMLElement {
       this.handleKeyDown
     );
 
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
+
+      this.sidebarObserver = null;
+
+    }
+
   }
 
+
+  /* =====================================
+     CLICK
+  ===================================== */
 
   handleClick(event) {
 
@@ -380,6 +608,10 @@ class ChatTheme extends HTMLElement {
 
   }
 
+
+  /* =====================================
+     TECLADO
+  ===================================== */
 
   handleKeyDown(event) {
 
@@ -396,6 +628,10 @@ class ChatTheme extends HTMLElement {
 
   }
 
+
+  /* =====================================
+     CAMBIAR TEMA
+  ===================================== */
 
   toggleTheme() {
 
@@ -414,18 +650,34 @@ class ChatTheme extends HTMLElement {
       );
 
 
-    if (currentTheme === "light") {
+    const newTheme =
+      currentTheme === "light"
+        ? "dark"
+        : "light";
 
-      sidebar.setTheme("dark");
 
-    } else {
+    /*
+      ChatSidebar continúa siendo el
+      propietario del estado del tema.
+    */
 
-      sidebar.setTheme("light");
+    if (
+      typeof sidebar.setTheme ===
+      "function"
+    ) {
+
+      sidebar.setTheme(
+        newTheme
+      );
 
     }
 
   }
 
+
+  /* =====================================
+     SINCRONIZAR CON SIDEBAR
+  ===================================== */
 
   syncWithSidebar() {
 
@@ -438,17 +690,21 @@ class ChatTheme extends HTMLElement {
     }
 
 
+    /* ---------- TEMA ---------- */
+
     const theme =
       sidebar.getAttribute(
         "data-theme"
       );
 
 
-    if (theme) {
+    if (
+      theme === "light"
+    ) {
 
       this.setAttribute(
         "data-theme",
-        theme
+        "light"
       );
 
     } else {
@@ -459,6 +715,8 @@ class ChatTheme extends HTMLElement {
 
     }
 
+
+    /* ---------- COLAPSADO ---------- */
 
     if (
       sidebar.hasAttribute(
@@ -478,6 +736,60 @@ class ChatTheme extends HTMLElement {
       );
 
     }
+
+  }
+
+
+  /* =====================================
+     OBSERVAR SIDEBAR
+  ===================================== */
+
+  observeSidebar() {
+
+    const sidebar =
+      this.closest("chat-sidebar");
+
+
+    if (!sidebar) {
+      return;
+    }
+
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
+
+    }
+
+
+    this.sidebarObserver =
+      new MutationObserver(
+        this.handleSidebarChange
+      );
+
+
+    this.sidebarObserver.observe(
+      sidebar,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "data-theme",
+          "collapsed"
+        ]
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     CAMBIO DEL SIDEBAR
+  ===================================== */
+
+  handleSidebarChange() {
+
+    this.syncWithSidebar();
 
   }
 

@@ -12,12 +12,19 @@ class ChatNewButton extends HTMLElement {
 
       <style>
 
+        /* =====================================
+           COMPONENTE NUEVA CONVERSACIÓN
+        ===================================== */
+
         :host {
           display: block;
 
           width: 100%;
+          min-width: 0;
 
           flex-shrink: 0;
+
+          box-sizing: border-box;
 
           color:
             hsl(0, 0%, 96%);
@@ -27,39 +34,54 @@ class ChatNewButton extends HTMLElement {
         }
 
 
+        /* =====================================
+           CONTENEDOR
+        ===================================== */
+
         .new-chat-container {
           width: 100%;
+          min-width: 0;
 
-          padding:
-            1rem 0.75rem;
+          margin-bottom:
+            1.25rem;
+
+          box-sizing: border-box;
+
+          font-weight: 700;
         }
 
 
+        /* =====================================
+           BOTÓN
+        ===================================== */
+
         .new-chat-button {
-          width: 100%;
-
-          min-height: 2.75rem;
-
           display: flex;
           align-items: center;
 
-          gap: 0.75rem;
+          width: 100%;
+          min-width: 0;
+
+          gap:
+            0.625rem;
 
           padding:
-            0.625rem 0.75rem;
+            0.75rem 0.9375rem;
 
-          border:
-            0.0625rem solid
-            hsl(0, 0%, 24%);
-
-          border-radius:
-            0.5rem;
-
-          background:
-            hsl(0, 0%, 10%);
+          box-sizing: border-box;
 
           color:
             hsl(0, 0%, 96%);
+
+          background:
+            hsl(0, 0%, 13%);
+
+          border:
+            0.0625rem solid
+            hsl(0, 0%, 22%);
+
+          border-radius:
+            0.5rem;
 
           text-decoration: none;
 
@@ -68,88 +90,105 @@ class ChatNewButton extends HTMLElement {
           overflow: hidden;
 
           transition:
-            background-color 0.3s ease,
-            border-color 0.3s ease,
-            color 0.3s ease,
+            background 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease,
             padding 0.3s ease,
             gap 0.3s ease;
         }
 
 
         .new-chat-button:hover {
-          background:
-            hsl(0, 0%, 14%);
 
-          border-color:
-            hsl(0, 0%, 32%);
+          background:
+            hsl(0, 0%, 17%);
         }
 
 
+        /* =====================================
+           ICONO
+        ===================================== */
+
         .new-chat-icon-container {
-          width: 1.5rem;
-          height: 1.5rem;
-
-          flex-shrink: 0;
-
           display: flex;
           align-items: center;
           justify-content: center;
+
+          flex-shrink: 0;
         }
 
 
         .new-chat-icon {
-          font-size: 1.5rem;
-          line-height: 1;
+          color:
+            hsl(0, 0%, 100%);
 
-          font-weight: 300;
+          font-size:
+            1.375rem;
+
+          line-height:
+            1;
+
+          font-weight:
+            400;
         }
 
+
+        /* =====================================
+           TEXTO
+        ===================================== */
 
         .new-chat-text-container {
           min-width: 0;
 
-          flex: 1;
-
           overflow: hidden;
-
-          transition:
-            opacity 0.2s ease,
-            width 0.3s ease;
         }
 
 
         .new-chat-text {
           display: block;
 
-          white-space: nowrap;
+          min-width: 0;
+
+          color: inherit;
+
+          font-size:
+            1rem;
+
+          line-height:
+            1.2;
+
+          white-space:
+            nowrap;
 
           overflow: hidden;
 
-          text-overflow: ellipsis;
-
-          font-size: 0.875rem;
-          line-height: 1.3;
+          text-overflow:
+            ellipsis;
         }
 
+
+        /* =====================================
+           TEMA CLARO
+        ===================================== */
 
         :host([data-theme="light"]) {
 
           color:
-            hsl(0, 0%, 10%);
+            hsl(0, 0%, 12%);
         }
 
 
         :host([data-theme="light"])
         .new-chat-button {
 
+          color:
+            hsl(0, 0%, 12%);
+
           background:
-            hsl(0, 0%, 96%);
+            hsl(0, 0%, 94%);
 
           border-color:
-            hsl(0, 0%, 82%);
-
-          color:
-            hsl(0, 0%, 10%);
+            hsl(0, 0%, 80%);
         }
 
 
@@ -157,95 +196,112 @@ class ChatNewButton extends HTMLElement {
         .new-chat-button:hover {
 
           background:
-            hsl(0, 0%, 92%);
-
-          border-color:
-            hsl(0, 0%, 72%);
+            hsl(0, 0%, 89%);
         }
 
+
+        :host([data-theme="light"])
+        .new-chat-icon {
+
+          color:
+            hsl(0, 0%, 12%);
+        }
+
+
+        /* =====================================
+           SIDEBAR COLAPSADO
+        ===================================== */
 
         :host([collapsed])
         .new-chat-container {
 
-          padding:
-            1rem 0.625rem;
+          margin-bottom:
+            0.9375rem;
         }
 
 
         :host([collapsed])
         .new-chat-button {
 
-          justify-content: center;
+          width:
+            2.625rem;
 
-          gap: 0;
+          height:
+            2.625rem;
+
+          justify-content:
+            center;
+
+          gap:
+            0;
 
           padding:
-            0.625rem;
+            0;
+
+          margin:
+            0 auto;
         }
 
 
         :host([collapsed])
         .new-chat-text-container {
 
-          width: 0;
-
-          flex: 0 0 0;
-
-          opacity: 0;
+          display:
+            none;
         }
 
 
+        /* =====================================
+           TABLET / MÓVIL
+        ===================================== */
+
         @media (max-width: 64rem) {
 
-          .new-chat-container {
-
-            padding:
-              1rem 0.75rem;
-          }
-
-
-          .new-chat-button {
-
-            min-height: 2.75rem;
-          }
-
-
           :host([collapsed])
           .new-chat-container {
 
-            padding:
-              1rem 0.75rem;
+            margin-bottom:
+              1.25rem;
           }
 
 
           :host([collapsed])
           .new-chat-button {
 
-            justify-content: flex-start;
+            width: 100%;
+            height: auto;
 
-            gap: 0.75rem;
+            justify-content:
+              flex-start;
+
+            gap:
+              0.625rem;
 
             padding:
-              0.625rem 0.75rem;
+              0.75rem 0.9375rem;
+
+            margin:
+              0;
           }
 
 
           :host([collapsed])
           .new-chat-text-container {
 
-            width: auto;
-
-            flex: 1;
-
-            opacity: 1;
+            display:
+              block;
           }
 
         }
 
 
+        /* =====================================
+           PANTALLAS PEQUEÑAS
+        ===================================== */
+
         @media (max-width: 30rem) {
 
-          .new-chat-container {
+          .new-chat-button {
 
             padding:
               0.75rem;
@@ -256,10 +312,37 @@ class ChatNewButton extends HTMLElement {
 
         @media (max-width: 22rem) {
 
-          .new-chat-container {
+          .new-chat-button {
 
             padding:
-              0.625rem 0.75rem;
+              0.6875rem 0.75rem;
+          }
+
+        }
+
+
+        /* =====================================
+           ALTURA REDUCIDA
+        ===================================== */
+
+        @media (max-height: 40rem) {
+
+          .new-chat-container {
+
+            margin-bottom:
+              1rem;
+          }
+
+        }
+
+
+        @media (max-width: 64rem)
+        and (max-height: 40rem) {
+
+          .new-chat-container {
+
+            margin-bottom:
+              0.875rem;
           }
 
         }
@@ -310,6 +393,10 @@ class ChatNewButton extends HTMLElement {
   }
 
 
+  /* =====================================
+     CONECTAR COMPONENTE
+  ===================================== */
+
   connectedCallback() {
 
     this.newChatButton.addEventListener(
@@ -322,6 +409,10 @@ class ChatNewButton extends HTMLElement {
   }
 
 
+  /* =====================================
+     DESCONECTAR COMPONENTE
+  ===================================== */
+
   disconnectedCallback() {
 
     this.newChatButton.removeEventListener(
@@ -331,6 +422,10 @@ class ChatNewButton extends HTMLElement {
 
   }
 
+
+  /* =====================================
+     NUEVA CONVERSACIÓN
+  ===================================== */
 
   handleClick(event) {
 
@@ -350,6 +445,10 @@ class ChatNewButton extends HTMLElement {
   }
 
 
+  /* =====================================
+     SINCRONIZACIÓN CON SIDEBAR
+  ===================================== */
+
   syncWithSidebar() {
 
     const sidebar =
@@ -361,17 +460,19 @@ class ChatNewButton extends HTMLElement {
     }
 
 
+    /* ---------- TEMA ---------- */
+
     const theme =
       sidebar.getAttribute(
         "data-theme"
       );
 
 
-    if (theme) {
+    if (theme === "light") {
 
       this.setAttribute(
         "data-theme",
-        theme
+        "light"
       );
 
     } else {
@@ -382,6 +483,8 @@ class ChatNewButton extends HTMLElement {
 
     }
 
+
+    /* ---------- ESTADO COLAPSADO ---------- */
 
     if (
       sidebar.hasAttribute(

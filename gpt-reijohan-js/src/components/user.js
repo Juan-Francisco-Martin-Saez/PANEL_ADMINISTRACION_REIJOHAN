@@ -12,12 +12,20 @@ class ChatUser extends HTMLElement {
 
       <style>
 
+        /* =====================================
+           COMPONENTE USUARIO
+        ===================================== */
+
         :host {
           display: block;
 
           width: 100%;
 
+          min-width: 0;
+
           flex-shrink: 0;
+
+          box-sizing: border-box;
 
           color:
             hsl(0, 0%, 96%);
@@ -27,22 +35,35 @@ class ChatUser extends HTMLElement {
         }
 
 
+        /* =====================================
+           CONTENEDOR USUARIO
+        ===================================== */
+
         .sidebar-user {
           width: 100%;
+
+          min-width: 0;
 
           display: flex;
           align-items: center;
 
           gap: 0.75rem;
 
+          flex-shrink: 0;
+
           padding:
-            0.875rem 1rem;
+            0.9375rem;
+
+          box-sizing: border-box;
+
+          overflow: hidden;
+
+          background:
+            hsl(0, 0%, 6%);
 
           border-top:
             0.0625rem solid
-            hsl(0, 0%, 15%);
-
-          overflow: hidden;
+            hsl(0, 0%, 19%);
 
           transition:
             background-color 0.3s ease,
@@ -52,26 +73,32 @@ class ChatUser extends HTMLElement {
         }
 
 
+        /* =====================================
+           AVATAR
+        ===================================== */
+
         .user-avatar-container {
-          width: 2.25rem;
-          height: 2.25rem;
+          width: 2.75rem;
+          height: 2.75rem;
 
           flex-shrink: 0;
 
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
           overflow: hidden;
 
-          border-radius:
-            50%;
+          border-radius: 50%;
 
           background:
-            hsl(0, 0%, 16%);
+            hsl(0, 0%, 20%);
+
+          border:
+            0.15rem solid
+            hsl(0, 0%, 41%);
+
+          box-sizing: border-box;
 
           transition:
-            background-color 0.3s ease;
+            background-color 0.3s ease,
+            border-color 0.3s ease;
         }
 
 
@@ -87,10 +114,14 @@ class ChatUser extends HTMLElement {
         }
 
 
+        /* =====================================
+           INFORMACIÓN
+        ===================================== */
+
         .user-info {
           min-width: 0;
 
-          flex: 1;
+          flex: 1 1 auto;
 
           overflow: hidden;
 
@@ -105,24 +136,32 @@ class ChatUser extends HTMLElement {
 
           width: 100%;
 
+          min-width: 0;
+
           overflow: hidden;
+
+          color:
+            hsl(0, 0%, 96%);
+
+          font-size:
+            0.875rem;
+
+          font-weight: 700;
+
+          line-height: 1.4;
 
           white-space: nowrap;
 
           text-overflow: ellipsis;
 
-          color:
-            hsl(0, 0%, 82%);
-
-          font-size:
-            0.8125rem;
-
-          line-height: 1.4;
-
           transition:
             color 0.3s ease;
         }
 
+
+        /* =====================================
+           TEMA CLARO
+        ===================================== */
 
         :host([data-theme="light"]) {
 
@@ -134,8 +173,11 @@ class ChatUser extends HTMLElement {
         :host([data-theme="light"])
         .sidebar-user {
 
+          background:
+            hsl(0, 0%, 98%);
+
           border-top-color:
-            hsl(0, 0%, 86%);
+            hsl(0, 0%, 84%);
         }
 
 
@@ -143,7 +185,10 @@ class ChatUser extends HTMLElement {
         .user-avatar-container {
 
           background:
-            hsl(0, 0%, 90%);
+            hsl(0, 0%, 88%);
+
+          border-color:
+            hsl(0, 0%, 70%);
         }
 
 
@@ -151,9 +196,13 @@ class ChatUser extends HTMLElement {
         .user-name {
 
           color:
-            hsl(0, 0%, 25%);
+            hsl(0, 0%, 12%);
         }
 
+
+        /* =====================================
+           SIDEBAR COLAPSADO
+        ===================================== */
 
         :host([collapsed])
         .sidebar-user {
@@ -163,7 +212,7 @@ class ChatUser extends HTMLElement {
           gap: 0;
 
           padding:
-            0.875rem 0.625rem;
+            0.75rem 0.625rem;
         }
 
 
@@ -172,11 +221,16 @@ class ChatUser extends HTMLElement {
 
           width: 0;
 
-          flex: 0 0 0;
+          flex:
+            0 0 0;
 
           opacity: 0;
         }
 
+
+        /* =====================================
+           TABLET / MÓVIL
+        ===================================== */
 
         @media (max-width: 64rem) {
 
@@ -188,7 +242,7 @@ class ChatUser extends HTMLElement {
             gap: 0.75rem;
 
             padding:
-              0.875rem 1rem;
+              0.9375rem;
           }
 
 
@@ -197,13 +251,18 @@ class ChatUser extends HTMLElement {
 
             width: auto;
 
-            flex: 1;
+            flex:
+              1 1 auto;
 
             opacity: 1;
           }
 
         }
 
+
+        /* =====================================
+           PANTALLAS PEQUEÑAS
+        ===================================== */
 
         @media (max-width: 30rem) {
 
@@ -222,6 +281,29 @@ class ChatUser extends HTMLElement {
 
             padding:
               0.625rem 0.75rem;
+          }
+
+        }
+
+
+        /* =====================================
+           ALTURA REDUCIDA
+        ===================================== */
+
+        @media (max-height: 40rem) {
+
+          .sidebar-user {
+
+            padding:
+              0.75rem;
+          }
+
+
+          :host([collapsed])
+          .sidebar-user {
+
+            padding:
+              0.625rem;
           }
 
         }
@@ -254,17 +336,47 @@ class ChatUser extends HTMLElement {
     `;
 
 
+    this.handleSidebarChange =
+      this.handleSidebarChange.bind(this);
+
     this.syncWithSidebar();
 
   }
 
+
+  /* =====================================
+     CONECTAR COMPONENTE
+  ===================================== */
 
   connectedCallback() {
 
     this.syncWithSidebar();
 
+    this.observeSidebar();
+
   }
 
+
+  /* =====================================
+     DESCONECTAR COMPONENTE
+  ===================================== */
+
+  disconnectedCallback() {
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
+
+      this.sidebarObserver = null;
+
+    }
+
+  }
+
+
+  /* =====================================
+     SINCRONIZAR CON SIDEBAR
+  ===================================== */
 
   syncWithSidebar() {
 
@@ -276,6 +388,8 @@ class ChatUser extends HTMLElement {
       return;
     }
 
+
+    /* ---------- TEMA ---------- */
 
     const theme =
       sidebar.getAttribute(
@@ -299,6 +413,8 @@ class ChatUser extends HTMLElement {
     }
 
 
+    /* ---------- ESTADO COLAPSADO ---------- */
+
     if (
       sidebar.hasAttribute(
         "collapsed"
@@ -317,6 +433,60 @@ class ChatUser extends HTMLElement {
       );
 
     }
+
+  }
+
+
+  /* =====================================
+     OBSERVAR CAMBIOS DEL SIDEBAR
+  ===================================== */
+
+  observeSidebar() {
+
+    const sidebar =
+      this.closest("chat-sidebar");
+
+
+    if (!sidebar) {
+      return;
+    }
+
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
+
+    }
+
+
+    this.sidebarObserver =
+      new MutationObserver(
+        this.handleSidebarChange
+      );
+
+
+    this.sidebarObserver.observe(
+      sidebar,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "data-theme",
+          "collapsed"
+        ]
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     CAMBIO EN SIDEBAR
+  ===================================== */
+
+  handleSidebarChange() {
+
+    this.syncWithSidebar();
 
   }
 

@@ -8,16 +8,27 @@ class ChatHeader extends HTMLElement {
       mode: "open"
     });
 
+
     this.shadowRoot.innerHTML = /* html */ `
 
       <style>
 
+        /* =====================================
+           COMPONENTE HEADER PRINCIPAL
+        ===================================== */
+
         :host {
+
           display: block;
 
           width: 100%;
 
+          min-width: 0;
+          min-height: 0;
+
           flex-shrink: 0;
+
+          box-sizing: border-box;
 
           color:
             hsl(0, 0%, 96%);
@@ -27,15 +38,30 @@ class ChatHeader extends HTMLElement {
         }
 
 
+        /* =====================================
+           HEADER
+        ===================================== */
+
         .chat-header {
+
           width: 100%;
           height: 4.375rem;
 
+          min-width: 0;
+
           display: flex;
+
           align-items: center;
+          justify-content: space-between;
+
+          flex-shrink: 0;
+
+          gap: 1rem;
 
           padding:
             0 1.25rem;
+
+          box-sizing: border-box;
 
           background:
             hsl(0, 0%, 9%);
@@ -50,118 +76,187 @@ class ChatHeader extends HTMLElement {
           transition:
             background-color 0.3s ease,
             border-color 0.3s ease,
-            color 0.3s ease;
+            color 0.3s ease,
+            padding 0.3s ease,
+            height 0.3s ease;
         }
 
 
+        /* =====================================
+           BOTÓN MENÚ MÓVIL
+        ===================================== */
+
         .mobile-menu-container {
+
           display: none;
 
-          width: 2.5rem;
+          align-items: center;
+          justify-content: center;
 
           flex-shrink: 0;
         }
 
 
         .mobile-menu-button {
-          width: 2.25rem;
-          height: 2.25rem;
+
+          width: 2.625rem;
+          height: 2.625rem;
+
+          min-width: 2.625rem;
+          min-height: 2.625rem;
 
           display: flex;
+
           flex-direction: column;
 
           align-items: center;
           justify-content: center;
 
-          gap: 0.25rem;
+          gap:
+            0.3rem;
+
+          padding: 0;
+          margin: 0;
+
+          box-sizing: border-box;
+
+          border: none;
 
           border-radius:
-            0.375rem;
+            0.4375rem;
+
+          background:
+            transparent;
+
+          color:
+            hsl(0, 0%, 96%);
 
           cursor: pointer;
 
           transition:
-            background-color 0.3s ease;
+            background-color 0.2s ease,
+            color 0.2s ease;
         }
 
 
         .mobile-menu-button:hover {
+
           background:
-            hsl(0, 0%, 14%);
+            hsl(0, 0%, 16%);
+        }
+
+
+        .mobile-menu-button:focus-visible {
+
+          outline:
+            0.125rem solid
+            currentColor;
+
+          outline-offset:
+            0.125rem;
         }
 
 
         .mobile-menu-button span {
+
           display: block;
 
-          width: 1.125rem;
+          width: 1.3rem;
           height: 0.125rem;
 
-          border-radius:
-            999rem;
+          flex-shrink: 0;
 
           background:
             currentColor;
+
+          border-radius:
+            0.125rem;
         }
 
 
+        /* =====================================
+           TÍTULO
+        ===================================== */
+
         .chat-header-title-container {
+
           min-width: 0;
 
-          flex: 1;
+          flex:
+            1 1 auto;
 
-          display: flex;
-          align-items: center;
+          margin-left:
+            0.3125rem;
+
+          overflow: hidden;
         }
 
 
         .chat-header-title {
+
           display: block;
+
+          max-width: 100%;
 
           min-width: 0;
 
-          overflow: hidden;
+          color:
+            hsl(0, 0%, 96%);
+
+          font-size:
+            1.125rem;
+
+          font-weight:
+            600;
+
+          line-height:
+            1.2;
 
           white-space: nowrap;
 
+          overflow: hidden;
+
           text-overflow: ellipsis;
-
-          font-size:
-            0.9375rem;
-
-          font-weight: 500;
-
-          line-height: 1.3;
         }
 
 
+        /* =====================================
+           LOGO
+        ===================================== */
+
         .chat-header-logo-container {
-          width: auto;
+
+          width: 3.25rem;
+          height: 3.25rem;
+
+          min-width: 3.25rem;
+          min-height: 3.25rem;
+
+          display: flex;
+
+          align-items: center;
+          justify-content: center;
 
           flex-shrink: 0;
 
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-
-          margin-left: 1rem;
+          overflow: hidden;
         }
 
 
         .chat-header-logo {
+
           display: block;
 
-          width: auto;
-          height: 2rem;
-
-          max-width: 10rem;
+          width: 100%;
+          height: 100%;
 
           object-fit: contain;
-
-          transition:
-            opacity 0.3s ease;
         }
 
+
+        /* =====================================
+           TEMA CLARO
+        ===================================== */
 
         :host([data-theme="light"]) {
 
@@ -174,7 +269,7 @@ class ChatHeader extends HTMLElement {
         .chat-header {
 
           background:
-            hsl(0, 0%, 98%);
+            hsl(0, 0%, 97%);
 
           border-bottom-color:
             hsl(0, 0%, 84%);
@@ -185,39 +280,82 @@ class ChatHeader extends HTMLElement {
 
 
         :host([data-theme="light"])
-        .mobile-menu-button:hover {
+        .mobile-menu-button {
 
-          background:
-            hsl(0, 0%, 92%);
+          color:
+            hsl(0, 0%, 12%);
         }
 
 
+        :host([data-theme="light"])
+        .mobile-menu-button:hover {
+
+          background:
+            hsl(0, 0%, 91%);
+        }
+
+
+        :host([data-theme="light"])
+        .chat-header-title {
+
+          color:
+            hsl(0, 0%, 10%);
+        }
+
+
+        /* =====================================
+           TABLET / MÓVIL
+        ===================================== */
+
         @media (max-width: 64rem) {
+
+          .mobile-menu-container {
+
+            display: flex;
+          }
+
 
           .chat-header {
 
             height: 4rem;
+
+            gap:
+              0.75rem;
 
             padding:
               0 1rem;
           }
 
 
-          .mobile-menu-container {
+          .chat-header-title-container {
 
-            display: block;
+            margin-left: 0;
+
           }
 
 
-          .chat-header-logo {
+          .chat-header-title {
 
-            height: 1.875rem;
+            font-size:
+              1rem;
+          }
 
-            max-width: 8.5rem;
+
+          .chat-header-logo-container {
+
+            width: 2.875rem;
+            height: 2.875rem;
+
+            min-width: 2.875rem;
+            min-height: 2.875rem;
           }
 
         }
 
+
+        /* =====================================
+           MÓVIL PEQUEÑO
+        ===================================== */
 
         @media (max-width: 48rem) {
 
@@ -230,11 +368,72 @@ class ChatHeader extends HTMLElement {
           }
 
 
-          .chat-header-logo {
+          .mobile-menu-button {
 
-            height: 1.75rem;
+            width: 2.5rem;
+            height: 2.5rem;
 
-            max-width: 7.5rem;
+            min-width: 2.5rem;
+            min-height: 2.5rem;
+          }
+
+
+          .mobile-menu-button span {
+
+            width: 1.25rem;
+          }
+
+
+          .chat-header-title {
+
+            font-size:
+              0.9375rem;
+          }
+
+
+          .chat-header-logo-container {
+
+            width: 2.75rem;
+            height: 2.75rem;
+
+            min-width: 2.75rem;
+            min-height: 2.75rem;
+          }
+
+        }
+
+
+        /* =====================================
+           MÓVIL PEQUEÑO
+        ===================================== */
+
+        @media (max-width: 30rem) {
+
+          .chat-header {
+
+            height: 3.625rem;
+
+            gap:
+              0.5rem;
+
+            padding:
+              0 0.625rem;
+          }
+
+
+          .mobile-menu-button {
+
+            width: 2.375rem;
+            height: 2.375rem;
+
+            min-width: 2.375rem;
+            min-height: 2.375rem;
+          }
+
+
+          .mobile-menu-button span {
+
+            width: 1.2rem;
           }
 
 
@@ -244,38 +443,51 @@ class ChatHeader extends HTMLElement {
               0.875rem;
           }
 
+
+          .chat-header-logo-container {
+
+            width: 2.5rem;
+            height: 2.5rem;
+
+            min-width: 2.5rem;
+            min-height: 2.5rem;
+          }
+
         }
 
 
-        @media (max-width: 30rem) {
+        /* =====================================
+           MÓVIL MUY PEQUEÑO
+        ===================================== */
+
+        @media (max-width: 22rem) {
 
           .chat-header {
 
-            height: 3.625rem;
+            height: 3.5rem;
 
             padding:
-              0 0.75rem;
-          }
-
-
-          .mobile-menu-container {
-
-            width: 2.25rem;
+              0 0.5rem;
           }
 
 
           .mobile-menu-button {
 
-            width: 2rem;
-            height: 2rem;
+            width: 2.25rem;
+            height: 2.25rem;
+
+            min-width: 2.25rem;
+            min-height: 2.25rem;
           }
 
 
-          .chat-header-logo {
+          .chat-header-logo-container {
 
-            height: 1.625rem;
+            width: 2.25rem;
+            height: 2.25rem;
 
-            max-width: 6.5rem;
+            min-width: 2.25rem;
+            min-height: 2.25rem;
           }
 
 
@@ -288,39 +500,9 @@ class ChatHeader extends HTMLElement {
         }
 
 
-        @media (max-width: 22rem) {
-
-          .chat-header {
-
-            height: 3.5rem;
-
-            padding:
-              0 0.625rem;
-          }
-
-
-          .mobile-menu-container {
-
-            width: 2rem;
-          }
-
-
-          .chat-header-logo {
-
-            height: 1.5rem;
-
-            max-width: 5.75rem;
-          }
-
-
-          .chat-header-title {
-
-            font-size:
-              0.75rem;
-          }
-
-        }
-
+        /* =====================================
+           POCA ALTURA
+        ===================================== */
 
         @media (max-height: 40rem) {
 
@@ -332,6 +514,10 @@ class ChatHeader extends HTMLElement {
         }
 
 
+        /* =====================================
+           POCA ALTURA + MÓVIL
+        ===================================== */
+
         @media (max-width: 64rem)
         and (max-height: 40rem) {
 
@@ -342,6 +528,10 @@ class ChatHeader extends HTMLElement {
 
         }
 
+
+        /* =====================================
+           PANTALLAS GRANDES
+        ===================================== */
 
         @media (min-width: 120rem) {
 
@@ -358,12 +548,18 @@ class ChatHeader extends HTMLElement {
 
       <header class="chat-header">
 
+
+        <!-- =================================
+             BOTÓN MENÚ MÓVIL
+        ================================== -->
+
         <div class="mobile-menu-container">
 
           <button
             type="button"
             class="mobile-menu-button"
-            aria-label="Abrir menú">
+            aria-label="Abrir menú lateral"
+            aria-expanded="false">
 
             <span></span>
             <span></span>
@@ -374,28 +570,41 @@ class ChatHeader extends HTMLElement {
         </div>
 
 
+        <!-- =================================
+             TÍTULO
+        ================================== -->
+
         <div class="chat-header-title-container">
 
           <span class="chat-header-title">
-            Chat EA (Versión Alpha 0.1)
+            ReijohanGPT
           </span>
 
         </div>
 
 
+        <!-- =================================
+             LOGO
+        ================================== -->
+
         <div class="chat-header-logo-container">
 
           <img
+            class="chat-header-logo"
             src="img/logo-cab.svg"
-            alt="Logotipo de ReijohanGPT"
-            class="chat-header-logo">
+            alt="ReijohanGPT">
 
         </div>
+
 
       </header>
 
     `;
 
+
+    /* =====================================
+       REFERENCIAS
+    ===================================== */
 
     this.mobileMenuButton =
       this.shadowRoot.querySelector(
@@ -403,17 +612,35 @@ class ChatHeader extends HTMLElement {
       );
 
 
-    this.chatHeaderLogo =
+    this.logo =
       this.shadowRoot.querySelector(
         ".chat-header-logo"
       );
 
 
+    /* =====================================
+       EVENTOS
+    ===================================== */
+
     this.handleMobileMenu =
       this.handleMobileMenu.bind(this);
 
+    this.handleThemeChange =
+      this.handleThemeChange.bind(this);
+
+
+    /* =====================================
+       OBSERVADOR
+    ===================================== */
+
+    this.themeObserver = null;
+
   }
 
+
+  /* =====================================
+     COMPONENTE CONECTADO
+  ===================================== */
 
   connectedCallback() {
 
@@ -425,8 +652,14 @@ class ChatHeader extends HTMLElement {
 
     this.syncWithTheme();
 
+    this.observeTheme();
+
   }
 
+
+  /* =====================================
+     COMPONENTE DESCONECTADO
+  ===================================== */
 
   disconnectedCallback() {
 
@@ -435,10 +668,30 @@ class ChatHeader extends HTMLElement {
       this.handleMobileMenu
     );
 
+
+    if (this.themeObserver) {
+
+      this.themeObserver.disconnect();
+
+      this.themeObserver = null;
+    }
+
   }
 
 
+  /* =====================================
+     BOTÓN MENÚ MÓVIL
+  ===================================== */
+
   handleMobileMenu() {
+
+    /*
+      El header no abre directamente
+      el sidebar.
+
+      Solo envía una petición al componente
+      <chat-sidebar>.
+    */
 
     this.dispatchEvent(
       new CustomEvent(
@@ -452,6 +705,10 @@ class ChatHeader extends HTMLElement {
 
   }
 
+
+  /* =====================================
+     SINCRONIZAR TEMA
+  ===================================== */
 
   syncWithTheme() {
 
@@ -468,9 +725,9 @@ class ChatHeader extends HTMLElement {
         "light"
       );
 
-
-      this.chatHeaderLogo.src =
-        "img/logo-cab-negro.svg";
+      this.updateLogo(
+        "img/logo-cab-negro.svg"
+      );
 
     } else {
 
@@ -478,11 +735,81 @@ class ChatHeader extends HTMLElement {
         "data-theme"
       );
 
-
-      this.chatHeaderLogo.src =
-        "img/logo-cab.svg";
+      this.updateLogo(
+        "img/logo-cab.svg"
+      );
 
     }
+
+  }
+
+
+  /* =====================================
+     ACTUALIZAR LOGO
+  ===================================== */
+
+  updateLogo(src) {
+
+    if (!this.logo) {
+
+      return;
+    }
+
+
+    if (
+      this.logo.getAttribute("src") !== src
+    ) {
+
+      this.logo.setAttribute(
+        "src",
+        src
+      );
+
+    }
+
+  }
+
+
+  /* =====================================
+     OBSERVAR TEMA
+  ===================================== */
+
+  observeTheme() {
+
+    if (this.themeObserver) {
+
+      this.themeObserver.disconnect();
+
+    }
+
+
+    this.themeObserver =
+      new MutationObserver(
+        this.handleThemeChange
+      );
+
+
+    this.themeObserver.observe(
+      document.documentElement,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "data-theme"
+        ]
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     CAMBIO DE TEMA
+  ===================================== */
+
+  handleThemeChange() {
+
+    this.syncWithTheme();
 
   }
 

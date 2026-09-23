@@ -12,12 +12,18 @@ class ChatWelcome extends HTMLElement {
 
       <style>
 
+        /* =====================================
+           COMPONENTE BIENVENIDA
+        ===================================== */
+
         :host {
           display: block;
 
           width: 100%;
 
           min-width: 0;
+
+          box-sizing: border-box;
 
           color:
             hsl(0, 0%, 96%);
@@ -27,6 +33,10 @@ class ChatWelcome extends HTMLElement {
             color 0.3s ease;
         }
 
+
+        /* =====================================
+           CONTENEDOR
+        ===================================== */
 
         .welcome-container {
           width: 100%;
@@ -40,6 +50,8 @@ class ChatWelcome extends HTMLElement {
           padding:
             2rem 0 1.5rem;
 
+          box-sizing: border-box;
+
           text-align: center;
 
           transition:
@@ -47,6 +59,10 @@ class ChatWelcome extends HTMLElement {
             transform 0.3s ease;
         }
 
+
+        /* =====================================
+           TÍTULO
+        ===================================== */
 
         .welcome-title {
           width: 100%;
@@ -72,6 +88,10 @@ class ChatWelcome extends HTMLElement {
         }
 
 
+        /* =====================================
+           TEMA CLARO
+        ===================================== */
+
         :host([data-theme="light"]) {
 
           color:
@@ -87,11 +107,19 @@ class ChatWelcome extends HTMLElement {
         }
 
 
+        /* =====================================
+           CONVERSACIÓN CON MENSAJES
+        ===================================== */
+
         :host([has-messages]) {
 
           display: none;
         }
 
+
+        /* =====================================
+           TABLET
+        ===================================== */
 
         @media (max-width: 64rem) {
 
@@ -110,6 +138,10 @@ class ChatWelcome extends HTMLElement {
 
         }
 
+
+        /* =====================================
+           MÓVIL
+        ===================================== */
 
         @media (max-width: 48rem) {
 
@@ -131,6 +163,10 @@ class ChatWelcome extends HTMLElement {
 
         }
 
+
+        /* =====================================
+           PANTALLAS PEQUEÑAS
+        ===================================== */
 
         @media (max-width: 30rem) {
 
@@ -167,6 +203,33 @@ class ChatWelcome extends HTMLElement {
 
         }
 
+
+        /* =====================================
+           ALTURA REDUCIDA
+        ===================================== */
+
+        @media (max-height: 40rem) {
+
+          .welcome-container {
+
+            padding:
+              1.25rem 0 1rem;
+          }
+
+        }
+
+
+        @media (max-width: 30rem)
+        and (max-height: 40rem) {
+
+          .welcome-container {
+
+            padding:
+              1rem 0 0.75rem;
+          }
+
+        }
+
       </style>
 
 
@@ -181,48 +244,49 @@ class ChatWelcome extends HTMLElement {
     `;
 
 
-    this.syncWithChatApp();
+    this.handleAttributeChange =
+      this.handleAttributeChange.bind(this);
+
+    this.syncWithConversation();
 
   }
 
+
+  /* =====================================
+     CONECTAR COMPONENTE
+  ===================================== */
 
   connectedCallback() {
 
-    this.syncWithChatApp();
+    this.syncWithConversation();
+
+    this.observeAttributes();
 
   }
 
 
-  syncWithChatApp() {
+  /* =====================================
+     DESCONECTAR COMPONENTE
+  ===================================== */
 
-    const chatApp =
-      this.closest(".chat-app");
+  disconnectedCallback() {
 
+    if (this.attributeObserver) {
 
-    if (!chatApp) {
-      return;
-    }
+      this.attributeObserver.disconnect();
 
-
-    if (
-      chatApp.classList.contains(
-        "chat-has-messages"
-      )
-    ) {
-
-      this.setAttribute(
-        "has-messages",
-        ""
-      );
-
-    } else {
-
-      this.removeAttribute(
-        "has-messages"
-      );
+      this.attributeObserver = null;
 
     }
 
+  }
+
+
+  /* =====================================
+     SINCRONIZAR CON LA CONVERSACIÓN
+  ===================================== */
+
+  syncWithConversation() {
 
     const theme =
       document.documentElement.getAttribute(
@@ -244,6 +308,58 @@ class ChatWelcome extends HTMLElement {
       );
 
     }
+
+  }
+
+
+  /* =====================================
+     OBSERVAR ATRIBUTOS DEL COMPONENTE
+  ===================================== */
+
+  observeAttributes() {
+
+    if (this.attributeObserver) {
+
+      this.attributeObserver.disconnect();
+
+    }
+
+
+    this.attributeObserver =
+      new MutationObserver(
+        this.handleAttributeChange
+      );
+
+
+    this.attributeObserver.observe(
+      this,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "has-messages",
+          "data-theme"
+        ]
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     CAMBIO DE ATRIBUTO
+  ===================================== */
+
+  handleAttributeChange() {
+
+    /*
+      Los estilos reaccionan directamente
+      a has-messages y data-theme.
+
+      Este método queda preparado para
+      cualquier sincronización adicional
+      que necesitemos posteriormente.
+    */
 
   }
 

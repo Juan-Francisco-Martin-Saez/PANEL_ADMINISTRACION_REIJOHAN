@@ -1,4 +1,4 @@
-class ChatSidebar extends HTMLElement {
+class ChatSidebarHeader extends HTMLElement {
 
   constructor() {
 
@@ -8,178 +8,218 @@ class ChatSidebar extends HTMLElement {
       mode: "open"
     });
 
+
     this.shadowRoot.innerHTML = /* html */ `
 
       <style>
 
         /* =====================================
-           COMPONENTE SIDEBAR
+           COMPONENTE HEADER DEL SIDEBAR
         ===================================== */
 
         :host {
+
           display: block;
 
-          width: 17.5rem;
-          height: 100%;
-
-          min-width: 0;
-          min-height: 0;
-
-          flex: 0 0 17.5rem;
-
-          position: relative;
-          z-index: 100;
-
-          box-sizing: border-box;
-
-          transition:
-            width 0.3s ease,
-            flex-basis 0.3s ease,
-            transform 0.3s ease;
-        }
-
-
-        /* =====================================
-           SIDEBAR
-        ===================================== */
-
-        .sidebar {
-          display: flex;
-          flex-direction: column;
-
           width: 100%;
-          height: 100%;
+          max-width: 100%;
 
           min-width: 0;
           min-height: 0;
+
+          height: 4.375rem;
+
+          flex:
+            0 0 4.375rem;
 
           box-sizing: border-box;
 
           overflow: hidden;
 
-          background: hsl(0, 0%, 6%);
+          color:
+            hsl(0, 0%, 96%);
 
-          border-right:
-            0.0625rem solid hsl(0, 0%, 19%);
+          transition:
+            color 0.3s ease;
+        }
 
-          color: hsl(0, 0%, 96%);
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
+        .sidebar-header {
+
+          width: 100%;
+          max-width: 100%;
+
+          height: 100%;
+
+          min-width: 0;
+
+          display: flex;
+
+          align-items: center;
+          justify-content: space-between;
+
+          flex-shrink: 0;
+
+          padding:
+            0 0.9375rem 0 1.25rem;
+
+          box-sizing: border-box;
+
+          overflow: hidden;
+
+          background:
+            hsl(0, 0%, 6%);
+
+          border-bottom:
+            0.0625rem solid
+            hsl(0, 0%, 19%);
+
+          color:
+            hsl(0, 0%, 96%);
 
           transition:
             background-color 0.3s ease,
-            color 0.3s ease,
             border-color 0.3s ease,
-            box-shadow 0.3s ease;
+            color 0.3s ease,
+            padding 0.3s ease,
+            justify-content 0.3s ease;
         }
 
 
         /* =====================================
-           CONTENEDOR DE LOS HIJOS
+           CONTENEDOR DEL CONTENIDO
         ===================================== */
 
-        .sidebar-content-wrapper {
-          display: flex;
-          flex-direction: column;
-
-          width: 100%;
-          height: 100%;
+        .sidebar-logo-container {
 
           min-width: 0;
-          min-height: 0;
 
-          box-sizing: border-box;
+          flex:
+            1 1 auto;
+
+          display: flex;
+
+          align-items: center;
 
           overflow: hidden;
         }
 
 
         /* =====================================
-           ELEMENTOS SUPERIORES
+           SLOT
         ===================================== */
 
-        ::slotted(chat-logo),
-        ::slotted(chat-sidebar-header) {
-          display: block;
-
-          width: 100%;
-          max-width: 100%;
+        ::slotted(*) {
 
           min-width: 0;
-
-          flex: 0 0 auto;
-
-          box-sizing: border-box;
         }
 
 
         /* =====================================
-           CONTENIDO PRINCIPAL
+           CONTENEDOR DEL BOTÓN
         ===================================== */
 
-        ::slotted(chat-sidebar-content) {
+        .sidebar-toggle-container {
+
+          display: flex;
+
+          align-items: center;
+          justify-content: center;
+
+          flex-shrink: 0;
+        }
+
+
+        /* =====================================
+           BOTÓN PLEGAR / DESPLEGAR
+        ===================================== */
+
+        .sidebar-toggle-button {
+
+          width: 2.5rem;
+          height: 2.5rem;
+
+          min-width: 2.5rem;
+          min-height: 2.5rem;
+
           display: flex;
 
           flex-direction: column;
 
-          width: 100%;
-          max-width: 100%;
+          align-items: center;
+          justify-content: center;
 
-          min-width: 0;
-          min-height: 0;
+          gap:
+            0.3125rem;
 
-          flex: 1 1 auto;
+          flex-shrink: 0;
 
-          box-sizing: border-box;
-
-          overflow: hidden;
-        }
-
-
-        /* =====================================
-           ELEMENTOS INFERIORES
-        ===================================== */
-
-        ::slotted(chat-new-button),
-        ::slotted(chat-history),
-        ::slotted(chat-theme),
-        ::slotted(chat-user) {
-          width: 100%;
-          max-width: 100%;
-
-          min-width: 0;
+          padding: 0;
+          margin: 0;
 
           box-sizing: border-box;
 
-          flex: 0 0 auto;
-        }
+          border: none;
 
-
-        /* =====================================
-           OVERLAY
-        ===================================== */
-
-        .sidebar-overlay {
-          display: none;
-
-          position: fixed;
-
-          inset: 0;
-
-          width: 100%;
-          height: 100%;
-
-          box-sizing: border-box;
+          border-radius:
+            0.4375rem;
 
           background:
-            hsla(0, 0%, 0%, 0.45);
+            transparent;
 
-          opacity: 0;
+          color:
+            hsl(0, 0%, 96%);
 
-          pointer-events: none;
+          font: inherit;
+
+          cursor: pointer;
 
           transition:
-            opacity 0.3s ease;
+            background-color 0.2s ease,
+            color 0.2s ease;
+        }
 
-          z-index: 90;
+
+        .sidebar-toggle-button:hover {
+
+          background:
+            hsl(0, 0%, 16%);
+        }
+
+
+        .sidebar-toggle-button:focus-visible {
+
+          outline:
+            0.125rem solid
+            currentColor;
+
+          outline-offset:
+            0.125rem;
+        }
+
+
+        /* =====================================
+           ICONO HAMBURGUESA
+        ===================================== */
+
+        .sidebar-toggle-button span {
+
+          display: block;
+
+          width: 1.25rem;
+          height: 0.125rem;
+
+          flex-shrink: 0;
+
+          background:
+            currentColor;
+
+          border-radius:
+            0.125rem;
         }
 
 
@@ -187,11 +227,20 @@ class ChatSidebar extends HTMLElement {
            TEMA CLARO
         ===================================== */
 
-        :host([data-theme="light"]) .sidebar {
+        :host([data-theme="light"]) {
 
-          background: hsl(0, 0%, 98%);
+          color:
+            hsl(0, 0%, 10%);
+        }
 
-          border-right-color:
+
+        :host([data-theme="light"])
+        .sidebar-header {
+
+          background:
+            hsl(0, 0%, 98%);
+
+          border-bottom-color:
             hsl(0, 0%, 84%);
 
           color:
@@ -199,16 +248,50 @@ class ChatSidebar extends HTMLElement {
         }
 
 
+        :host([data-theme="light"])
+        .sidebar-toggle-button {
+
+          color:
+            hsl(0, 0%, 15%);
+        }
+
+
+        :host([data-theme="light"])
+        .sidebar-toggle-button:hover {
+
+          background:
+            hsl(0, 0%, 91%);
+        }
+
+
         /* =====================================
            SIDEBAR CONTRAÍDO
-           4.25rem
         ===================================== */
 
-        :host([collapsed]) {
+        :host([collapsed])
+        .sidebar-header {
 
-          width: 4.25rem;
+          justify-content:
+            center;
 
-          flex-basis: 4.25rem;
+          padding: 0;
+        }
+
+
+        :host([collapsed])
+        .sidebar-logo-container {
+
+          display: none;
+        }
+
+
+        :host([collapsed])
+        .sidebar-toggle-container {
+
+          width: 100%;
+
+          justify-content:
+            center;
         }
 
 
@@ -220,98 +303,82 @@ class ChatSidebar extends HTMLElement {
 
           :host {
 
-            position: fixed;
+            height: 4rem;
 
-            top: 0;
-            left: 0;
-
-            width: min(20rem, 85vw);
-
-            height: 100dvh;
-
-            min-height: 100dvh;
-
-            flex: 0 0 auto;
-
-            transform:
-              translateX(-100%);
+            flex-basis:
+              4rem;
           }
 
 
-          :host([open]) {
+          .sidebar-header {
 
-            transform:
-              translateX(0);
+            padding:
+              0 1rem 0 1.25rem;
           }
 
 
           /*
-             En móvil el estado collapsed
-             no reduce el sidebar.
+             En móvil el sidebar funciona como drawer.
+
+             El estado collapsed no tiene efecto
+             visual porque ChatSidebar normaliza
+             ese estado automáticamente.
           */
 
-          :host([collapsed]) {
+          :host([collapsed])
+          .sidebar-header {
 
-            width: min(20rem, 85vw);
+            justify-content:
+              space-between;
 
-            flex-basis: auto;
+            padding:
+              0 1rem 0 1.25rem;
           }
 
 
-          .sidebar {
+          :host([collapsed])
+          .sidebar-logo-container {
 
-            box-shadow: none;
+            display: flex;
           }
 
 
-          :host([open]) .sidebar {
+          :host([collapsed])
+          .sidebar-toggle-container {
 
-            box-shadow:
-              0 0 2rem
-              hsla(0, 0%, 0%, 0.35);
+            width: auto;
           }
-
-
-          .sidebar-overlay {
-
-            display: block;
-
-            position: fixed;
-
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-          }
-
-
-          :host([open]) .sidebar-overlay {
-
-            opacity: 1;
-
-            pointer-events: auto;
-          }
-
         }
 
 
         /* =====================================
-           MÓVIL
+           MÓVIL PEQUEÑO
         ===================================== */
 
         @media (max-width: 48rem) {
 
           :host {
 
-            width: min(19rem, 88vw);
+            height: 3.875rem;
+
+            flex-basis:
+              3.875rem;
           }
 
 
-          :host([collapsed]) {
+          .sidebar-header {
 
-            width: min(19rem, 88vw);
+            padding:
+              0 0.875rem 0 1rem;
           }
 
+
+          :host([collapsed])
+          .sidebar-header {
+
+            padding:
+              0 0.875rem 0 1rem;
+          }
         }
 
 
@@ -323,15 +390,36 @@ class ChatSidebar extends HTMLElement {
 
           :host {
 
-            width: min(18rem, 90vw);
+            height: 3.75rem;
+
+            flex-basis:
+              3.75rem;
           }
 
 
-          :host([collapsed]) {
+          .sidebar-header {
 
-            width: min(18rem, 90vw);
+            padding:
+              0 0.75rem;
           }
 
+
+          .sidebar-toggle-button {
+
+            width: 2.375rem;
+            height: 2.375rem;
+
+            min-width: 2.375rem;
+            min-height: 2.375rem;
+          }
+
+
+          :host([collapsed])
+          .sidebar-header {
+
+            padding:
+              0 0.75rem;
+          }
         }
 
 
@@ -343,35 +431,122 @@ class ChatSidebar extends HTMLElement {
 
           :host {
 
-            width: min(16.5rem, 92vw);
+            height: 3.5rem;
+
+            flex-basis:
+              3.5rem;
           }
 
 
-          :host([collapsed]) {
+          .sidebar-header {
 
-            width: min(16.5rem, 92vw);
+            padding:
+              0 0.625rem;
           }
 
+
+          .sidebar-toggle-button {
+
+            width: 2.25rem;
+            height: 2.25rem;
+
+            min-width: 2.25rem;
+            min-height: 2.25rem;
+          }
+
+
+          :host([collapsed])
+          .sidebar-header {
+
+            padding:
+              0 0.625rem;
+          }
+        }
+
+
+        /* =====================================
+           POCA ALTURA
+        ===================================== */
+
+        @media (max-height: 40rem) {
+
+          :host {
+
+            height: 3.5rem;
+
+            flex-basis:
+              3.5rem;
+          }
+        }
+
+
+        /* =====================================
+           POCA ALTURA + MÓVIL
+        ===================================== */
+
+        @media (max-width: 64rem)
+        and (max-height: 40rem) {
+
+          :host {
+
+            height: 3.375rem;
+
+            flex-basis:
+              3.375rem;
+          }
+        }
+
+
+        /* =====================================
+           PANTALLAS GRANDES
+        ===================================== */
+
+        @media (min-width: 120rem) {
+
+          .sidebar-header {
+
+            padding:
+              0 1.25rem;
+          }
         }
 
       </style>
 
 
-      <aside class="sidebar">
+      <header class="sidebar-header">
 
-        <div class="sidebar-content-wrapper">
+
+        <!-- ===============================
+             CONTENIDO DEL HEADER
+        ================================ -->
+
+        <div class="sidebar-logo-container">
 
           <slot></slot>
 
         </div>
 
-      </aside>
+
+        <!-- ===============================
+             BOTÓN SIDEBAR
+        ================================ -->
+
+        <div class="sidebar-toggle-container">
+
+          <button
+            type="button"
+            class="sidebar-toggle-button"
+            aria-label="Plegar menú lateral"
+            aria-expanded="true">
+
+            <span></span>
+
+          </button>
+
+        </div>
 
 
-      <div
-        class="sidebar-overlay"
-        aria-hidden="true">
-      </div>
+      </header>
 
     `;
 
@@ -380,40 +555,25 @@ class ChatSidebar extends HTMLElement {
        REFERENCIAS
     ===================================== */
 
-    this.sidebar =
-      this.shadowRoot.querySelector(".sidebar");
-
-    this.sidebarOverlay =
-      this.shadowRoot.querySelector(".sidebar-overlay");
-
-
-    /* =====================================
-       ESTADO
-    ===================================== */
-
-    this.isOpen = false;
-
-    this.isCollapsed = false;
+    this.toggleButton =
+      this.shadowRoot.querySelector(
+        ".sidebar-toggle-button"
+      );
 
 
     /* =====================================
-       BIND DE EVENTOS
+       EVENTOS
     ===================================== */
 
-    this.handleToggleRequest =
-      this.handleToggleRequest.bind(this);
+    this.handleToggle =
+      this.handleToggle.bind(this);
 
-    this.handleOpenRequest =
-      this.handleOpenRequest.bind(this);
 
-    this.handleCloseRequest =
-      this.handleCloseRequest.bind(this);
+    /* =====================================
+       OBSERVADOR
+    ===================================== */
 
-    this.handleOverlayClick =
-      this.handleOverlayClick.bind(this);
-
-    this.handleResize =
-      this.handleResize.bind(this);
+    this.sidebarObserver = null;
 
   }
 
@@ -424,32 +584,15 @@ class ChatSidebar extends HTMLElement {
 
   connectedCallback() {
 
-    this.addEventListener(
-      "sidebar-toggle-request",
-      this.handleToggleRequest
-    );
-
-    this.addEventListener(
-      "sidebar-open-request",
-      this.handleOpenRequest
-    );
-
-    this.addEventListener(
-      "sidebar-close-request",
-      this.handleCloseRequest
-    );
-
-    this.sidebarOverlay.addEventListener(
+    this.toggleButton.addEventListener(
       "click",
-      this.handleOverlayClick
+      this.handleToggle
     );
 
-    window.addEventListener(
-      "resize",
-      this.handleResize
-    );
 
-    this.updateState();
+    this.syncWithSidebar();
+
+    this.observeSidebar();
 
   }
 
@@ -460,264 +603,43 @@ class ChatSidebar extends HTMLElement {
 
   disconnectedCallback() {
 
-    this.removeEventListener(
-      "sidebar-toggle-request",
-      this.handleToggleRequest
-    );
-
-    this.removeEventListener(
-      "sidebar-open-request",
-      this.handleOpenRequest
-    );
-
-    this.removeEventListener(
-      "sidebar-close-request",
-      this.handleCloseRequest
-    );
-
-    this.sidebarOverlay.removeEventListener(
+    this.toggleButton.removeEventListener(
       "click",
-      this.handleOverlayClick
+      this.handleToggle
     );
 
-    window.removeEventListener(
-      "resize",
-      this.handleResize
-    );
 
-  }
+    if (this.sidebarObserver) {
 
+      this.sidebarObserver.disconnect();
 
-  /* =====================================
-     DETECTAR MÓVIL
-     64rem = 1024px
-  ===================================== */
-
-  isMobile() {
-
-    return window.innerWidth <= 1024;
-
-  }
-
-
-  /* =====================================
-     EVENTOS
-  ===================================== */
-
-  handleToggleRequest() {
-
-    this.toggle();
-
-  }
-
-
-  handleOpenRequest() {
-
-    this.open();
-
-  }
-
-
-  handleCloseRequest() {
-
-    this.close();
-
-  }
-
-
-  handleOverlayClick() {
-
-    if (this.isMobile()) {
-
-      this.close();
-
+      this.sidebarObserver = null;
     }
 
   }
 
 
   /* =====================================
-     CAMBIO DE TAMAÑO
+     BOTÓN DEL SIDEBAR
   ===================================== */
 
-  handleResize() {
-
-    if (!this.isMobile()) {
-
-      this.isOpen = false;
-
-      this.isCollapsed = false;
-
-    }
-
-    this.updateState();
-
-  }
-
-
-  /* =====================================
-     ABRIR
-  ===================================== */
-
-  open() {
-
-    if (this.isMobile()) {
-
-      this.isOpen = true;
-
-    } else {
-
-      this.isCollapsed = false;
-
-    }
-
-    this.updateState();
-
-  }
-
-
-  /* =====================================
-     CERRAR
-  ===================================== */
-
-  close() {
-
-    if (this.isMobile()) {
-
-      this.isOpen = false;
-
-    } else {
-
-      this.isCollapsed = true;
-
-    }
-
-    this.updateState();
-
-  }
-
-
-  /* =====================================
-     ALTERNAR
-  ===================================== */
-
-  toggle() {
-
-    if (this.isMobile()) {
-
-      this.isOpen = !this.isOpen;
-
-    } else {
-
-      this.isCollapsed = !this.isCollapsed;
-
-    }
-
-    this.updateState();
-
-  }
-
-
-  /* =====================================
-     EXPANDIR
-  ===================================== */
-
-  expand() {
-
-    if (!this.isMobile()) {
-
-      this.isCollapsed = false;
-
-      this.updateState();
-
-    }
-
-  }
-
-
-  /* =====================================
-     CONTRAER
-  ===================================== */
-
-  collapse() {
-
-    if (!this.isMobile()) {
-
-      this.isCollapsed = true;
-
-      this.updateState();
-
-    }
-
-  }
-
-
-  /* =====================================
-     ACTUALIZAR ESTADO
-  ===================================== */
-
-  updateState() {
-
-    /* ---------- OPEN ---------- */
-
-    if (this.isOpen) {
-
-      this.setAttribute(
-        "open",
-        ""
-      );
-
-    } else {
-
-      this.removeAttribute(
-        "open"
-      );
-
-    }
-
-
-    /* ---------- COLLAPSED ---------- */
-
-    if (
-      this.isCollapsed &&
-      !this.isMobile()
-    ) {
-
-      this.setAttribute(
-        "collapsed",
-        ""
-      );
-
-    } else {
-
-      this.removeAttribute(
-        "collapsed"
-      );
-
-    }
-
-
-    /* ---------- HIJOS ---------- */
-
-    this.syncChildren();
-
-
-    /* ---------- EVENTO ---------- */
+  handleToggle() {
+
+    /*
+      El header NO modifica directamente
+      el estado del sidebar.
+
+      Solo solicita el cambio al componente
+      <chat-sidebar>, que es quien controla
+      realmente el estado.
+    */
 
     this.dispatchEvent(
       new CustomEvent(
-        "sidebar-state-change",
+        "sidebar-toggle-request",
         {
           bubbles: true,
-          composed: true,
-
-          detail: {
-            open: this.isOpen,
-
-            collapsed:
-              this.isCollapsed &&
-              !this.isMobile()
-          }
+          composed: true
         }
       )
     );
@@ -726,94 +648,30 @@ class ChatSidebar extends HTMLElement {
 
 
   /* =====================================
-     SINCRONIZAR HIJOS
+     SINCRONIZAR CON SIDEBAR
   ===================================== */
 
-  syncChildren() {
+  syncWithSidebar() {
+
+    const sidebar =
+      this.closest("chat-sidebar");
+
+
+    if (!sidebar) {
+
+      return;
+    }
+
+
+    /* =================================
+       TEMA
+    ================================= */
 
     const theme =
-      this.getAttribute("data-theme");
-
-    const collapsed =
-      this.isCollapsed &&
-      !this.isMobile();
-
-
-    const children =
-      this.querySelectorAll(
-        `
-        chat-logo,
-        chat-sidebar-header,
-        chat-sidebar-content,
-        chat-new-button,
-        chat-history,
-        chat-theme,
-        chat-user
-        `
+      sidebar.getAttribute(
+        "data-theme"
       );
 
-
-    children.forEach(
-      child => {
-
-        /* ---------- TEMA ---------- */
-
-        if (theme) {
-
-          child.setAttribute(
-            "data-theme",
-            theme
-          );
-
-        } else {
-
-          child.removeAttribute(
-            "data-theme"
-          );
-
-        }
-
-
-        /* ---------- COLLAPSED ---------- */
-
-        if (collapsed) {
-
-          child.setAttribute(
-            "collapsed",
-            ""
-          );
-
-        } else {
-
-          child.removeAttribute(
-            "collapsed"
-          );
-
-        }
-
-
-        /* ---------- SINCRONIZACIÓN ---------- */
-
-        if (
-          typeof child.syncWithSidebar ===
-          "function"
-        ) {
-
-          child.syncWithSidebar();
-
-        }
-
-      }
-    );
-
-  }
-
-
-  /* =====================================
-     TEMA
-  ===================================== */
-
-  setTheme(theme) {
 
     if (theme === "light") {
 
@@ -827,14 +685,140 @@ class ChatSidebar extends HTMLElement {
       this.removeAttribute(
         "data-theme"
       );
+    }
+
+
+    /* =================================
+       ESTADO CONTRAÍDO
+    ================================= */
+
+    if (
+      sidebar.hasAttribute(
+        "collapsed"
+      )
+    ) {
+
+      this.setAttribute(
+        "collapsed",
+        ""
+      );
+
+    } else {
+
+      this.removeAttribute(
+        "collapsed"
+      );
+    }
+
+
+    /* =================================
+       ESTADO ACCESIBLE DEL BOTÓN
+    ================================= */
+
+    this.updateButtonState();
+
+  }
+
+
+  /* =====================================
+     ACTUALIZAR BOTÓN
+  ===================================== */
+
+  updateButtonState() {
+
+    if (!this.toggleButton) {
+
+      return;
+    }
+
+
+    const collapsed =
+      this.hasAttribute(
+        "collapsed"
+      );
+
+
+    this.toggleButton.setAttribute(
+      "aria-expanded",
+      String(!collapsed)
+    );
+
+
+    this.toggleButton.setAttribute(
+      "aria-label",
+      collapsed
+        ? "Desplegar menú lateral"
+        : "Plegar menú lateral"
+    );
+
+  }
+
+
+  /* =====================================
+     OBSERVAR CAMBIOS DEL SIDEBAR
+  ===================================== */
+
+  observeSidebar() {
+
+    const sidebar =
+      this.closest("chat-sidebar");
+
+
+    if (!sidebar) {
+
+      return;
+    }
+
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
 
     }
 
-    this.updateState();
+
+    this.sidebarObserver =
+      new MutationObserver(
+        (mutations) => {
+
+          const relevantChange =
+            mutations.some(
+              (mutation) =>
+                mutation.type === "attributes" &&
+                (
+                  mutation.attributeName ===
+                  "data-theme" ||
+
+                  mutation.attributeName ===
+                  "collapsed"
+                )
+            );
+
+
+          if (relevantChange) {
+
+            this.syncWithSidebar();
+
+          }
+
+        }
+      );
+
+
+    this.sidebarObserver.observe(
+      sidebar,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "data-theme",
+          "collapsed"
+        ]
+      }
+    );
 
   }
 
 }
 
-
-customElements.define("chat-sidebar", ChatSidebar);
+customElements.define("chat-sidebar-header", ChatSidebarHeader);
