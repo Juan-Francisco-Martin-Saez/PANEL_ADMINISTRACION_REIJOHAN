@@ -19,13 +19,13 @@ class ChatSidebar extends HTMLElement {
         :host {
           display: block;
 
-          width: 17.5rem;
+          width: 18%;
           height: 100%;
 
           min-width: 0;
           min-height: 0;
 
-          flex: 0 0 17.5rem;
+          flex: 0 0 18%;
 
           position: relative;
           z-index: 100;
