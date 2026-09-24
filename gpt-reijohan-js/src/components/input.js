@@ -17,20 +17,47 @@ class ChatInput extends HTMLElement {
         ===================================== */
 
         :host {
-          display: block;
+          position: absolute;
 
-          width: 100%;
+          left: 50%;
+          right: auto;
+
+          top: 50%;
+
+          width:
+            min(100%, 56.25rem);
+
           min-width: 0;
 
-          flex-shrink: 0;
-
           box-sizing: border-box;
+
+          transform:
+            translate(-50%, -50%);
 
           color:
             hsl(0, 0%, 96%);
 
           transition:
+            top 0.4s ease,
+            bottom 0.4s ease,
+            transform 0.4s ease,
             color 0.3s ease;
+        }
+
+
+        /* =====================================
+           INPUT CON MENSAJES
+        ===================================== */
+
+        :host([has-messages]) {
+
+          top: auto;
+
+          bottom:
+            7rem;
+
+          transform:
+            translateX(-50%);
         }
 
 
@@ -66,9 +93,6 @@ class ChatInput extends HTMLElement {
         .chat-input-wrapper {
           width: 100%;
           min-width: 0;
-
-          max-width:
-            56.25rem;
 
           margin:
             0 auto;
@@ -168,7 +192,8 @@ class ChatInput extends HTMLElement {
           color:
             hsl(0, 0%, 80%);
 
-          cursor: pointer;
+          cursor:
+            pointer;
 
           transition:
             background-color 0.3s ease,
@@ -177,6 +202,7 @@ class ChatInput extends HTMLElement {
 
 
         .file-attach-button:hover {
+
           background:
             hsl(0, 0%, 20%);
 
@@ -186,6 +212,7 @@ class ChatInput extends HTMLElement {
 
 
         .file-attach-icon {
+
           font-size:
             1.5rem;
 
@@ -199,9 +226,12 @@ class ChatInput extends HTMLElement {
         ===================================== */
 
         .message-input-container {
-          flex: 1 1 auto;
 
-          min-width: 0;
+          flex:
+            1 1 auto;
+
+          min-width:
+            0;
 
           display: flex;
           align-items: flex-end;
@@ -209,8 +239,12 @@ class ChatInput extends HTMLElement {
 
 
         .message-input {
-          width: 100%;
-          min-width: 0;
+
+          width:
+            100%;
+
+          min-width:
+            0;
 
           min-height:
             2.25rem;
@@ -218,18 +252,23 @@ class ChatInput extends HTMLElement {
           max-height:
             11.25rem;
 
-          resize: none;
+          resize:
+            none;
 
-          overflow-y: auto;
+          overflow-y:
+            auto;
 
           padding:
             0.5rem 0;
 
-          box-sizing: border-box;
+          box-sizing:
+            border-box;
 
-          border: none;
+          border:
+            none;
 
-          outline: none;
+          outline:
+            none;
 
           background:
             transparent;
@@ -256,18 +295,21 @@ class ChatInput extends HTMLElement {
 
 
         .message-input::-webkit-scrollbar {
+
           width:
             0.45rem;
         }
 
 
         .message-input::-webkit-scrollbar-track {
+
           background:
             transparent;
         }
 
 
         .message-input::-webkit-scrollbar-thumb {
+
           background:
             hsl(0, 0%, 28%);
 
@@ -283,6 +325,7 @@ class ChatInput extends HTMLElement {
 
 
         .message-input::-webkit-scrollbar-thumb:hover {
+
           background:
             hsl(0, 0%, 45%);
 
@@ -295,6 +338,7 @@ class ChatInput extends HTMLElement {
 
 
         .message-input::placeholder {
+
           color:
             hsl(0, 0%, 55%);
 
@@ -308,6 +352,7 @@ class ChatInput extends HTMLElement {
         ===================================== */
 
         .message-send-container {
+
           flex-shrink: 0;
 
           display: flex;
@@ -317,6 +362,7 @@ class ChatInput extends HTMLElement {
 
 
         .message-send-button {
+
           width:
             2.25rem;
 
@@ -329,9 +375,11 @@ class ChatInput extends HTMLElement {
 
           flex-shrink: 0;
 
-          padding: 0;
+          padding:
+            0;
 
-          border: none;
+          border:
+            none;
 
           border-radius:
             0.5rem;
@@ -342,7 +390,8 @@ class ChatInput extends HTMLElement {
           color:
             hsl(0, 0%, 10%);
 
-          cursor: pointer;
+          cursor:
+            pointer;
 
           transition:
             background-color 0.3s ease,
@@ -351,12 +400,14 @@ class ChatInput extends HTMLElement {
 
 
         .message-send-button:hover {
+
           background:
             hsl(0, 0%, 82%);
         }
 
 
         .message-send-icon {
+
           font-size:
             1.25rem;
 
@@ -456,14 +507,55 @@ class ChatInput extends HTMLElement {
 
 
         /* =====================================
+           ESCRITORIO
+        ===================================== */
+
+        @media (min-width: 64.0625rem) {
+
+          :host {
+
+            left:
+              50%;
+
+            right:
+              auto;
+
+            width:
+              min(100%, 56.25rem);
+
+            top:
+              50%;
+
+            transform:
+              translate(-50%, -50%);
+          }
+
+
+          :host([has-messages]) {
+
+            top:
+              auto;
+
+            bottom:
+              7rem;
+
+            transform:
+              translateX(-50%);
+          }
+
+        }
+
+
+        /* =====================================
            ESCRITORIO GRANDE
         ===================================== */
 
         @media (min-width: 120rem) {
 
-          .chat-input-wrapper {
-            max-width:
-              62rem;
+          :host {
+
+            width:
+              min(100%, 62rem);
           }
 
         }
@@ -479,13 +571,45 @@ class ChatInput extends HTMLElement {
 
             padding:
               0 1rem 1rem;
-
           }
 
 
           .chat-input-wrapper {
+
             max-width:
               100%;
+          }
+
+
+          :host {
+
+            left:
+              0;
+
+            right:
+              0;
+
+            width:
+              100%;
+
+            top:
+              50%;
+
+            transform:
+              translateY(-50%);
+          }
+
+
+          :host([has-messages]) {
+
+            top:
+              auto;
+
+            bottom:
+              7rem;
+
+            transform:
+              none;
           }
 
         }
@@ -501,7 +625,6 @@ class ChatInput extends HTMLElement {
 
             padding:
               0 0.875rem 0.875rem;
-
           }
 
         }
@@ -513,7 +636,6 @@ class ChatInput extends HTMLElement {
 
             padding:
               0 0.75rem 0.75rem;
-
           }
 
 
@@ -524,7 +646,6 @@ class ChatInput extends HTMLElement {
 
             padding:
               0.5rem;
-
           }
 
         }
@@ -536,7 +657,6 @@ class ChatInput extends HTMLElement {
 
             padding:
               0 0.625rem 0.625rem;
-
           }
 
         }
@@ -552,7 +672,13 @@ class ChatInput extends HTMLElement {
 
             padding-bottom:
               0.875rem;
+          }
 
+
+          :host([has-messages]) {
+
+            bottom:
+              6rem;
           }
 
         }
@@ -565,7 +691,13 @@ class ChatInput extends HTMLElement {
 
             padding-bottom:
               0.75rem;
+          }
 
+
+          :host([has-messages]) {
+
+            bottom:
+              5rem;
           }
 
         }
@@ -588,6 +720,7 @@ class ChatInput extends HTMLElement {
                 type="file"
                 id="file-attach"
                 class="file-attach-input">
+
 
               <label
                 for="file-attach"
@@ -658,17 +791,24 @@ class ChatInput extends HTMLElement {
     this.handleInput =
       this.handleInput.bind(this);
 
+
     this.handleKeyDown =
       this.handleKeyDown.bind(this);
+
 
     this.handleSend =
       this.handleSend.bind(this);
 
+
     this.handleFileSelection =
       this.handleFileSelection.bind(this);
 
-    this.handleThemeChange =
-      this.handleThemeChange.bind(this);
+
+    this.handleSidebarChange =
+      this.handleSidebarChange.bind(this);
+
+
+    this.sidebarObserver = null;
 
   }
 
@@ -684,15 +824,18 @@ class ChatInput extends HTMLElement {
       this.handleInput
     );
 
+
     this.messageInput.addEventListener(
       "keydown",
       this.handleKeyDown
     );
 
+
     this.sendButton.addEventListener(
       "click",
       this.handleSend
     );
+
 
     this.fileInput.addEventListener(
       "change",
@@ -700,9 +843,9 @@ class ChatInput extends HTMLElement {
     );
 
 
-    this.syncWithChatApp();
+    this.syncWithSidebar();
 
-    this.observeTheme();
+    this.observeSidebar();
 
   }
 
@@ -718,15 +861,18 @@ class ChatInput extends HTMLElement {
       this.handleInput
     );
 
+
     this.messageInput.removeEventListener(
       "keydown",
       this.handleKeyDown
     );
 
+
     this.sendButton.removeEventListener(
       "click",
       this.handleSend
     );
+
 
     this.fileInput.removeEventListener(
       "change",
@@ -734,11 +880,11 @@ class ChatInput extends HTMLElement {
     );
 
 
-    if (this.themeObserver) {
+    if (this.sidebarObserver) {
 
-      this.themeObserver.disconnect();
+      this.sidebarObserver.disconnect();
 
-      this.themeObserver = null;
+      this.sidebarObserver = null;
 
     }
 
@@ -924,10 +1070,21 @@ class ChatInput extends HTMLElement {
      SINCRONIZAR TEMA
   ===================================== */
 
-  syncWithChatApp() {
+  syncWithSidebar() {
+
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
+
+
+    if (!sidebar) {
+      return;
+    }
+
 
     const theme =
-      document.documentElement.getAttribute(
+      sidebar.getAttribute(
         "data-theme"
       );
 
@@ -956,23 +1113,34 @@ class ChatInput extends HTMLElement {
      OBSERVAR CAMBIOS DE TEMA
   ===================================== */
 
-  observeTheme() {
+  observeSidebar() {
 
-    if (this.themeObserver) {
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
 
-      this.themeObserver.disconnect();
+
+    if (!sidebar) {
+      return;
+    }
+
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
 
     }
 
 
-    this.themeObserver =
+    this.sidebarObserver =
       new MutationObserver(
-        this.handleThemeChange
+        this.handleSidebarChange
       );
 
 
-    this.themeObserver.observe(
-      document.documentElement,
+    this.sidebarObserver.observe(
+      sidebar,
       {
         attributes: true,
 
@@ -980,6 +1148,7 @@ class ChatInput extends HTMLElement {
           "data-theme"
         ]
       }
+
     );
 
   }
@@ -989,9 +1158,9 @@ class ChatInput extends HTMLElement {
      CAMBIO DE TEMA
   ===================================== */
 
-  handleThemeChange() {
+  handleSidebarChange() {
 
-    this.syncWithChatApp();
+    this.syncWithSidebar();
 
   }
 

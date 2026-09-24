@@ -4,11 +4,11 @@ class AppMain extends HTMLElement {
 
     super();
 
-    this.attachShadow({
+    this.shadow = this.attachShadow({
       mode: "open"
     });
 
-    this.shadowRoot.innerHTML = /*html*/`
+    this.shadow.innerHTML = /*html*/`
 
       <style>
 
@@ -35,7 +35,7 @@ class AppMain extends HTMLElement {
            CONTENIDO
         ===================================== */
 
-        .contenido {
+        main {
           display: grid;
 
           grid-template-columns:
@@ -64,9 +64,8 @@ class AppMain extends HTMLElement {
 
         @media (max-width: 64rem) {
 
-          .contenido {
+          main {
             gap: 1rem;
-
             padding: 1.25rem;
           }
 
@@ -79,11 +78,9 @@ class AppMain extends HTMLElement {
 
         @media (max-width: 48rem) {
 
-          .contenido {
+          main {
             grid-template-columns: 1fr;
-
             gap: 1rem;
-
             padding: 1rem;
           }
 
@@ -96,9 +93,8 @@ class AppMain extends HTMLElement {
 
         @media (max-width: 30rem) {
 
-          .contenido {
+          main {
             gap: 0.75rem;
-
             padding: 0.75rem;
           }
 
@@ -111,11 +107,8 @@ class AppMain extends HTMLElement {
            CONTENIDO PRINCIPAL
       ================================== -->
 
-      <main class="contenido">
-
-        <data-table></data-table>
-        <form-panel></form-panel>
-
+      <main>
+        <slot></slot>
       </main>
 
     `;

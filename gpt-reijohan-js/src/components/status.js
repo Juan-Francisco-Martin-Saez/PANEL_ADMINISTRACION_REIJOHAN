@@ -270,11 +270,10 @@ class ChatStatus extends HTMLElement {
     `;
 
 
-    this.handleThemeChange =
-      this.handleThemeChange.bind(this);
+    this.handleSidebarChange =
+      this.handleSidebarChange.bind(this);
 
-    this.handleAttributeChange =
-      this.handleAttributeChange.bind(this);
+    this.sidebarObserver = null;
 
   }
 
@@ -285,11 +284,9 @@ class ChatStatus extends HTMLElement {
 
   connectedCallback() {
 
-    this.syncWithChatApp();
+    this.syncWithSidebar();
 
-    this.observeTheme();
-
-    this.observeAttributes();
+    this.observeSidebar();
 
   }
 
@@ -300,20 +297,11 @@ class ChatStatus extends HTMLElement {
 
   disconnectedCallback() {
 
-    if (this.themeObserver) {
+    if (this.sidebarObserver) {
 
-      this.themeObserver.disconnect();
+      this.sidebarObserver.disconnect();
 
-      this.themeObserver = null;
-
-    }
-
-
-    if (this.attributeObserver) {
-
-      this.attributeObserver.disconnect();
-
-      this.attributeObserver = null;
+      this.sidebarObserver = null;
 
     }
 
@@ -321,73 +309,36 @@ class ChatStatus extends HTMLElement {
 
 
   /* =====================================
-     SINCRONIZACIÓN GENERAL
+     SINCRONIZAR CON SIDEBAR
   ===================================== */
 
-  syncWithChatApp() {
+  syncWithSidebar() {
 
-    /*
-      La visibilidad se controla mediante
-      el atributo "visible".
-
-      El componente puede recibir también
-      "chat-has-messages" como atributo para
-      mantener compatibilidad con la lógica
-      anterior.
-    */
-
-    if (
-      this.hasAttribute("chat-has-messages") ||
-      this.hasAttribute("visible")
-    ) {
-
-      this.setAttribute(
-        "visible",
-        ""
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
       );
 
+
+    if (!sidebar) {
+      return;
     }
 
-
-    else {
-
-      this.removeAttribute(
-        "visible"
-      );
-
-    }
-
-
-    this.syncTheme();
-
-  }
-
-
-  /* =====================================
-     TEMA
-  ===================================== */
-
-  syncTheme() {
 
     const theme =
-      document.documentElement.getAttribute(
+      sidebar.getAttribute(
         "data-theme"
       );
 
 
-    if (
-      theme === "light"
-    ) {
+    if (theme === "light") {
 
       this.setAttribute(
         "data-theme",
         "light"
       );
 
-    }
-
-
-    else {
+    } else {
 
       this.removeAttribute(
         "data-theme"
@@ -399,26 +350,37 @@ class ChatStatus extends HTMLElement {
 
 
   /* =====================================
-     OBSERVAR TEMA
+     OBSERVAR CAMBIOS DEL SIDEBAR
   ===================================== */
 
-  observeTheme() {
+  observeSidebar() {
 
-    if (this.themeObserver) {
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
 
-      this.themeObserver.disconnect();
+
+    if (!sidebar) {
+      return;
+    }
+
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
 
     }
 
 
-    this.themeObserver =
+    this.sidebarObserver =
       new MutationObserver(
-        this.handleThemeChange
+        this.handleSidebarChange
       );
 
 
-    this.themeObserver.observe(
-      document.documentElement,
+    this.sidebarObserver.observe(
+      sidebar,
       {
         attributes: true,
 
@@ -432,67 +394,12 @@ class ChatStatus extends HTMLElement {
 
 
   /* =====================================
-     CAMBIO DE TEMA
+     CAMBIO EN SIDEBAR
   ===================================== */
 
-  handleThemeChange() {
+  handleSidebarChange() {
 
-    this.syncTheme();
-
-  }
-
-
-  /* =====================================
-     OBSERVAR ATRIBUTOS
-  ===================================== */
-
-  observeAttributes() {
-
-    if (this.attributeObserver) {
-
-      this.attributeObserver.disconnect();
-
-    }
-
-
-    this.attributeObserver =
-      new MutationObserver(
-        this.handleAttributeChange
-      );
-
-
-    this.attributeObserver.observe(
-      this,
-      {
-        attributes: true,
-
-        attributeFilter: [
-          "visible",
-          "chat-has-messages"
-        ]
-      }
-    );
-
-  }
-
-
-  /* =====================================
-     CAMBIO DE ESTADO
-  ===================================== */
-
-  handleAttributeChange() {
-
-    /*
-      Si se modifica "visible" no debemos
-      volver a ejecutar syncWithChatApp(),
-      porque eso podría provocar un ciclo
-      de modificaciones.
-
-      La presencia del atributo ya controla
-      directamente el CSS mediante:
-
-      :host([visible])
-    */
+    this.syncWithSidebar();
 
   }
 

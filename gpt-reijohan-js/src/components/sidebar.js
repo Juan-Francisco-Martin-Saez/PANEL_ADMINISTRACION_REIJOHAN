@@ -436,13 +436,11 @@ class ChatSidebar extends HTMLElement {
 
       <aside class="sidebar">
 
-
         <div class="sidebar-content-wrapper">
 
           <slot></slot>
 
         </div>
-
 
       </aside>
 

@@ -431,7 +431,6 @@ class ChatNewButton extends HTMLElement {
 
     event.preventDefault();
 
-
     this.dispatchEvent(
       new CustomEvent(
         "new-chat-request",

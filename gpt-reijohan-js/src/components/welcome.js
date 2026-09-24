@@ -17,6 +17,7 @@ class ChatWelcome extends HTMLElement {
         ===================================== */
 
         :host {
+
           display: block;
 
           width: 100%;
@@ -39,24 +40,22 @@ class ChatWelcome extends HTMLElement {
         ===================================== */
 
         .welcome-container {
+
           width: 100%;
 
           min-width: 0;
 
           display: flex;
-          align-items: center;
-          justify-content: center;
 
-          padding:
-            2rem 0 1.5rem;
+          align-items: center;
+
+          justify-content: center;
 
           box-sizing: border-box;
 
-          text-align: center;
+          padding: 24% 0 0 0;
 
-          transition:
-            opacity 0.3s ease,
-            transform 0.3s ease;
+          text-align: center;
         }
 
 
@@ -65,6 +64,7 @@ class ChatWelcome extends HTMLElement {
         ===================================== */
 
         .welcome-title {
+
           width: 100%;
 
           max-width:
@@ -76,9 +76,10 @@ class ChatWelcome extends HTMLElement {
             hsl(0, 0%, 96%);
 
           font-size:
-            1.5rem;
+            2rem;
 
-          font-weight: 500;
+          font-weight:
+            500;
 
           line-height:
             1.35;
@@ -113,7 +114,8 @@ class ChatWelcome extends HTMLElement {
 
         :host([has-messages]) {
 
-          display: none;
+          display:
+            none;
         }
 
 
@@ -126,14 +128,17 @@ class ChatWelcome extends HTMLElement {
           .welcome-container {
 
             padding:
-              1.5rem 0 1.25rem;
+              0.875rem 1rem;
           }
 
 
           .welcome-title {
 
             font-size:
-              1.375rem;
+              1.75rem;
+
+            line-height:
+              1.35;
           }
 
         }
@@ -148,14 +153,14 @@ class ChatWelcome extends HTMLElement {
           .welcome-container {
 
             padding:
-              1.25rem 0 1rem;
+              0.75rem 0.875rem;
           }
 
 
           .welcome-title {
 
             font-size:
-              1.25rem;
+              1.5rem;
 
             line-height:
               1.4;
@@ -173,32 +178,42 @@ class ChatWelcome extends HTMLElement {
           .welcome-container {
 
             padding:
-              1rem 0 0.875rem;
+              0.625rem 0.75rem;
           }
 
 
           .welcome-title {
 
             font-size:
-              1.125rem;
+              1.375rem;
+
+            line-height:
+              1.4;
           }
 
         }
 
+
+        /* =====================================
+           PANTALLAS MUY PEQUEÑAS
+        ===================================== */
 
         @media (max-width: 22rem) {
 
           .welcome-container {
 
             padding:
-              0.875rem 0 0.75rem;
+              0.5rem 0.625rem;
           }
 
 
           .welcome-title {
 
             font-size:
-              1rem;
+              1.25rem;
+
+            line-height:
+              1.4;
           }
 
         }
@@ -213,11 +228,22 @@ class ChatWelcome extends HTMLElement {
           .welcome-container {
 
             padding:
-              1.25rem 0 1rem;
+              0.75rem 1rem;
+          }
+
+
+          .welcome-title {
+
+            line-height:
+              1.35;
           }
 
         }
 
+
+        /* =====================================
+           MÓVIL + ALTURA REDUCIDA
+        ===================================== */
 
         @media (max-width: 30rem)
         and (max-height: 40rem) {
@@ -225,7 +251,14 @@ class ChatWelcome extends HTMLElement {
           .welcome-container {
 
             padding:
-              1rem 0 0.75rem;
+              0.625rem 0.75rem;
+          }
+
+
+          .welcome-title {
+
+            line-height:
+              1.4;
           }
 
         }
@@ -244,10 +277,11 @@ class ChatWelcome extends HTMLElement {
     `;
 
 
-    this.handleAttributeChange =
-      this.handleAttributeChange.bind(this);
+    this.handleSidebarChange =
+      this.handleSidebarChange.bind(this);
 
-    this.syncWithConversation();
+    this.sidebarObserver =
+      null;
 
   }
 
@@ -258,9 +292,9 @@ class ChatWelcome extends HTMLElement {
 
   connectedCallback() {
 
-    this.syncWithConversation();
+    this.syncWithSidebar();
 
-    this.observeAttributes();
+    this.observeSidebar();
 
   }
 
@@ -271,11 +305,12 @@ class ChatWelcome extends HTMLElement {
 
   disconnectedCallback() {
 
-    if (this.attributeObserver) {
+    if (this.sidebarObserver) {
 
-      this.attributeObserver.disconnect();
+      this.sidebarObserver.disconnect();
 
-      this.attributeObserver = null;
+      this.sidebarObserver =
+        null;
 
     }
 
@@ -283,13 +318,26 @@ class ChatWelcome extends HTMLElement {
 
 
   /* =====================================
-     SINCRONIZAR CON LA CONVERSACIÓN
+     SINCRONIZAR CON SIDEBAR
   ===================================== */
 
-  syncWithConversation() {
+  syncWithSidebar() {
+
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
+
+
+    if (!sidebar) {
+
+      return;
+
+    }
+
 
     const theme =
-      document.documentElement.getAttribute(
+      sidebar.getAttribute(
         "data-theme"
       );
 
@@ -313,31 +361,44 @@ class ChatWelcome extends HTMLElement {
 
 
   /* =====================================
-     OBSERVAR ATRIBUTOS DEL COMPONENTE
+     OBSERVAR CAMBIOS DEL SIDEBAR
   ===================================== */
 
-  observeAttributes() {
+  observeSidebar() {
 
-    if (this.attributeObserver) {
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
 
-      this.attributeObserver.disconnect();
+
+    if (!sidebar) {
+
+      return;
 
     }
 
 
-    this.attributeObserver =
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
+
+    }
+
+
+    this.sidebarObserver =
       new MutationObserver(
-        this.handleAttributeChange
+        this.handleSidebarChange
       );
 
 
-    this.attributeObserver.observe(
-      this,
+    this.sidebarObserver.observe(
+      sidebar,
       {
-        attributes: true,
+        attributes:
+          true,
 
         attributeFilter: [
-          "has-messages",
           "data-theme"
         ]
       }
@@ -347,19 +408,12 @@ class ChatWelcome extends HTMLElement {
 
 
   /* =====================================
-     CAMBIO DE ATRIBUTO
+     CAMBIO EN SIDEBAR
   ===================================== */
 
-  handleAttributeChange() {
+  handleSidebarChange() {
 
-    /*
-      Los estilos reaccionan directamente
-      a has-messages y data-theme.
-
-      Este método queda preparado para
-      cualquier sincronización adicional
-      que necesitemos posteriormente.
-    */
+    this.syncWithSidebar();
 
   }
 

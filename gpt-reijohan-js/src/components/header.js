@@ -204,7 +204,7 @@ class ChatHeader extends HTMLElement {
             hsl(0, 0%, 96%);
 
           font-size:
-            1.125rem;
+            1.3rem;
 
           font-weight:
             600;
@@ -577,7 +577,7 @@ class ChatHeader extends HTMLElement {
         <div class="chat-header-title-container">
 
           <span class="chat-header-title">
-            ReijohanGPT
+            Chat EA (Versión Alpha 0.1)
           </span>
 
         </div>
@@ -625,15 +625,15 @@ class ChatHeader extends HTMLElement {
     this.handleMobileMenu =
       this.handleMobileMenu.bind(this);
 
-    this.handleThemeChange =
-      this.handleThemeChange.bind(this);
+    this.handleSidebarChange =
+      this.handleSidebarChange.bind(this);
 
 
     /* =====================================
        OBSERVADOR
     ===================================== */
 
-    this.themeObserver = null;
+    this.sidebarObserver = null;
 
   }
 
@@ -650,9 +650,9 @@ class ChatHeader extends HTMLElement {
     );
 
 
-    this.syncWithTheme();
+    this.syncWithSidebar();
 
-    this.observeTheme();
+    this.observeSidebar();
 
   }
 
@@ -669,11 +669,11 @@ class ChatHeader extends HTMLElement {
     );
 
 
-    if (this.themeObserver) {
+    if (this.sidebarObserver) {
 
-      this.themeObserver.disconnect();
+      this.sidebarObserver.disconnect();
 
-      this.themeObserver = null;
+      this.sidebarObserver = null;
     }
 
   }
@@ -707,13 +707,26 @@ class ChatHeader extends HTMLElement {
 
 
   /* =====================================
-     SINCRONIZAR TEMA
+     SINCRONIZAR CON SIDEBAR
   ===================================== */
 
-  syncWithTheme() {
+  syncWithSidebar() {
+
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
+
+
+    if (!sidebar) {
+      return;
+    }
+
+
+    /* ---------- TEMA ---------- */
 
     const theme =
-      document.documentElement.getAttribute(
+      sidebar.getAttribute(
         "data-theme"
       );
 
@@ -741,6 +754,76 @@ class ChatHeader extends HTMLElement {
 
     }
 
+
+    /* ---------- MENÚ ---------- */
+
+    const isOpen =
+      sidebar.hasAttribute(
+        "open"
+      );
+
+
+    this.mobileMenuButton.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
+  }
+
+
+  /* =====================================
+     OBSERVAR SIDEBAR
+  ===================================== */
+
+  observeSidebar() {
+
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
+
+
+    if (!sidebar) {
+      return;
+    }
+
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
+
+    }
+
+
+    this.sidebarObserver =
+      new MutationObserver(
+        this.handleSidebarChange
+      );
+
+
+    this.sidebarObserver.observe(
+      sidebar,
+      {
+        attributes: true,
+
+        attributeFilter: [
+          "data-theme",
+          "open"
+        ]
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     CAMBIO EN SIDEBAR
+  ===================================== */
+
+  handleSidebarChange() {
+
+    this.syncWithSidebar();
+
   }
 
 
@@ -766,50 +849,6 @@ class ChatHeader extends HTMLElement {
       );
 
     }
-
-  }
-
-
-  /* =====================================
-     OBSERVAR TEMA
-  ===================================== */
-
-  observeTheme() {
-
-    if (this.themeObserver) {
-
-      this.themeObserver.disconnect();
-
-    }
-
-
-    this.themeObserver =
-      new MutationObserver(
-        this.handleThemeChange
-      );
-
-
-    this.themeObserver.observe(
-      document.documentElement,
-      {
-        attributes: true,
-
-        attributeFilter: [
-          "data-theme"
-        ]
-      }
-    );
-
-  }
-
-
-  /* =====================================
-     CAMBIO DE TEMA
-  ===================================== */
-
-  handleThemeChange() {
-
-    this.syncWithTheme();
 
   }
 

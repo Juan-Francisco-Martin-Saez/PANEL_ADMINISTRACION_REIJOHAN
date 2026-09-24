@@ -21,6 +21,9 @@ class ChatLogo extends HTMLElement {
 
           display: block;
 
+          position: relative;
+          z-index: 1;
+
           width: 100%;
           max-width: 100%;
 
@@ -44,6 +47,9 @@ class ChatLogo extends HTMLElement {
         ===================================== */
 
         .sidebar-logo {
+
+          position: relative;
+          z-index: 1;
 
           width: 100%;
           max-width: 100%;
@@ -313,6 +319,28 @@ class ChatLogo extends HTMLElement {
 
             height: 3.375rem;
           }
+        }
+
+
+        /* =====================================
+           PRIORIDAD SOBRE EL BOTÓN DEL SIDEBAR
+        ===================================== */
+
+        /*
+          El botón pertenece a ChatSidebarHeader.
+          ChatLogo no debe colocarse por encima
+          de él.
+        */
+
+        :host {
+
+          pointer-events: none;
+        }
+
+
+        .sidebar-logo {
+
+          pointer-events: none;
         }
 
       </style>

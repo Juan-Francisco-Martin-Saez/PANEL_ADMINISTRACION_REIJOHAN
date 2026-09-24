@@ -21,19 +21,29 @@ class ChatConversation extends HTMLElement {
           display: flex;
           flex-direction: column;
 
-          flex: 1 1 auto;
+          flex:
+            1 1 auto;
 
-          width: 100%;
-          height: 100%;
+          width:
+            100%;
 
-          min-width: 0;
-          min-height: 0;
+          height:
+            auto;
 
-          overflow: hidden;
+          min-width:
+            0;
 
-          box-sizing: border-box;
+          min-height:
+            0;
 
-          color: hsl(0, 0%, 96%);
+          overflow:
+            hidden;
+
+          box-sizing:
+            border-box;
+
+          color:
+            hsl(0, 0%, 96%);
 
           transition:
             color 0.3s ease;
@@ -46,21 +56,35 @@ class ChatConversation extends HTMLElement {
 
         .chat-conversation {
 
-          width: 100%;
-          height: 100%;
+          width:
+            100%;
 
-          min-width: 0;
-          min-height: 0;
+          height:
+            100%;
 
-          display: block;
+          min-width:
+            0;
 
-          overflow-x: hidden;
-          overflow-y: auto;
+          min-height:
+            0;
 
-          box-sizing: border-box;
+          display:
+            block;
 
-          background: hsl(0, 0%, 9%);
-          color: hsl(0, 0%, 96%);
+          overflow-x:
+            hidden;
+
+          overflow-y:
+            auto;
+
+          box-sizing:
+            border-box;
+
+          background:
+            hsl(0, 0%, 9%);
+
+          color:
+            hsl(0, 0%, 96%);
 
           transition:
             background-color 0.3s ease,
@@ -74,21 +98,35 @@ class ChatConversation extends HTMLElement {
 
         .conversation-container {
 
-          width: 100%;
-          max-width: 56.25rem;
+          width:
+            100%;
 
-          min-width: 0;
+          max-width:
+            56.25rem;
 
-          margin: 0 auto;
+          min-width:
+            0;
 
-          padding: 2rem 1.25rem;
+          min-height:
+            100%;
 
-          display: flex;
-          flex-direction: column;
+          margin:
+            0 auto;
 
-          box-sizing: border-box;
+          padding:
+            2rem 1.25rem;
 
-          color: hsl(0, 0%, 96%);
+          display:
+            flex;
+
+          flex-direction:
+            column;
+
+          box-sizing:
+            border-box;
+
+          color:
+            hsl(0, 0%, 96%);
         }
 
 
@@ -100,14 +138,45 @@ class ChatConversation extends HTMLElement {
         ::slotted(chat-status),
         ::slotted(chat-messages) {
 
-          width: 100%;
-          max-width: 100%;
+          width:
+            100%;
 
-          min-width: 0;
+          max-width:
+            100%;
 
-          margin: 0;
+          min-width:
+            0;
 
-          box-sizing: border-box;
+          box-sizing:
+            border-box;
+        }
+
+
+        /* =====================================
+           BIENVENIDA
+        ===================================== */
+
+        ::slotted(chat-welcome) {
+
+          margin-top:
+            auto;
+
+          margin-bottom:
+            auto;
+
+          flex-shrink:
+            0;
+        }
+
+
+        /* =====================================
+           ESTADO
+        ===================================== */
+
+        ::slotted(chat-status) {
+
+          flex-shrink:
+            0;
         }
 
 
@@ -117,7 +186,8 @@ class ChatConversation extends HTMLElement {
 
         ::slotted(chat-messages) {
 
-          flex-shrink: 0;
+          flex-shrink:
+            0;
         }
 
 
@@ -127,20 +197,27 @@ class ChatConversation extends HTMLElement {
 
         :host([data-theme="light"]) {
 
-          color: hsl(0, 0%, 10%);
+          color:
+            hsl(0, 0%, 10%);
         }
 
 
-        :host([data-theme="light"]) .chat-conversation {
+        :host([data-theme="light"])
+        .chat-conversation {
 
-          background: hsl(0, 0%, 97%);
-          color: hsl(0, 0%, 10%);
+          background:
+            hsl(0, 0%, 97%);
+
+          color:
+            hsl(0, 0%, 10%);
         }
 
 
-        :host([data-theme="light"]) .conversation-container {
+        :host([data-theme="light"])
+        .conversation-container {
 
-          color: hsl(0, 0%, 10%);
+          color:
+            hsl(0, 0%, 10%);
         }
 
 
@@ -150,7 +227,9 @@ class ChatConversation extends HTMLElement {
 
         .chat-conversation {
 
-          scrollbar-width: thin;
+          scrollbar-width:
+            thin;
+
           scrollbar-color:
             hsl(0, 0%, 25%)
             transparent;
@@ -159,21 +238,25 @@ class ChatConversation extends HTMLElement {
 
         .chat-conversation::-webkit-scrollbar {
 
-          width: 0.5rem;
+          width:
+            0.5rem;
         }
 
 
         .chat-conversation::-webkit-scrollbar-track {
 
-          background: transparent;
+          background:
+            transparent;
         }
 
 
         .chat-conversation::-webkit-scrollbar-thumb {
 
-          background: hsl(0, 0%, 25%);
+          background:
+            hsl(0, 0%, 25%);
 
-          border-radius: 999rem;
+          border-radius:
+            999rem;
         }
 
 
@@ -193,7 +276,8 @@ class ChatConversation extends HTMLElement {
         :host([data-theme="light"])
         .chat-conversation::-webkit-scrollbar-thumb {
 
-          background: hsl(0, 0%, 75%);
+          background:
+            hsl(0, 0%, 75%);
         }
 
 
@@ -205,8 +289,10 @@ class ChatConversation extends HTMLElement {
 
           .conversation-container {
 
-            padding: 1.5rem 1rem;
+            padding:
+              1.5rem 1rem;
           }
+
         }
 
 
@@ -214,8 +300,10 @@ class ChatConversation extends HTMLElement {
 
           .conversation-container {
 
-            padding: 1.25rem 0.875rem;
+            padding:
+              1.25rem 0.875rem;
           }
+
         }
 
 
@@ -223,8 +311,10 @@ class ChatConversation extends HTMLElement {
 
           .conversation-container {
 
-            padding: 1rem 0.75rem;
+            padding:
+              1rem 0.75rem;
           }
+
         }
 
 
@@ -236,8 +326,10 @@ class ChatConversation extends HTMLElement {
 
           .conversation-container {
 
-            max-width: 62rem;
+            max-width:
+              62rem;
           }
+
         }
 
 
@@ -249,19 +341,28 @@ class ChatConversation extends HTMLElement {
 
           .conversation-container {
 
-            padding-top: 1.25rem;
-            padding-bottom: 1.25rem;
+            padding-top:
+              1.25rem;
+
+            padding-bottom:
+              1.25rem;
           }
+
         }
 
 
-        @media (max-width: 30rem) and (max-height: 40rem) {
+        @media (max-width: 30rem)
+        and (max-height: 40rem) {
 
           .conversation-container {
 
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+            padding-top:
+              1rem;
+
+            padding-bottom:
+              1rem;
           }
+
         }
 
       </style>
@@ -289,17 +390,22 @@ class ChatConversation extends HTMLElement {
     ===================================== */
 
     this.chatConversation =
-      this.shadowRoot.querySelector(".chat-conversation");
+      this.shadowRoot.querySelector(
+        ".chat-conversation"
+      );
 
     this.conversationContainer =
-      this.shadowRoot.querySelector(".conversation-container");
+      this.shadowRoot.querySelector(
+        ".conversation-container"
+      );
 
 
     /* =====================================
-       OBSERVADOR DEL TEMA
+       OBSERVADOR DEL SIDEBAR
     ===================================== */
 
-    this.themeObserver = null;
+    this.sidebarObserver =
+      null;
 
   }
 
@@ -310,9 +416,9 @@ class ChatConversation extends HTMLElement {
 
   connectedCallback() {
 
-    this.syncWithTheme();
+    this.syncWithSidebar();
 
-    this.observeTheme();
+    this.observeSidebar();
 
   }
 
@@ -323,23 +429,42 @@ class ChatConversation extends HTMLElement {
 
   disconnectedCallback() {
 
-    if (this.themeObserver) {
+    if (this.sidebarObserver) {
 
-      this.themeObserver.disconnect();
+      this.sidebarObserver.disconnect();
 
-      this.themeObserver = null;
+      this.sidebarObserver =
+        null;
+
     }
+
   }
 
 
   /* =====================================
-     SINCRONIZAR TEMA
+     SINCRONIZAR CON SIDEBAR
   ===================================== */
 
-  syncWithTheme() {
+  syncWithSidebar() {
+
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
+
+
+    if (!sidebar) {
+
+      return;
+
+    }
+
 
     const theme =
-      document.documentElement.getAttribute("data-theme");
+      sidebar.getAttribute(
+        "data-theme"
+      );
+
 
     if (theme === "light") {
 
@@ -350,38 +475,61 @@ class ChatConversation extends HTMLElement {
 
     } else {
 
-      this.removeAttribute("data-theme");
+      this.removeAttribute(
+        "data-theme"
+      );
+
     }
+
   }
 
 
   /* =====================================
-     OBSERVAR CAMBIOS DE TEMA
+     OBSERVAR CAMBIOS DEL SIDEBAR
   ===================================== */
 
-  observeTheme() {
+  observeSidebar() {
 
-    if (this.themeObserver) {
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
 
-      this.themeObserver.disconnect();
+
+    if (!sidebar) {
+
+      return;
+
     }
 
 
-    this.themeObserver =
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
+
+    }
+
+
+    this.sidebarObserver =
       new MutationObserver(() => {
 
-        this.syncWithTheme();
+        this.syncWithSidebar();
 
       });
 
 
-    this.themeObserver.observe(
-      document.documentElement,
+    this.sidebarObserver.observe(
+      sidebar,
       {
-        attributes: true,
-        attributeFilter: ["data-theme"]
+        attributes:
+          true,
+
+        attributeFilter: [
+          "data-theme"
+        ]
       }
     );
+
   }
 
 }

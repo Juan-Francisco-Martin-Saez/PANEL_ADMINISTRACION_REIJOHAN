@@ -36,6 +36,10 @@ class ChatSidebarHeader extends HTMLElement {
 
           overflow: hidden;
 
+          position: relative;
+
+          z-index: 10;
+
           color:
             hsl(0, 0%, 96%);
 
@@ -50,6 +54,8 @@ class ChatSidebarHeader extends HTMLElement {
 
         .sidebar-header {
 
+          z-index: 10;
+
           width: 100%;
           max-width: 100%;
 
@@ -60,14 +66,11 @@ class ChatSidebarHeader extends HTMLElement {
           display: flex;
 
           align-items: center;
-          justify-content: space-between;
-
-          flex-shrink: 0;
-
-          padding:
-            0 0.9375rem 0 1.25rem;
 
           box-sizing: border-box;
+
+          padding:
+            0 4.375rem 0 1.25rem;
 
           overflow: hidden;
 
@@ -85,21 +88,26 @@ class ChatSidebarHeader extends HTMLElement {
             background-color 0.3s ease,
             border-color 0.3s ease,
             color 0.3s ease,
-            padding 0.3s ease,
-            justify-content 0.3s ease;
+            padding 0.3s ease;
         }
 
 
         /* =====================================
-           CONTENEDOR DEL CONTENIDO
+           CONTENEDOR DEL LOGO
         ===================================== */
 
         .sidebar-logo-container {
 
+          position: relative;
+
+          z-index: 1;
+
+          width: 100%;
+          max-width: 100%;
+
           min-width: 0;
 
-          flex:
-            1 1 auto;
+          height: 100%;
 
           display: flex;
 
@@ -115,6 +123,10 @@ class ChatSidebarHeader extends HTMLElement {
 
         ::slotted(*) {
 
+          position: relative;
+
+          z-index: 1;
+
           min-width: 0;
         }
 
@@ -125,12 +137,32 @@ class ChatSidebarHeader extends HTMLElement {
 
         .sidebar-toggle-container {
 
+          position: absolute;
+
+          z-index: 30;
+
+          top: 50%;
+
+          right: 0.9375rem;
+
+          width: 2.5rem;
+
+          height: 2.5rem;
+
+          min-width: 2.5rem;
+
+          min-height: 2.5rem;
+
           display: flex;
 
           align-items: center;
+
           justify-content: center;
 
-          flex-shrink: 0;
+          transform:
+            translateY(-50%);
+
+          pointer-events: auto;
         }
 
 
@@ -139,6 +171,10 @@ class ChatSidebarHeader extends HTMLElement {
         ===================================== */
 
         .sidebar-toggle-button {
+
+          position: relative;
+
+          z-index: 31;
 
           width: 2.5rem;
           height: 2.5rem;
@@ -155,8 +191,6 @@ class ChatSidebarHeader extends HTMLElement {
 
           gap:
             0.3125rem;
-
-          flex-shrink: 0;
 
           padding: 0;
           margin: 0;
@@ -177,6 +211,10 @@ class ChatSidebarHeader extends HTMLElement {
           font: inherit;
 
           cursor: pointer;
+
+          appearance: none;
+
+          pointer-events: auto;
 
           transition:
             background-color 0.2s ease,
@@ -213,7 +251,8 @@ class ChatSidebarHeader extends HTMLElement {
           width: 1.25rem;
           height: 0.125rem;
 
-          flex-shrink: 0;
+          flex:
+            0 0 auto;
 
           background:
             currentColor;
@@ -274,7 +313,8 @@ class ChatSidebarHeader extends HTMLElement {
           justify-content:
             center;
 
-          padding: 0;
+          padding:
+            0 3.75rem;
         }
 
 
@@ -288,10 +328,15 @@ class ChatSidebarHeader extends HTMLElement {
         :host([collapsed])
         .sidebar-toggle-container {
 
-          width: 100%;
+          top: 50%;
 
-          justify-content:
-            center;
+          right: 50%;
+
+          transform:
+            translate(
+              50%,
+              -50%
+            );
         }
 
 
@@ -313,7 +358,7 @@ class ChatSidebarHeader extends HTMLElement {
           .sidebar-header {
 
             padding:
-              0 1rem 0 1.25rem;
+              0 4rem 0 1.25rem;
           }
 
 
@@ -329,10 +374,10 @@ class ChatSidebarHeader extends HTMLElement {
           .sidebar-header {
 
             justify-content:
-              space-between;
+              flex-start;
 
             padding:
-              0 1rem 0 1.25rem;
+              0 4rem 0 1.25rem;
           }
 
 
@@ -346,7 +391,12 @@ class ChatSidebarHeader extends HTMLElement {
           :host([collapsed])
           .sidebar-toggle-container {
 
-            width: auto;
+            top: 50%;
+
+            right: 1rem;
+
+            transform:
+              translateY(-50%);
           }
         }
 
@@ -369,7 +419,7 @@ class ChatSidebarHeader extends HTMLElement {
           .sidebar-header {
 
             padding:
-              0 0.875rem 0 1rem;
+              0 3.75rem 0 1rem;
           }
 
 
@@ -377,7 +427,13 @@ class ChatSidebarHeader extends HTMLElement {
           .sidebar-header {
 
             padding:
-              0 0.875rem 0 1rem;
+              0 3.75rem 0 1rem;
+          }
+
+
+          .sidebar-toggle-container {
+
+            right: 0.875rem;
           }
         }
 
@@ -400,7 +456,21 @@ class ChatSidebarHeader extends HTMLElement {
           .sidebar-header {
 
             padding:
-              0 0.75rem;
+              0 3.625rem 0 0.75rem;
+          }
+
+
+          .sidebar-toggle-container {
+
+            width: 2.375rem;
+
+            height: 2.375rem;
+
+            min-width: 2.375rem;
+
+            min-height: 2.375rem;
+
+            right: 0.75rem;
           }
 
 
@@ -418,7 +488,7 @@ class ChatSidebarHeader extends HTMLElement {
           .sidebar-header {
 
             padding:
-              0 0.75rem;
+              0 3.625rem 0 0.75rem;
           }
         }
 
@@ -441,7 +511,21 @@ class ChatSidebarHeader extends HTMLElement {
           .sidebar-header {
 
             padding:
-              0 0.625rem;
+              0 3.5rem 0 0.625rem;
+          }
+
+
+          .sidebar-toggle-container {
+
+            width: 2.25rem;
+
+            height: 2.25rem;
+
+            min-width: 2.25rem;
+
+            min-height: 2.25rem;
+
+            right: 0.625rem;
           }
 
 
@@ -459,7 +543,7 @@ class ChatSidebarHeader extends HTMLElement {
           .sidebar-header {
 
             padding:
-              0 0.625rem;
+              0 3.5rem 0 0.625rem;
           }
         }
 
@@ -506,7 +590,7 @@ class ChatSidebarHeader extends HTMLElement {
           .sidebar-header {
 
             padding:
-              0 1.25rem;
+              0 4.375rem 0 1.25rem;
           }
         }
 
@@ -539,6 +623,8 @@ class ChatSidebarHeader extends HTMLElement {
             aria-label="Plegar menú lateral"
             aria-expanded="true">
 
+            <span></span>
+            <span></span>
             <span></span>
 
           </button>
@@ -625,15 +711,6 @@ class ChatSidebarHeader extends HTMLElement {
 
   handleToggle() {
 
-    /*
-      El header NO modifica directamente
-      el estado del sidebar.
-
-      Solo solicita el cambio al componente
-      <chat-sidebar>, que es quien controla
-      realmente el estado.
-    */
-
     this.dispatchEvent(
       new CustomEvent(
         "sidebar-toggle-request",
@@ -685,6 +762,7 @@ class ChatSidebarHeader extends HTMLElement {
       this.removeAttribute(
         "data-theme"
       );
+
     }
 
 
@@ -708,6 +786,7 @@ class ChatSidebarHeader extends HTMLElement {
       this.removeAttribute(
         "collapsed"
       );
+
     }
 
 
@@ -820,5 +899,6 @@ class ChatSidebarHeader extends HTMLElement {
   }
 
 }
+
 
 customElements.define("chat-sidebar-header", ChatSidebarHeader);

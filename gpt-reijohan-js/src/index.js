@@ -5,6 +5,7 @@
 import "./components/logo.js";
 import "./components/header.js";
 import "./components/sidebar.js";
+import "./components/sidebar-header.js";
 import "./components/sidebar-content.js";
 import "./components/new-button.js";
 import "./components/history.js";
@@ -53,6 +54,8 @@ const messages =
 
 let selectedFile = null;
 
+let hasMessages = false;
+
 
 /* =====================================================
    TEMA
@@ -66,9 +69,7 @@ function syncTheme() {
 
 
   const theme =
-    sidebar.getAttribute(
-      "data-theme"
-    );
+    sidebar.getAttribute("data-theme");
 
 
   if (theme === "light") {
@@ -107,12 +108,6 @@ function syncChatState() {
   if (!chatApp) {
     return;
   }
-
-
-  const hasMessages =
-    chatApp.classList.contains(
-      "chat-has-messages"
-    );
 
 
   /* ---------- BIENVENIDA ---------- */
@@ -264,21 +259,13 @@ function sendMessage(event) {
 
 
   if (!message && !file) {
-
     return;
-
   }
 
 
-  /* ---------- ACTUALIZAR ESTADO ---------- */
+  /* ---------- ESTADO ---------- */
 
-  if (chatApp) {
-
-    chatApp.classList.add(
-      "chat-has-messages"
-    );
-
-  }
+  hasMessages = true;
 
 
   /* ---------- ARCHIVO ---------- */
@@ -317,7 +304,7 @@ function sendMessage(event) {
   removeSelectedFile();
 
 
-  /* ---------- CERRAR SIDEBAR MÓVIL ---------- */
+  /* ---------- CERRAR SIDEBAR ---------- */
 
   closeMobileMenu();
 
@@ -337,13 +324,7 @@ function resetChat() {
 
   /* ---------- ESTADO ---------- */
 
-  if (chatApp) {
-
-    chatApp.classList.remove(
-      "chat-has-messages"
-    );
-
-  }
+  hasMessages = false;
 
 
   /* ---------- MENSAJES ---------- */
@@ -540,6 +521,27 @@ if (chatInput) {
   );
 
 }
+
+
+/* =====================================================
+   CAMBIO DE TAMAÑO
+===================================================== */
+
+window.addEventListener(
+  "resize",
+  function () {
+
+    if (
+      sidebar &&
+      window.innerWidth > 64 * 16
+    ) {
+
+      sidebar.close();
+
+    }
+
+  }
+);
 
 
 /* =====================================================

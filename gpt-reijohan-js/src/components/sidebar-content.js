@@ -92,6 +92,7 @@ class ChatSidebarContent extends HTMLElement {
           color: hsl(0, 0%, 10%);
         }
 
+
         :host([data-theme="light"]) .sidebar-content {
           color: hsl(0, 0%, 10%);
         }

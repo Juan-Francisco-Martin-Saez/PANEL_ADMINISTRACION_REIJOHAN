@@ -158,33 +158,63 @@ class ChatTheme extends HTMLElement {
         ===================================== */
 
         .theme-icon {
-          position: relative;
+          position: absolute;
+
+          top: 50%;
 
           z-index: 2;
 
           width:
-            1rem;
+            1.5rem;
 
           height:
-            1rem;
+            1.5rem;
+
+          flex-shrink: 0;
 
           display: flex;
           align-items: center;
           justify-content: center;
 
           font-size:
-            0.875rem;
+            1rem;
 
           line-height:
             1;
 
-          color:
-            hsl(0, 0%, 75%);
-
           pointer-events: none;
+
+          box-sizing: border-box;
+
+          transform:
+            translateY(-50%);
 
           transition:
             color 0.3s ease;
+        }
+
+
+        /* =====================================
+           POSICIÓN ICONOS DESPLEGADO
+        ===================================== */
+
+        .theme-icon-dark {
+
+          left:
+            0.1875rem;
+
+          color:
+            hsl(0, 0%, 10%);
+        }
+
+
+        .theme-icon-light {
+
+          right:
+            0.1875rem;
+
+          color:
+            hsl(0, 0%, 100%);
         }
 
 
@@ -269,19 +299,27 @@ class ChatTheme extends HTMLElement {
         }
 
 
+        /* =====================================
+           LUNA EN TEMA CLARO
+        ===================================== */
+
         :host([data-theme="light"])
         .theme-icon-dark {
 
           color:
-            hsl(0, 0%, 48%);
+            hsl(0, 0%, 10%);
         }
 
+
+        /* =====================================
+           SOL EN TEMA CLARO
+        ===================================== */
 
         :host([data-theme="light"])
         .theme-icon-light {
 
           color:
-            hsl(0, 0%, 10%);
+            hsl(0, 0%, 100%);
         }
 
 
@@ -334,13 +372,33 @@ class ChatTheme extends HTMLElement {
         .theme-icon {
 
           width:
-            0.8rem;
+            1.2rem;
 
           height:
-            0.8rem;
+            1.2rem;
 
           font-size:
-            0.65rem;
+            0.75rem;
+        }
+
+
+        /* =====================================
+           ICONOS PLEGADOS
+        ===================================== */
+
+        :host([collapsed])
+        .theme-icon-dark {
+
+          left:
+            0.1625rem;
+        }
+
+
+        :host([collapsed])
+        .theme-icon-light {
+
+          right:
+            0.1625rem;
         }
 
 
@@ -409,13 +467,31 @@ class ChatTheme extends HTMLElement {
           .theme-icon {
 
             width:
-              1rem;
+              1.5rem;
 
             height:
-              1rem;
+              1.5rem;
 
             font-size:
-              0.875rem;
+              1rem;
+          }
+
+
+          /* Posición de los iconos en móvil */
+
+          :host([collapsed])
+          .theme-icon-dark {
+
+            left:
+              0.1875rem;
+          }
+
+
+          :host([collapsed])
+          .theme-icon-light {
+
+            right:
+              0.1875rem;
           }
 
 
@@ -539,12 +615,10 @@ class ChatTheme extends HTMLElement {
     this.handleSidebarChange =
       this.handleSidebarChange.bind(this);
 
+    this.sidebarObserver = null;
+
   }
 
-
-  /* =====================================
-     CONECTAR COMPONENTE
-  ===================================== */
 
   connectedCallback() {
 
@@ -566,10 +640,6 @@ class ChatTheme extends HTMLElement {
 
   }
 
-
-  /* =====================================
-     DESCONECTAR COMPONENTE
-  ===================================== */
 
   disconnectedCallback() {
 
@@ -596,10 +666,6 @@ class ChatTheme extends HTMLElement {
   }
 
 
-  /* =====================================
-     CLICK
-  ===================================== */
-
   handleClick(event) {
 
     event.preventDefault();
@@ -608,10 +674,6 @@ class ChatTheme extends HTMLElement {
 
   }
 
-
-  /* =====================================
-     TECLADO
-  ===================================== */
 
   handleKeyDown(event) {
 
@@ -628,10 +690,6 @@ class ChatTheme extends HTMLElement {
 
   }
 
-
-  /* =====================================
-     CAMBIAR TEMA
-  ===================================== */
 
   toggleTheme() {
 
@@ -656,11 +714,6 @@ class ChatTheme extends HTMLElement {
         : "light";
 
 
-    /*
-      ChatSidebar continúa siendo el
-      propietario del estado del tema.
-    */
-
     if (
       typeof sidebar.setTheme ===
       "function"
@@ -675,10 +728,6 @@ class ChatTheme extends HTMLElement {
   }
 
 
-  /* =====================================
-     SINCRONIZAR CON SIDEBAR
-  ===================================== */
-
   syncWithSidebar() {
 
     const sidebar =
@@ -689,8 +738,6 @@ class ChatTheme extends HTMLElement {
       return;
     }
 
-
-    /* ---------- TEMA ---------- */
 
     const theme =
       sidebar.getAttribute(
@@ -716,8 +763,6 @@ class ChatTheme extends HTMLElement {
     }
 
 
-    /* ---------- COLAPSADO ---------- */
-
     if (
       sidebar.hasAttribute(
         "collapsed"
@@ -739,10 +784,6 @@ class ChatTheme extends HTMLElement {
 
   }
 
-
-  /* =====================================
-     OBSERVAR SIDEBAR
-  ===================================== */
 
   observeSidebar() {
 
@@ -778,14 +819,11 @@ class ChatTheme extends HTMLElement {
           "collapsed"
         ]
       }
+
     );
 
   }
 
-
-  /* =====================================
-     CAMBIO DEL SIDEBAR
-  ===================================== */
 
   handleSidebarChange() {
 

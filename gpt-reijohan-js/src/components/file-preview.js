@@ -375,9 +375,10 @@ class ChatFilePreview extends HTMLElement {
     this.handleRemove =
       this.handleRemove.bind(this);
 
+    this.handleSidebarChange =
+      this.handleSidebarChange.bind(this);
 
-    this.handleThemeChange =
-      this.handleThemeChange.bind(this);
+    this.sidebarObserver = null;
 
   }
 
@@ -393,9 +394,9 @@ class ChatFilePreview extends HTMLElement {
       this.handleRemove
     );
 
-    this.syncWithTheme();
+    this.syncWithSidebar();
 
-    this.observeTheme();
+    this.observeSidebar();
 
   }
 
@@ -411,11 +412,11 @@ class ChatFilePreview extends HTMLElement {
       this.handleRemove
     );
 
-    if (this.themeObserver) {
+    if (this.sidebarObserver) {
 
-      this.themeObserver.disconnect();
+      this.sidebarObserver.disconnect();
 
-      this.themeObserver = null;
+      this.sidebarObserver = null;
 
     }
 
@@ -540,11 +541,23 @@ class ChatFilePreview extends HTMLElement {
      SINCRONIZAR TEMA
   ===================================== */
 
-  syncWithTheme() {
+  syncWithSidebar() {
+
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
+
+
+    if (!sidebar) {
+      return;
+    }
+
 
     const theme =
-      document.documentElement
-        .getAttribute("data-theme");
+      sidebar.getAttribute(
+        "data-theme"
+      );
 
 
     if (theme === "light") {
@@ -569,23 +582,34 @@ class ChatFilePreview extends HTMLElement {
      OBSERVAR CAMBIO DE TEMA
   ===================================== */
 
-  observeTheme() {
+  observeSidebar() {
 
-    if (this.themeObserver) {
+    const sidebar =
+      document.querySelector(
+        "chat-sidebar"
+      );
 
-      this.themeObserver.disconnect();
+
+    if (!sidebar) {
+      return;
+    }
+
+
+    if (this.sidebarObserver) {
+
+      this.sidebarObserver.disconnect();
 
     }
 
 
-    this.themeObserver =
+    this.sidebarObserver =
       new MutationObserver(
-        this.handleThemeChange
+        this.handleSidebarChange
       );
 
 
-    this.themeObserver.observe(
-      document.documentElement,
+    this.sidebarObserver.observe(
+      sidebar,
       {
         attributes: true,
         attributeFilter: [
@@ -601,9 +625,9 @@ class ChatFilePreview extends HTMLElement {
      CAMBIO DE TEMA
   ===================================== */
 
-  handleThemeChange() {
+  handleSidebarChange() {
 
-    this.syncWithTheme();
+    this.syncWithSidebar();
 
   }
 
