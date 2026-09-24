@@ -3,175 +3,94 @@ class ChatWelcome extends HTMLElement {
   constructor() {
 
     super();
-
-    this.attachShadow({
-      mode: "open"
-    });
-
-    this.shadowRoot.innerHTML = /* html */ `
+    this.shadow = this.attachShadow({ mode: "open" })
+    this.shadow.innerHTML = /* html */ `
 
       <style>
-
-        /* =====================================
-           COMPONENTE BIENVENIDA
-        ===================================== */
-
+       
         :host {
-
           display: block;
-
           width: 100%;
-
           min-width: 0;
-
           box-sizing: border-box;
-
-          color:
-            hsl(0, 0%, 96%);
-
-          transition:
-            opacity 0.3s ease,
-            color 0.3s ease;
+          color:hsl(0, 0%, 96%);
+          transition: opacity 0.3s ease, color 0.3s ease;
+        
         }
-
-
-        /* =====================================
-           CONTENEDOR
-        ===================================== */
-
+        
         .welcome-container {
-
           width: 100%;
-
           min-width: 0;
-
           display: flex;
-
           align-items: center;
-
           justify-content: center;
-
           box-sizing: border-box;
-
           padding: 24% 0 0 0;
-
           text-align: center;
+        
         }
-
-
-        /* =====================================
-           TÍTULO
-        ===================================== */
 
         .welcome-title {
-
           width: 100%;
-
-          max-width:
-            48rem;
-
+          max-width: 48rem;
           margin: 0;
-
-          color:
-            hsl(0, 0%, 96%);
-
-          font-size:
-            2rem;
-
-          font-weight:
-            500;
-
-          line-height:
-            1.35;
-
-          transition:
-            color 0.3s ease;
+          color: hsl(0, 0%, 96%);
+          font-size: 2rem;
+          font-weight: 500;
+          line-height: 1.35;
+          transition: color 0.3s ease;
+        
         }
 
-
-        /* =====================================
-           TEMA CLARO
-        ===================================== */
-
         :host([data-theme="light"]) {
-
-          color:
-            hsl(0, 0%, 10%);
+          color: hsl(0, 0%, 10%);
+       
         }
 
 
         :host([data-theme="light"])
         .welcome-title {
-
-          color:
-            hsl(0, 0%, 10%);
+          color: hsl(0, 0%, 10%);
+       
         }
-
-
-        /* =====================================
-           CONVERSACIÓN CON MENSAJES
-        ===================================== */
 
         :host([has-messages]) {
-
-          display:
-            none;
+          display: none;
+       
         }
 
-
-        /* =====================================
-           TABLET
-        ===================================== */
-
         @media (max-width: 64rem) {
-
+          
           .welcome-container {
-
-            padding:
-              0.875rem 1rem;
+            padding: 0.875rem 1rem;
+         
           }
 
 
           .welcome-title {
-
-            font-size:
-              1.75rem;
-
-            line-height:
-              1.35;
+            font-size: 1.75rem;
+            line-height: 1.35;
+            padding: 24% 0 0 0;
+         
           }
 
         }
-
-
-        /* =====================================
-           MÓVIL
-        ===================================== */
 
         @media (max-width: 48rem) {
 
           .welcome-container {
-
-            padding:
-              0.75rem 0.875rem;
+            padding: 0.75rem 0.875rem;
+          
           }
 
 
           .welcome-title {
-
-            font-size:
-              1.5rem;
-
-            line-height:
-              1.4;
+            font-size: 1.5rem;
+            line-height: 1.4;
+            padding: 24% 0 0 0;
           }
 
         }
-
-
-        /* =====================================
-           PANTALLAS PEQUEÑAS
-        ===================================== */
 
         @media (max-width: 30rem) {
 
