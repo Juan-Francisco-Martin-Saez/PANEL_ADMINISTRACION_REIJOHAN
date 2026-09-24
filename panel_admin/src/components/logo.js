@@ -1,14 +1,9 @@
 class AppLogo extends HTMLElement {
 
   constructor() {
-
     super();
-
-    this.attachShadow({
-      mode: "open"
-    });
-
-    this.shadowRoot.innerHTML =
+    this.shadow = this.attachShadow({ mode: "open" })
+    this.shadow.innerHTML =
     /*html*/`
 
       <style>

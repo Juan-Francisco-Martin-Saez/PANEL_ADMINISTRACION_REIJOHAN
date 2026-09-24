@@ -469,4 +469,4 @@ class DataTable extends HTMLElement {
   }
 }
 
-customElements.define("data-table", DataTable)
+customElements.define("data-table", DataTable);

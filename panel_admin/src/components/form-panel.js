@@ -1,13 +1,9 @@
 class FormPanel extends HTMLElement {
 
   constructor() {
-
     super();
-
     this.shadow = this.attachShadow({ mode: "open" })
-
     this.shadow.innerHTML = /*html*/`
-
       <style>
 
        

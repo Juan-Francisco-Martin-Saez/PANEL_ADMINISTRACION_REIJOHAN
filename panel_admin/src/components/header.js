@@ -1,19 +1,12 @@
 class AppHeader extends HTMLElement {
 
   constructor() {
-
     super();
-
     this.shadow = this.attachShadow({ mode: "open" })
-
     this.shadow.innerHTML =
     /*html*/`
 
       <style>
-
-        /* =====================================
-           CONTENEDOR
-        ===================================== */
 
         header {
           display: flex;
@@ -23,18 +16,13 @@ class AppHeader extends HTMLElement {
           min-height: 5.25rem;
           width: 100%;
           max-width: 100%;
-
           box-sizing: border-box;
-
           padding-inline: 2rem;
-
           background:
             var(--color-cabecera);
-
           border-bottom:
             0.0625rem solid
             var(--color-borde);
-
           box-shadow:
             0
             0.25rem
@@ -43,10 +31,6 @@ class AppHeader extends HTMLElement {
 
           overflow: hidden;
         }
-
-        /* =====================================
-           TABLET
-        ===================================== */
 
         @media (max-width: 64rem) {
 
@@ -58,11 +42,6 @@ class AppHeader extends HTMLElement {
 
         }
 
-
-        /* =====================================
-           MÓVIL
-        ===================================== */
-
         @media (max-width: 48rem) {
 
           header {
@@ -72,11 +51,6 @@ class AppHeader extends HTMLElement {
           }
 
         }
-
-
-        /* =====================================
-           MÓVIL PEQUEÑO
-        ===================================== */
 
         @media (max-width: 30rem) {
 
@@ -89,8 +63,6 @@ class AppHeader extends HTMLElement {
         }
 
       </style>
-
-
       <header>
         <slot></slot>
       </header>

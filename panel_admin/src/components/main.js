@@ -1,66 +1,38 @@
 class AppMain extends HTMLElement {
 
   constructor() {
-
     super();
-
-    this.shadow = this.attachShadow({
-      mode: "open"
-    });
-
+    this.shadow = this.attachShadow({ mode: "open" })
     this.shadow.innerHTML = /*html*/`
 
       <style>
 
-        /* =====================================
-           CONTENEDOR PRINCIPAL
-        ===================================== */
-
         :host {
           display: block;
-
           width: 100%;
           max-width: 100%;
           min-width: 0;
           min-height: 0;
-
           box-sizing: border-box;
-
           background:
             var(--color-fondo);
         }
-
-
-        /* =====================================
-           CONTENIDO
-        ===================================== */
 
         main {
           display: grid;
-
           grid-template-columns:
             minmax(0, 1fr)
             minmax(0, 3fr);
-
           gap: 1.25rem;
-
           width: 100%;
           max-width: 100%;
           min-width: 0;
           min-height: 0;
-
           box-sizing: border-box;
-
           padding: 1.5rem;
-
           background:
             var(--color-fondo);
         }
-
-
-        /* =====================================
-           TABLET
-        ===================================== */
 
         @media (max-width: 64rem) {
 
@@ -70,11 +42,6 @@ class AppMain extends HTMLElement {
           }
 
         }
-
-
-        /* =====================================
-           MÓVIL
-        ===================================== */
 
         @media (max-width: 48rem) {
 
@@ -86,11 +53,6 @@ class AppMain extends HTMLElement {
 
         }
 
-
-        /* =====================================
-           MÓVIL PEQUEÑO
-        ===================================== */
-
         @media (max-width: 30rem) {
 
           main {
@@ -101,12 +63,6 @@ class AppMain extends HTMLElement {
         }
 
       </style>
-
-
-      <!-- =================================
-           CONTENIDO PRINCIPAL
-      ================================== -->
-
       <main>
         <slot></slot>
       </main>
