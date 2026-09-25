@@ -14,15 +14,13 @@ class AppMain extends HTMLElement {
           min-width: 0;
           min-height: 0;
           box-sizing: border-box;
-          background:
-            var(--color-fondo);
+          background: var(--color-fondo);
         }
 
         main {
           display: grid;
-          grid-template-columns:
-            minmax(0, 1fr)
-            minmax(0, 3fr);
+          grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+          grid-template-rows: minmax(0, 1fr);
           gap: 1.25rem;
           width: 100%;
           max-width: 100%;
@@ -30,8 +28,8 @@ class AppMain extends HTMLElement {
           min-height: 0;
           box-sizing: border-box;
           padding: 1.5rem;
-          background:
-            var(--color-fondo);
+          background: var(--color-fondo);
+          overflow: hidden;
         }
 
         @media (max-width: 64rem) {

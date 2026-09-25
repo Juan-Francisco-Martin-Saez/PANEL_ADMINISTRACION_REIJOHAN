@@ -18,17 +18,9 @@ class AppHeader extends HTMLElement {
           max-width: 100%;
           box-sizing: border-box;
           padding-inline: 2rem;
-          background:
-            var(--color-cabecera);
-          border-bottom:
-            0.0625rem solid
-            var(--color-borde);
-          box-shadow:
-            0
-            0.25rem
-            1rem
-            var(--color-sombra);
-
+          background: var(--color-cabecera);
+          border-bottom: 0.0625rem solid var(--color-borde);
+          box-shadow: 0 0.25rem 1rem var(--color-sombra);
           overflow: hidden;
         }
 

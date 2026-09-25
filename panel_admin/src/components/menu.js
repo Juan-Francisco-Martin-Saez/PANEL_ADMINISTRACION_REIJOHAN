@@ -113,11 +113,6 @@ class AppMenu extends HTMLElement {
           list-style: none;
         }
 
-
-        /* =====================================
-           ENLACES
-        ===================================== */
-
         .enlace {
           display: flex;
           align-items: center;
@@ -243,66 +238,38 @@ class AppMenu extends HTMLElement {
 
     `;
 
-    this.boton = this.shadowRoot.querySelector(
-      ".boton-menu"
-    );
+    this.boton = this.shadowRoot.querySelector(".boton-menu");
+    this.menu = this.shadowRoot.querySelector(".menu");
+    this.velo = this.shadowRoot.querySelector(".velo");
 
-    this.menu = this.shadowRoot.querySelector(
-      ".menu"
-    );
+    this.boton.addEventListener("click", () => {
 
-    this.velo = this.shadowRoot.querySelector(
-      ".velo"
-    );
+      this.alternarMenu();
 
-    this.boton.addEventListener(
-      "click",
-      () => {
+    });
 
-        this.alternarMenu();
+    this.velo.addEventListener("click", () => {
+      this.cerrarMenu();
+    });
 
-      }
-    );
+    this.shadowRoot.querySelectorAll(".enlace").forEach((enlace) => {
+      enlace.addEventListener("click", () => {
+        this.cerrarMenu();
+      });
+    });
 
-    this.velo.addEventListener(
-      "click",
-      () => {
+    document.addEventListener("keydown", (evento) => {
+
+      if (
+        evento.key === "Escape" &&
+        this.menu.classList.contains("abierto")
+      ) {
 
         this.cerrarMenu();
 
       }
-    );
 
-    this.shadowRoot
-      .querySelectorAll(".enlace")
-      .forEach((enlace) => {
-
-        enlace.addEventListener(
-          "click",
-          () => {
-
-            this.cerrarMenu();
-
-          }
-        );
-
-      });
-
-    document.addEventListener(
-      "keydown",
-      (evento) => {
-
-        if (
-          evento.key === "Escape" &&
-          this.menu.classList.contains("abierto")
-        ) {
-
-          this.cerrarMenu();
-
-        }
-
-      }
-    );
+    });
 
   }
 
@@ -311,82 +278,37 @@ class AppMenu extends HTMLElement {
     const abierto =
       this.menu.classList.contains("abierto");
 
-
     if (abierto) {
-
       this.cerrarMenu();
-
     } else {
-
       this.abrirMenu();
-
     }
 
   }
 
   abrirMenu() {
 
-    this.boton.classList.add(
-      "abierto"
-    );
+    this.boton.classList.add("abierto");
+    this.menu.classList.add("abierto");
+    this.velo.classList.add("visible");
 
-    this.menu.classList.add(
-      "abierto"
-    );
-
-    this.velo.classList.add(
-      "visible"
-    );
-
-    this.boton.setAttribute(
-      "aria-expanded",
-      "true"
-    );
-
-    this.boton.setAttribute(
-      "aria-label",
-      "Cerrar menú"
-    );
-
-    this.menu.setAttribute(
-      "aria-hidden",
-      "false"
-    );
+    this.boton.setAttribute("aria-expanded", "true");
+    this.boton.setAttribute("aria-label", "Cerrar menú");
+    this.menu.setAttribute("aria-hidden", "false");
 
   }
 
   cerrarMenu() {
 
-    this.boton.classList.remove(
-      "abierto"
-    );
+    this.boton.classList.remove("abierto");
+    this.menu.classList.remove("abierto");
+    this.velo.classList.remove("visible");
 
-    this.menu.classList.remove(
-      "abierto"
-    );
-
-    this.velo.classList.remove(
-      "visible"
-    );
-
-    this.boton.setAttribute(
-      "aria-expanded",
-      "false"
-    );
-
-    this.boton.setAttribute(
-      "aria-label",
-      "Abrir menú"
-    );
-
-    this.menu.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
+    this.boton.setAttribute("aria-expanded", "false");
+    this.boton.setAttribute("aria-label", "Abrir menú");
+    this.menu.setAttribute("aria-hidden", "true");
   }
 
 }
-
 
 customElements.define("app-menu", AppMenu);
