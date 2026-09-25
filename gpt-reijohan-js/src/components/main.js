@@ -18,6 +18,12 @@ class ChatMain extends HTMLElement {
           box-sizing: border-box;
           position: relative;
         }
+
+        ::slotted([slot="conversation"]) {
+          flex: 1 1 auto;
+          min-height: 0;
+          min-width: 0;
+        }
       </style>
 
       <slot name="header"></slot>

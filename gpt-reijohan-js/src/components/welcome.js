@@ -23,7 +23,6 @@ class ChatWelcome extends HTMLElement {
           align-items: center;
           justify-content: center;
           box-sizing: border-box;
-          padding: 24% 0 0 0;
           text-align: center;
         }
 
@@ -36,6 +35,10 @@ class ChatWelcome extends HTMLElement {
           font-weight: 500;
           line-height: 1.35;
           transition: color 0.3s ease;
+        }
+
+        .welcome-title span {
+          display: inline;
         }
 
         :host([data-theme="light"]) {
@@ -60,7 +63,10 @@ class ChatWelcome extends HTMLElement {
           .welcome-title {
             font-size: 1.75rem;
             line-height: 1.35;
-            padding: 24% 0 0 0;
+          }
+
+          .welcome-title span {
+            display: block;
           }
 
         }
@@ -74,7 +80,6 @@ class ChatWelcome extends HTMLElement {
           .welcome-title {
             font-size: 1.5rem;
             line-height: 1.4;
-            padding: 24% 0 0 0;
           }
 
         }
@@ -135,7 +140,8 @@ class ChatWelcome extends HTMLElement {
 
       <div class="welcome-container">
         <h1 class="welcome-title">
-          ¿Qué quieres hacer? Pregúntame lo que necesites
+          <span>¿Qué quieres hacer?</span>
+          <span>Pregúntame lo que necesites</span>
         </h1>
       </div>
     `;

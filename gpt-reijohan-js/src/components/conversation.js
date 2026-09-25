@@ -44,6 +44,8 @@ class ChatConversation extends HTMLElement {
           display: flex;
           flex: 1 1 auto;
           flex-direction: column;
+          justify-content: center;
+          align-items: center;
           box-sizing: border-box;
           color: hsl(0, 0%, 96%);
         }
@@ -58,9 +60,8 @@ class ChatConversation extends HTMLElement {
         }
 
         ::slotted(chat-welcome) {
-          margin-top: auto;
-          margin-bottom: auto;
           flex-shrink: 0;
+          transform: translateY(-9rem);
         }
 
         ::slotted(chat-status) {
@@ -120,18 +121,27 @@ class ChatConversation extends HTMLElement {
 
 
         @media (max-width: 64rem) {
+
           .conversation-container {
             padding:1.5rem 1rem;
           }
+
+          ::slotted(chat-welcome) {
+            transform: translateY(-9rem);
+          }
+
         }
 
         @media (max-width: 48rem) {
+
           .conversation-container {
             padding:1.25rem 0.875rem;
           }
+
         }
 
         @media (max-width: 30rem) {
+
           .conversation-container {
             padding:1rem 0.75rem;
           }
@@ -145,6 +155,7 @@ class ChatConversation extends HTMLElement {
         }
 
         @media (max-height: 40rem) {
+
           .conversation-container {
             padding-top:1.25rem;
             padding-bottom:1.25rem;
@@ -154,6 +165,7 @@ class ChatConversation extends HTMLElement {
 
         @media (max-width: 30rem)
         and (max-height: 40rem) {
+
           .conversation-container {
             padding-top:1rem;
             padding-bottom:1rem;
