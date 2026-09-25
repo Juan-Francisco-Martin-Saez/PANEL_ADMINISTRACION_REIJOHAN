@@ -9,13 +9,13 @@ class ChatInput extends HTMLElement {
 
         :host {
           position: absolute;
-          left: 50%;
-          right: auto;
+          left: 0;
+          right: 0;
           top: 50%;
-          width: min(100%, 56.25rem);
+          width: 100%;
           min-width: 0;
           box-sizing: border-box;
-          transform: translate(-50%, -50%);
+          transform: translateY(-50%);
           color: hsl(0, 0%, 96%);
           transition:
             top 0.4s ease,
@@ -27,7 +27,7 @@ class ChatInput extends HTMLElement {
         :host([has-messages]) {
           top: auto;
           bottom: 7rem;
-          transform: translateX(-50%);
+          transform: none;
         }
 
         .chat-input-section {
@@ -42,6 +42,7 @@ class ChatInput extends HTMLElement {
 
         .chat-input-wrapper {
           width: 100%;
+          max-width: 56.25rem;
           min-width: 0;
           margin: 0 auto;
           display: flex;
@@ -242,25 +243,25 @@ class ChatInput extends HTMLElement {
         @media (min-width: 64.0625rem) {
 
           :host {
-            left: 50%;
-            right: auto;
-            width: min(100%, 56.25rem);
+            left: 0;
+            right: 0;
+            width: 100%;
             top: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateY(-50%);
           }
 
           :host([has-messages]) {
             top: auto;
             bottom: 7rem;
-            transform: translateX(-50%);
+            transform: none;
           }
 
         }
 
         @media (min-width: 120rem) {
 
-          :host {
-            width: min(100%, 62rem);
+          .chat-input-wrapper {
+            max-width: 62rem;
           }
 
         }

@@ -150,7 +150,6 @@ class ChatFilePreview extends HTMLElement {
 
       </style>
 
-
       <div class="file-preview">
         <div class="file-preview-info">
           <span

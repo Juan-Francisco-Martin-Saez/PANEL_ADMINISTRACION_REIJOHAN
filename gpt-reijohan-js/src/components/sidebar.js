@@ -54,7 +54,7 @@ class ChatSidebar extends HTMLElement {
         ::slotted(chat-sidebar-header) {
           display: block;
           width: 100%;
-          flex:0 0 auto;
+          flex: 0 0 auto;
           min-width: 0;
           box-sizing: border-box;
         }
@@ -62,7 +62,7 @@ class ChatSidebar extends HTMLElement {
         ::slotted(chat-sidebar-content) {
           display: flex;
           width: 100%;
-          flex:1 1 auto;
+          flex: 1 1 auto;
           min-width: 0;
           min-height: 0;
           box-sizing: border-box;
@@ -434,7 +434,9 @@ class ChatSidebar extends HTMLElement {
 
     const theme = this.getAttribute("data-theme");
     const collapsed = this.hasAttribute("collapsed");
-    const children = this.querySelectorAll("chat-logo, chat-sidebar-header, chat-sidebar-content");
+    const children = this.querySelectorAll(
+      "chat-logo, chat-sidebar-header, chat-sidebar-content, chat-theme, chat-user, chat-header-content"
+    );
 
     children.forEach((child) => {
 
@@ -464,8 +466,7 @@ class ChatSidebar extends HTMLElement {
 
       }
 
-    }
-    );
+    });
 
   }
 
@@ -491,8 +492,7 @@ class ChatSidebar extends HTMLElement {
       detail: {
         theme
       }
-    }
-    )
+    })
     );
   }
 }

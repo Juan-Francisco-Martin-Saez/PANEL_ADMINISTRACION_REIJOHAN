@@ -32,12 +32,7 @@ class ChatHeader extends HTMLElement {
           background: hsl(0, 0%, 9%);
           border-bottom: 0.0625rem solid hsl(0, 0%, 19%);
           color: hsl(0, 0%, 96%);
-          transition:
-            background-color 0.3s ease,
-            border-color 0.3s ease,
-            color 0.3s ease,
-            padding 0.3s ease,
-            height 0.3s ease;
+          transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, padding 0.3s ease, height 0.3s ease;
         }
 
         ::slotted(chat-header-content) {
@@ -143,6 +138,7 @@ class ChatHeader extends HTMLElement {
 
     if (this.sidebarObserver) {
 
+      this.sidebarObserver.disconnect();
       this.sidebarObserver = null;
 
     }

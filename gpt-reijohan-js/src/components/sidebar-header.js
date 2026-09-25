@@ -6,7 +6,7 @@ class ChatSidebarHeader extends HTMLElement {
     this.shadow.innerHTML = /* html */ `
 
       <style>
-
+      
         :host {
           display: block;
           width: 100%;
@@ -37,10 +37,7 @@ class ChatSidebarHeader extends HTMLElement {
           background: hsl(0, 0%, 6%);
           border-bottom: 0.0625rem solid hsl(0, 0%, 19%);
           color: hsl(0, 0%, 96%);
-          transition: background-color 0.3s ease,
-            border-color 0.3s ease,
-            color 0.3s ease,
-            padding 0.3s ease;
+          transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, padding 0.3s ease;
         }
 
         .sidebar-logo-container {
@@ -117,7 +114,7 @@ class ChatSidebarHeader extends HTMLElement {
           width: 1.25rem;
           height: 0.125rem;
           flex: 0 0 auto;
-          background: currentColor;
+          background-color: hsl(0, 0%, 96%);
           border-radius: 0.125rem;
         }
 
@@ -125,30 +122,35 @@ class ChatSidebarHeader extends HTMLElement {
           color: hsl(0, 0%, 10%);
         }
 
-        :host([data-theme="light"]).sidebar-header {
+        :host([data-theme="light"]) .sidebar-header {
           background: hsl(0, 0%, 98%);
           border-bottom-color: hsl(0, 0%, 84%);
           color: hsl(0, 0%, 10%);
         }
 
-        :host([data-theme="light"]).sidebar-toggle-button {
-          color: hsl(0, 0%, 15%);
+        :host([data-theme="light"]) .sidebar-toggle-button {
+          color: hsl(0, 0%, 10%);
+          background: transparent;
         }
 
-        :host([data-theme="light"]).sidebar-toggle-button:hover {
+        :host([data-theme="light"]) .sidebar-toggle-button span {
+          background-color: hsl(0, 0%, 10%);
+        }
+
+        :host([data-theme="light"]) .sidebar-toggle-button:hover {
           background: hsl(0, 0%, 91%);
         }
 
-        :host([collapsed]).sidebar-header {
+        :host([collapsed]) .sidebar-header {
           justify-content: center;
           padding: 0 3.75rem;
         }
 
-        :host([collapsed]).sidebar-logo-container {
+        :host([collapsed]) .sidebar-logo-container {
           display: none;
         }
 
-        :host([collapsed]).sidebar-toggle-container {
+        :host([collapsed]) .sidebar-toggle-container {
           top: 50%;
           right: 50%;
           transform: translate(50%, -50%);
@@ -165,16 +167,16 @@ class ChatSidebarHeader extends HTMLElement {
             padding: 0 4rem 0 1.25rem;
           }
 
-          :host([collapsed]).sidebar-header {
+          :host([collapsed]) .sidebar-header {
             justify-content: flex-start;
             padding: 0 4rem 0 1.25rem;
           }
 
-          :host([collapsed]).sidebar-logo-container {
+          :host([collapsed]) .sidebar-logo-container {
             display: flex;
           }
 
-          :host([collapsed]).sidebar-toggle-container {
+          :host([collapsed]) .sidebar-toggle-container {
             top: 50%;
             right: 1rem;
             transform: translateY(-50%);
@@ -192,7 +194,7 @@ class ChatSidebarHeader extends HTMLElement {
             padding: 0 3.75rem 0 1rem;
           }
 
-          :host([collapsed]).sidebar-header {
+          :host([collapsed]) .sidebar-header {
             padding: 0 3.75rem 0 1rem;
           }
 
@@ -227,42 +229,10 @@ class ChatSidebarHeader extends HTMLElement {
             min-height: 2.375rem;
           }
 
-          :host([collapsed]).sidebar-header {
+          :host([collapsed]) .sidebar-header {
             padding: 0 3.625rem 0 0.75rem;
           }
         }
-
-        @media (max-width: 30rem) {
-
-          :host {
-            height: 3.75rem;
-            flex-basis: 3.75rem;
-          }
-
-          .sidebar-header {
-            padding: 0 3.625rem 0 0.75rem;
-          }
-
-          .sidebar-toggle-container {
-            width: 2.375rem;
-            height: 2.375rem;
-            min-width: 2.375rem;
-            min-height: 2.375rem;
-            right: 0.75rem;
-          }
-
-          .sidebar-toggle-button {
-            width: 2.375rem;
-            height: 2.375rem;
-            min-width: 2.375rem;
-            min-height: 2.375rem;
-          }
-
-          :host([collapsed]).sidebar-header {
-            padding: 0 3.625rem 0 0.75rem;
-          }
-        }
-
 
         @media (max-width: 22rem) {
 
@@ -290,7 +260,7 @@ class ChatSidebarHeader extends HTMLElement {
             min-height: 2.25rem;
           }
 
-          :host([collapsed]).sidebar-header {
+          :host([collapsed]) .sidebar-header {
             padding: 0 3.5rem 0 0.625rem;
           }
         }
@@ -330,11 +300,7 @@ class ChatSidebarHeader extends HTMLElement {
           <slot></slot>
         </div>
         <div class="sidebar-toggle-container">
-          <button
-            type="button"
-            class="sidebar-toggle-button"
-            aria-label="Plegar menú lateral"
-            aria-expanded="true">
+          <button type="button" class="sidebar-toggle-button" aria-label="Plegar menú lateral" aria-expanded="true">
             <span></span>
             <span></span>
             <span></span>

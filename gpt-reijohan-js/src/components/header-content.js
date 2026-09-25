@@ -41,7 +41,7 @@ class ChatHeaderContent extends HTMLElement {
           border: none;
           border-radius: 0.4375rem;
           background: transparent;
-          color: hsl(0, 0%, 96%);
+          color: hsla(0, 0%, 100%, 1.00);
           cursor: pointer;
           transition: background-color 0.2s ease, color 0.2s ease;
         }
@@ -69,7 +69,6 @@ class ChatHeaderContent extends HTMLElement {
           flex: 1 1 auto;
           margin-left: 0.3125rem;
           overflow: hidden;
-
         }
 
         .chat-header-title {
@@ -84,7 +83,6 @@ class ChatHeaderContent extends HTMLElement {
           overflow: hidden;
           text-overflow: ellipsis;
         }
-
 
         .chat-header-logo-container {
           width: 3.25rem;
@@ -103,6 +101,22 @@ class ChatHeaderContent extends HTMLElement {
           width: 100%;
           height: 100%;
           object-fit: contain;
+        }
+
+        :host([data-theme="light"]) .mobile-menu-button {
+          color: hsl(0, 0%, 10%);
+        }
+
+        :host([data-theme="light"]) .mobile-menu-button:hover {
+          background: hsl(0, 0%, 91%);
+        }
+
+        :host([data-theme="light"]) .mobile-menu-button span {
+          background: hsl(0, 0%, 10%);
+        }
+
+        :host([data-theme="light"]) .chat-header-title {
+          color: hsl(0, 0%, 10%);
         }
 
         @media (max-width: 64rem) {
@@ -124,46 +138,15 @@ class ChatHeaderContent extends HTMLElement {
           }
 
           .chat-header-logo-container {
-            width: 2.875rem;
-            height: 2.875rem;
-            min-width: 2.875rem;
-            min-height: 2.875rem;
-          }
-
-        }
-
-
-        @media (max-width: 48rem) {
-
-          .mobile-menu-button {
             width: 2.5rem;
             height: 2.5rem;
             min-width: 2.5rem;
             min-height: 2.5rem;
           }
 
-          .mobile-menu-button span {
-            width: 1.25rem;
-          }
-
-          .chat-header-title {
-            font-size: 0.9375rem;
-          }
-
-          .chat-header-logo-container {
-            width: 2.75rem;
-            height: 2.75rem;
-            min-width: 2.75rem;
-            min-height: 2.75rem;
-          }
-
         }
-
-        @media (max-width: 30rem) {
-
-          :host {
-            gap: 0.5rem;
-          }
+        
+        @media (max-width: 48rem) {
 
           .mobile-menu-button {
             width: 2.375rem;
@@ -177,19 +160,23 @@ class ChatHeaderContent extends HTMLElement {
           }
 
           .chat-header-title {
-            font-size: 0.875rem;
+            font-size: 0.9375rem;
           }
 
           .chat-header-logo-container {
-            width: 2.5rem;
-            height: 2.5rem;
-            min-width: 2.5rem;
-            min-height: 2.5rem;
+            width: 2.25rem;
+            height: 2.25rem;
+            min-width: 2.25rem;
+            min-height: 2.25rem;
           }
 
         }
 
-        @media (max-width: 22rem) {
+        @media (max-width: 30rem) {
+
+          :host {
+            gap: 0.5rem;
+          }
 
           .mobile-menu-button {
             width: 2.25rem;
@@ -198,11 +185,37 @@ class ChatHeaderContent extends HTMLElement {
             min-height: 2.25rem;
           }
 
+          .mobile-menu-button span {
+            width: 1.15rem;
+          }
+
+          .chat-header-title {
+            font-size: 0.875rem;
+          }
+
           .chat-header-logo-container {
-            width: 2.25rem;
-            height: 2.25rem;
-            min-width: 2.25rem;
-            min-height: 2.25rem;
+            width: 2rem;
+            height: 2rem;
+            min-width: 2rem;
+            min-height: 2rem;
+          }
+
+        }
+
+        @media (max-width: 22rem) {
+
+          .mobile-menu-button {
+            width: 2.125rem;
+            height: 2.125rem;
+            min-width: 2.125rem;
+            min-height: 2.125rem;
+          }
+
+          .chat-header-logo-container {
+            width: 1.875rem;
+            height: 1.875rem;
+            min-width: 1.875rem;
+            min-height: 1.875rem;
           }
 
           .chat-header-title {
@@ -224,11 +237,13 @@ class ChatHeaderContent extends HTMLElement {
           <span></span>
         </button>
       </div>
+
       <div class="chat-header-title-container">
         <span class="chat-header-title">
           Chat EA (Versión Alpha 0.1)
         </span>
       </div>
+
       <div class="chat-header-logo-container">
         <img class="chat-header-logo" src="img/logo-cab.svg" alt="ReijohanGPT">
       </div>
@@ -251,7 +266,6 @@ class ChatHeaderContent extends HTMLElement {
 
   }
 
-
   disconnectedCallback() {
 
     this.mobileMenuButton.removeEventListener("click", this.handleMobileMenu);
@@ -267,7 +281,15 @@ class ChatHeaderContent extends HTMLElement {
 
   handleMobileMenu() {
 
-    this.dispatchEvent(new CustomEvent("sidebar-open-request", { bubbles: true, composed: true }));
+    this.dispatchEvent(
+      new CustomEvent(
+        "sidebar-open-request",
+        {
+          bubbles: true,
+          composed: true
+        }
+      )
+    );
 
   }
 
@@ -283,6 +305,11 @@ class ChatHeaderContent extends HTMLElement {
 
     const theme = sidebar.getAttribute("data-theme");
 
+    this.setAttribute(
+      "data-theme",
+      theme === "light" ? "light" : "dark"
+    );
+
     if (theme === "light") {
 
       this.updateLogo("img/logo-cab-negro.svg");
@@ -295,10 +322,12 @@ class ChatHeaderContent extends HTMLElement {
 
     const isOpen = sidebar.hasAttribute("open");
 
-    this.mobileMenuButton.setAttribute("aria-expanded", String(isOpen));
+    this.mobileMenuButton.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
 
   }
-
 
   observeSidebar() {
 
@@ -322,7 +351,16 @@ class ChatHeaderContent extends HTMLElement {
 
     });
 
-    this.sidebarObserver.observe(sidebar, { attributes: true, attributeFilter: ["data-theme", "open"] });
+    this.sidebarObserver.observe(
+      sidebar,
+      {
+        attributes: true,
+        attributeFilter: [
+          "data-theme",
+          "open"
+        ]
+      }
+    );
 
   }
 
