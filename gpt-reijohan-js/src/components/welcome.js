@@ -1,7 +1,6 @@
 class ChatWelcome extends HTMLElement {
 
   constructor() {
-
     super();
     this.shadow = this.attachShadow({ mode: "open" })
     this.shadow.innerHTML = /* html */ `
@@ -15,7 +14,6 @@ class ChatWelcome extends HTMLElement {
           box-sizing: border-box;
           color:hsl(0, 0%, 96%);
           transition: opacity 0.3s ease, color 0.3s ease;
-        
         }
         
         .welcome-container {
@@ -27,7 +25,6 @@ class ChatWelcome extends HTMLElement {
           box-sizing: border-box;
           padding: 24% 0 0 0;
           text-align: center;
-        
         }
 
         .welcome-title {
@@ -39,39 +36,31 @@ class ChatWelcome extends HTMLElement {
           font-weight: 500;
           line-height: 1.35;
           transition: color 0.3s ease;
-        
         }
 
         :host([data-theme="light"]) {
           color: hsl(0, 0%, 10%);
-       
         }
-
 
         :host([data-theme="light"])
         .welcome-title {
           color: hsl(0, 0%, 10%);
-       
         }
 
         :host([has-messages]) {
           display: none;
-       
         }
 
         @media (max-width: 64rem) {
           
           .welcome-container {
             padding: 0.875rem 1rem;
-         
           }
-
 
           .welcome-title {
             font-size: 1.75rem;
             line-height: 1.35;
             padding: 24% 0 0 0;
-         
           }
 
         }
@@ -80,9 +69,7 @@ class ChatWelcome extends HTMLElement {
 
           .welcome-container {
             padding: 0.75rem 0.875rem;
-          
           }
-
 
           .welcome-title {
             font-size: 1.5rem;
@@ -95,89 +82,50 @@ class ChatWelcome extends HTMLElement {
         @media (max-width: 30rem) {
 
           .welcome-container {
-
-            padding:
-              0.625rem 0.75rem;
+            padding: 0.625rem 0.75rem;
           }
 
-
           .welcome-title {
-
-            font-size:
-              1.375rem;
-
-            line-height:
-              1.4;
+            font-size: 1.375rem;
+            line-height: 1.4;
           }
 
         }
-
-
-        /* =====================================
-           PANTALLAS MUY PEQUEÑAS
-        ===================================== */
 
         @media (max-width: 22rem) {
 
           .welcome-container {
-
-            padding:
-              0.5rem 0.625rem;
+            padding: 0.5rem 0.625rem;
           }
 
-
           .welcome-title {
-
-            font-size:
-              1.25rem;
-
-            line-height:
-              1.4;
+            font-size: 1.25rem;
+            line-height: 1.4;
           }
 
         }
-
-
-        /* =====================================
-           ALTURA REDUCIDA
-        ===================================== */
 
         @media (max-height: 40rem) {
 
           .welcome-container {
-
-            padding:
-              0.75rem 1rem;
+            padding: 0.75rem 1rem;
           }
 
-
           .welcome-title {
-
-            line-height:
-              1.35;
+            line-height: 1.35;
           }
 
         }
-
-
-        /* =====================================
-           MÓVIL + ALTURA REDUCIDA
-        ===================================== */
 
         @media (max-width: 30rem)
         and (max-height: 40rem) {
 
           .welcome-container {
-
-            padding:
-              0.625rem 0.75rem;
+            padding: 0.625rem 0.75rem;
           }
 
-
           .welcome-title {
-
-            line-height:
-              1.4;
+            line-height: 1.4;
           }
 
         }
@@ -186,67 +134,38 @@ class ChatWelcome extends HTMLElement {
 
 
       <div class="welcome-container">
-
         <h1 class="welcome-title">
           ¿Qué quieres hacer? Pregúntame lo que necesites
         </h1>
-
       </div>
-
     `;
 
-
-    this.handleSidebarChange =
-      this.handleSidebarChange.bind(this);
-
-    this.sidebarObserver =
-      null;
+    this.handleSidebarChange = this.handleSidebarChange.bind(this);
+    this.sidebarObserver = null;
 
   }
-
-
-  /* =====================================
-     CONECTAR COMPONENTE
-  ===================================== */
 
   connectedCallback() {
 
     this.syncWithSidebar();
-
     this.observeSidebar();
 
   }
-
-
-  /* =====================================
-     DESCONECTAR COMPONENTE
-  ===================================== */
 
   disconnectedCallback() {
 
     if (this.sidebarObserver) {
 
       this.sidebarObserver.disconnect();
-
-      this.sidebarObserver =
-        null;
+      this.sidebarObserver = null;
 
     }
 
   }
 
-
-  /* =====================================
-     SINCRONIZAR CON SIDEBAR
-  ===================================== */
-
   syncWithSidebar() {
 
-    const sidebar =
-      document.querySelector(
-        "chat-sidebar"
-      );
-
+    const sidebar = document.querySelector("chat-sidebar");
 
     if (!sidebar) {
 
@@ -254,49 +173,30 @@ class ChatWelcome extends HTMLElement {
 
     }
 
-
-    const theme =
-      sidebar.getAttribute(
-        "data-theme"
-      );
+    const theme = sidebar.getAttribute("data-theme");
 
 
     if (theme === "light") {
 
-      this.setAttribute(
-        "data-theme",
-        "light"
-      );
+      this.setAttribute("data-theme", "light");
 
     } else {
 
-      this.removeAttribute(
-        "data-theme"
-      );
+      this.removeAttribute("data-theme");
 
     }
 
   }
 
-
-  /* =====================================
-     OBSERVAR CAMBIOS DEL SIDEBAR
-  ===================================== */
-
   observeSidebar() {
 
-    const sidebar =
-      document.querySelector(
-        "chat-sidebar"
-      );
-
+    const sidebar = document.querySelector("chat-sidebar");
 
     if (!sidebar) {
 
       return;
 
     }
-
 
     if (this.sidebarObserver) {
 
@@ -304,31 +204,13 @@ class ChatWelcome extends HTMLElement {
 
     }
 
-
-    this.sidebarObserver =
-      new MutationObserver(
-        this.handleSidebarChange
-      );
-
-
-    this.sidebarObserver.observe(
-      sidebar,
-      {
-        attributes:
-          true,
-
-        attributeFilter: [
-          "data-theme"
-        ]
-      }
-    );
+    this.sidebarObserver = new MutationObserver(this.handleSidebarChange);
+    this.sidebarObserver.observe(sidebar, {
+      attributes: true,
+      attributeFilter: ["data-theme"]
+    });
 
   }
-
-
-  /* =====================================
-     CAMBIO EN SIDEBAR
-  ===================================== */
 
   handleSidebarChange() {
 

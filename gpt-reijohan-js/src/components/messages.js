@@ -1,76 +1,35 @@
 class ChatMessages extends HTMLElement {
 
   constructor() {
-
     super();
-
-    this.attachShadow({
-      mode: "open"
-    });
-
-    this.shadowRoot.innerHTML = /* html */ `
+    this.shadow = this.attachShadow({ mode: "open" })
+    this.shadow.innerHTML = /* html */ `
 
       <style>
 
-        /* =====================================
-           COMPONENTE MENSAJES
-        ===================================== */
-
         :host {
           display: block;
-
           width: 100%;
-
           min-width: 0;
-
           box-sizing: border-box;
-
-          color:
-            hsl(0, 0%, 96%);
-
-          transition:
-            color 0.3s ease;
+          color: hsl(0, 0%, 96%);
+          transition: color 0.3s ease;
         }
-
-
-        /* =====================================
-           CONTENEDOR DE MENSAJES
-        ===================================== */
 
         .messages-container {
           display: flex;
           flex-direction: column;
-
           width: 100%;
-
           min-width: 0;
-
           gap: 1rem;
-
           box-sizing: border-box;
-
-          color:
-            hsl(0, 0%, 96%);
-
-          transition:
-            color 0.3s ease;
+          color: hsl(0, 0%, 96%);
+          transition: color 0.3s ease;
         }
 
-
-        /* =====================================
-           TEMA CLARO
-        ===================================== */
-
-        :host([data-theme="light"])
-        .messages-container {
-          color:
-            hsl(0, 0%, 10%);
+        :host([data-theme="light"]).messages-container {
+          color: hsl(0, 0%, 10%);
         }
-
-
-        /* =====================================
-           TABLET
-        ===================================== */
 
         @media (max-width: 64rem) {
 
@@ -80,11 +39,6 @@ class ChatMessages extends HTMLElement {
 
         }
 
-
-        /* =====================================
-           MÓVIL
-        ===================================== */
-
         @media (max-width: 48rem) {
 
           .messages-container {
@@ -93,11 +47,6 @@ class ChatMessages extends HTMLElement {
 
         }
 
-
-        /* =====================================
-           MÓVIL PEQUEÑO
-        ===================================== */
-
         @media (max-width: 30rem) {
 
           .messages-container {
@@ -105,11 +54,6 @@ class ChatMessages extends HTMLElement {
           }
 
         }
-
-
-        /* =====================================
-           MÓVIL MUY PEQUEÑO
-        ===================================== */
 
         @media (max-width: 22rem) {
 
@@ -121,50 +65,22 @@ class ChatMessages extends HTMLElement {
 
       </style>
 
-
       <div class="messages-container"></div>
-
     `;
 
-
-    /* =====================================
-       REFERENCIAS
-    ===================================== */
-
-    this.messagesContainer =
-      this.shadowRoot.querySelector(
-        ".messages-container"
-      );
-
-
-    /* =====================================
-       BIND
-    ===================================== */
-
-    this.handleSidebarChange =
-      this.handleSidebarChange.bind(this);
-
+    this.messagesContainer = this.shadowRoot.querySelector(".messages-container");
+    this.handleSidebarChange = this.handleSidebarChange.bind(this);
     this.sidebarObserver = null;
 
   }
 
 
-  /* =====================================
-     COMPONENTE CONECTADO
-  ===================================== */
-
   connectedCallback() {
 
     this.syncWithSidebar();
-
     this.observeSidebar();
 
   }
-
-
-  /* =====================================
-     COMPONENTE DESCONECTADO
-  ===================================== */
 
   disconnectedCallback() {
 
@@ -178,106 +94,54 @@ class ChatMessages extends HTMLElement {
 
   }
 
-
-  /* =====================================
-     SINCRONIZAR TEMA
-  ===================================== */
-
   syncWithSidebar() {
 
-    const sidebar =
-      document.querySelector(
-        "chat-sidebar"
-      );
-
+    const sidebar = document.querySelector("chat-sidebar");
 
     if (!sidebar) {
       return;
     }
 
-
-    const theme =
-      sidebar.getAttribute(
-        "data-theme"
-      );
-
+    const theme = sidebar.getAttribute("data-theme");
 
     if (theme === "light") {
 
-      this.setAttribute(
-        "data-theme",
-        "light"
-      );
+      this.setAttribute("data-theme", "light");
 
     } else {
 
-      this.removeAttribute(
-        "data-theme"
-      );
+      this.removeAttribute("data-theme");
 
     }
 
   }
 
-
-  /* =====================================
-     OBSERVAR TEMA
-  ===================================== */
-
   observeSidebar() {
 
-    const sidebar =
-      document.querySelector(
-        "chat-sidebar"
-      );
-
+    const sidebar = document.querySelector("chat-sidebar");
 
     if (!sidebar) {
       return;
     }
 
-
     if (this.sidebarObserver) {
-
       this.sidebarObserver.disconnect();
-
     }
 
+    this.sidebarObserver = new MutationObserver(this.handleSidebarChange);
 
-    this.sidebarObserver =
-      new MutationObserver(
-        this.handleSidebarChange
-      );
-
-
-    this.sidebarObserver.observe(
-      sidebar,
-      {
-        attributes: true,
-
-        attributeFilter: [
-          "data-theme"
-        ]
-      }
-    );
+    this.sidebarObserver.observe(sidebar, {
+      attributes: true,
+      attributeFilter: ["data-theme"]
+    });
 
   }
-
-
-  /* =====================================
-     CAMBIO DE TEMA
-  ===================================== */
 
   handleSidebarChange() {
 
     this.syncWithSidebar();
 
   }
-
-
-  /* =====================================
-     LIMPIAR MENSAJES
-  ===================================== */
 
   clear() {
 

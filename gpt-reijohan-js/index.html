@@ -1,110 +1,42 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>ReijohanGPT</title>
-
-  <!-- CSS GLOBAL -->
-
   <link rel="stylesheet" href="./src/global.css">
-
-  <!-- =========================================
-       JAVASCRIPT
-       ÚNICO PUNTO DE ENTRADA
-  ========================================== -->
-
   <script type="module" src="./src/index.js"></script>
-
 </head>
 
-
 <body>
-
-  <!-- =========================================
-       APLICACIÓN PRINCIPAL
-  ========================================== -->
-
   <div class="chat-app">
 
-
-    <!-- =========================================
-         SIDEBAR
-    ========================================== -->
-
     <chat-sidebar>
-
       <chat-sidebar-header>
-
         <chat-logo></chat-logo>
-
       </chat-sidebar-header>
-
-
       <chat-sidebar-content>
-
         <chat-new-button></chat-new-button>
-
         <chat-history></chat-history>
-
         <chat-theme></chat-theme>
-
         <chat-user></chat-user>
-
       </chat-sidebar-content>
-
     </chat-sidebar>
-
-
-    <!-- =========================================
-         CONTENIDO PRINCIPAL
-    ========================================== -->
-
-    <main class="chat-main">
-
-
-      <!-- =======================================
-           CABECERA
-      ======================================== -->
-
-      <chat-header></chat-header>
-
-
-      <!-- =======================================
-           CONVERSACIÓN
-      ======================================== -->
-
-      <chat-conversation>
-
-        <chat-welcome slot="welcome"></chat-welcome>
-
-        <chat-status slot="status"></chat-status>
-
-        <chat-messages slot="messages"></chat-messages>
-
+    <chat-main>
+      <chat-header class="slot-header" slot="header">
+        <chat-header-content class="slot-content" slot="content"></chat-header-content>
+      </chat-header>
+      <chat-conversation class="slot-conversation" slot="conversation">
+        <chat-welcome class="slot-welcome" slot="welcome"></chat-welcome>
+        <chat-status class="slot-status" slot="status"></chat-status>
+        <chat-messages class="slot-messages" slot="messages"></chat-messages>
       </chat-conversation>
-
-
-      <!-- =======================================
-           ZONA DE ESCRITURA
-      ======================================== -->
-
-      <chat-input>
-
-        <chat-file-preview slot="file-preview"></chat-file-preview>
-
+      <chat-input class="slot-input" slot="input">
+        <chat-file-preview class="slot-file-preview" slot="file-preview"></chat-file-preview>
       </chat-input>
-
-
-    </main>
-
+    </chat-main>
   </div>
-
 </body>
 
 </html>

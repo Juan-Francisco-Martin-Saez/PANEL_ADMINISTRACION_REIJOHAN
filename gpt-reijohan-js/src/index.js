@@ -17,6 +17,8 @@ import "./components/status.js";
 import "./components/messages.js";
 import "./components/input.js";
 import "./components/file-preview.js";
+import "./components/main.js";
+import "./components/header-content.js";
 
 
 /* =====================================================

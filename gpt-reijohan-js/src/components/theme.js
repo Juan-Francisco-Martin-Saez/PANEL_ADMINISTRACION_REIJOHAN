@@ -1,20 +1,11 @@
 class ChatTheme extends HTMLElement {
 
   constructor() {
-
     super();
-
-    this.attachShadow({
-      mode: "open"
-    });
-
-    this.shadowRoot.innerHTML = /* html */ `
+    this.shadow = this.attachShadow({ mode: "open" });
+    this.shadow.innerHTML = /* html */ `
 
       <style>
-
-        /* =====================================
-           COMPONENTE TEMA
-        ===================================== */
 
         :host {
           display: block;
