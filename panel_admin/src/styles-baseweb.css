@@ -25,11 +25,13 @@ html {
   height: 100%;
   max-width: 100%;
   min-height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   scroll-behavior: smooth;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   width: 100%;
   height: 100dvh;
@@ -38,12 +40,12 @@ body {
   background: var(--color-fondo);
   color: var(--color-texto);
   font-family: Arial, sans-serif;
-  overflow-x: hidden;
-  overflow-x: clip;
+  overflow: hidden;
 }
 
 app-header {
   display: block;
+  flex: 0 0 auto;
   width: 100%;
   max-width: 100%;
   height: 8vh;
@@ -51,6 +53,17 @@ app-header {
   background: var(--color-cabecera);
   border-bottom: 0.0625rem solid var(--color-borde);
   box-shadow: 0 0.25rem 1rem var(--color-sombra);
+}
+
+app-main {
+  display: block;
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  overflow: hidden;
 }
 
 data-table {
