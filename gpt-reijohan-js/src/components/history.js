@@ -1,12 +1,9 @@
 class ChatHistory extends HTMLElement {
-
   constructor() {
     super();
     this.shadow = this.attachShadow({ mode: "open" });
     this.shadow.innerHTML = /* html */ `
-
       <style>
-
         :host {
           display: flex;
           width: 100%;
@@ -19,7 +16,6 @@ class ChatHistory extends HTMLElement {
           color: hsl(0, 0%, 96%);
           transition: color 0.3s ease;
         }
-
         .chat-history {
           display: flex;
           flex-direction: column;
@@ -30,7 +26,6 @@ class ChatHistory extends HTMLElement {
           overflow: hidden;
           box-sizing: border-box;
         }
-
         .chat-history-button {
           display: flex;
           width: 100%;
@@ -52,27 +47,20 @@ class ChatHistory extends HTMLElement {
           text-align: left;
           cursor: pointer;
           box-sizing: border-box;
-          transition:
-            background-color 0.3s ease,
-            border-color 0.3s ease,
-            color 0.3s ease;
+          transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
-
         .chat-history-button:hover {
           background: hsl(0, 0%, 17%);
           border-color: hsl(0, 0%, 28%);
           color: hsl(0, 0%, 96%);
         }
-
         .chat-history-button:active {
           background: hsl(0, 0%, 19%);
         }
-
         .chat-history-button:focus-visible {
           outline: 0.125rem solid hsl(0, 0%, 70%);
           outline-offset: 0.125rem;
         }
-
         .chat-history-icon {
           position: relative;
           display: block;
@@ -84,8 +72,7 @@ class ChatHistory extends HTMLElement {
           border-radius: 0.1875rem;
           box-sizing: border-box;
           flex-shrink: 0;
-        }
-
+        } 
         .chat-history-icon::before,
         .chat-history-icon::after {
           content: "";
@@ -96,15 +83,12 @@ class ChatHistory extends HTMLElement {
           background: currentColor;
           border-radius: 0.0625rem;
         }
-
         .chat-history-icon::before {
           top: 0.3125rem;
         }
-
         .chat-history-icon::after {
           top: 0.5625rem;
         }
-
         .chat-history-title {
           display: block;
           min-width: 0;
@@ -112,7 +96,6 @@ class ChatHistory extends HTMLElement {
           white-space: nowrap;
           text-overflow: ellipsis;
         }
-
         .chat-history-list {
           display: flex;
           flex-direction: column;
@@ -125,34 +108,26 @@ class ChatHistory extends HTMLElement {
           overflow-y: auto;
           box-sizing: border-box;
           scrollbar-width: thin;
-          scrollbar-color:
-            hsl(0, 0%, 28%)
-            transparent;
+          scrollbar-color: hsl(0, 0%, 28%) transparent;
         }
-
         .chat-history-list::-webkit-scrollbar {
           width: 0.375rem;
         }
-
         .chat-history-list::-webkit-scrollbar-track {
           background: transparent;
         }
-
         .chat-history-list::-webkit-scrollbar-thumb {
           background: hsl(0, 0%, 28%);
           border-radius: 0.5rem;
         }
-
         .chat-history-list::-webkit-scrollbar-thumb:hover {
           background: hsl(0, 0%, 38%);
         }
-
         .chat-history-item {
           width: 100%;
           min-width: 0;
           flex-shrink: 0;
         }
-
         .chat-history-link {
           display: block;
           width: 100%;
@@ -172,55 +147,41 @@ class ChatHistory extends HTMLElement {
           text-overflow: ellipsis;
           box-sizing: border-box;
           cursor: pointer;
-          transition:
-            background-color 0.3s ease,
-            color 0.3s ease;
+          transition: background-color 0.3s ease, color 0.3s ease;
         }
-
-
         .chat-history-link:hover {
           background: hsl(0, 0%, 14%);
           color: hsl(0, 0%, 96%);
         }
-
         .chat-history-link:focus-visible {
           outline: 0.125rem solid hsl(0, 0%, 70%);
           outline-offset: -0.0625rem;
         }
-
         :host([data-theme="light"]) {
           color: hsl(0, 0%, 10%);
         }
-
         :host([data-theme="light"]) .chat-history-button {
           background: hsl(0, 0%, 94%);
           border-color: hsl(0, 0%, 82%);
           color: hsl(0, 0%, 15%);
         }
-
-
         :host([data-theme="light"]) .chat-history-button:hover {
           background: hsl(0, 0%, 90%);
           border-color: hsl(0, 0%, 76%);
         }
-
         :host([data-theme="light"]) .chat-history-button:active {
           background: hsl(0, 0%, 87%);
         }
-
         :host([data-theme="light"]) .chat-history-link {
           color: hsl(0, 0%, 35%);
         }
-
         :host([data-theme="light"]) .chat-history-link:hover {
           background: hsl(0, 0%, 92%);
           color: hsl(0, 0%, 10%);
         }
-
         :host([data-theme="light"]) .chat-history-list {
           scrollbar-color: hsl(0, 0%, 72%) transparent;
         }
-
         :host([collapsed]) .chat-history-button {
           width: 2.625rem;
           height: 2.625rem;
@@ -232,15 +193,12 @@ class ChatHistory extends HTMLElement {
           margin: 0 auto 0.75rem auto;
           border-radius: 0.5rem;
         }
-
         :host([collapsed]) .chat-history-title {
           display: none;
         }
-
         :host([collapsed]) .chat-history-list {
           display: none;
         }
-
         @media (max-width: 64rem) {
 
           .chat-history-button {
@@ -252,16 +210,13 @@ class ChatHistory extends HTMLElement {
             margin: 0 0 0.75rem 0;
             border-radius: 0.5rem;
           }
-
           .chat-history-title {
             display: block;
           }
-
           .chat-history-list {
             display: flex;
             gap: 0.1875rem;
           }
-
           :host([collapsed]) .chat-history-button {
             width: 100%;
             height: auto;
@@ -273,60 +228,45 @@ class ChatHistory extends HTMLElement {
             margin: 0 0 0.75rem 0;
             border-radius: 0.5rem;
           }
-
           :host([collapsed]) .chat-history-title {
             display: block;
           }
-
           :host([collapsed]) .chat-history-list {
             display: flex;
           }
         }
-
         @media (max-width: 30rem) {
-
           .chat-history-button {
             padding: 0.75rem;
             margin-bottom: 0.75rem;
           }
-
           .chat-history-link {
             padding: 0.4rem 0.5625rem;
           }
-
           :host([collapsed]) .chat-history-button {
             padding: 0.75rem;
             margin-bottom: 0.75rem;
           }
         }
-
         @media (max-width: 22rem) {
-          
           .chat-history-button {
             padding: 0.6875rem 0.75rem;
             margin-bottom: 0.6875rem;
           }
-
           .chat-history-link {
             padding: 0.375rem 0.5rem;
           }
-
           :host([collapsed]) .chat-history-button {
             padding: 0.6875rem 0.75rem;
             margin-bottom: 0.6875rem;
           }
-
         }
-
         @media (max-height: 40rem) {
-
           .chat-history-button {
             margin-bottom: 0.625rem;
           }
         }
-
       </style>
-
       <div class="chat-history">
         <button type="button" class="chat-history-button" aria-label="Historial de chats">
           <span class="chat-history-icon" aria-hidden="true"></span>
@@ -335,163 +275,99 @@ class ChatHistory extends HTMLElement {
           </span>
         </button>
         <div class="chat-history-list">
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación sobre desarrollo web y user-avatar-container
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Ideas para mi nuevo proyecto de iniciación a la programación en Python.
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Preguntas sobre HTML y CSS
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Diseño de interfaz para aplicación
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación especialmente larga cuyo nombre debe cortarse automáticamente
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación sobre desarrollo web y user-avatar-container
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Ideas para mi nuevo proyecto de iniciación a la programación en Python.
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Preguntas sobre HTML y CSS
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Diseño de interfaz para aplicación
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación especialmente larga cuyo nombre debe cortarse automáticamente
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación sobre desarrollo web y user-avatar-container
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Ideas para mi nuevo proyecto de iniciación a la programación en Python.
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Preguntas sobre HTML y CSS
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Diseño de interfaz para aplicación
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación especialmente larga cuyo nombre debe cortarse automáticamente
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación sobre desarrollo web y user-avatar-container
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Ideas para mi nuevo proyecto de iniciación a la programación en Python.
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Preguntas sobre HTML y CSS
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Diseño de interfaz para aplicación
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación especialmente larga cuyo nombre debe cortarse automáticamente
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación sobre desarrollo web y user-avatar-container
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Ideas para mi nuevo proyecto de iniciación a la programación en Python.
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Preguntas sobre HTML y CSS
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Diseño de interfaz para aplicación
-            </a>
-          </div>
-          <div class="chat-history-item">
-            <a href="#" class="chat-history-link">
-              Conversación especialmente larga cuyo nombre debe cortarse automáticamente
-            </a>
-          </div>
         </div>
       </div>
     `;
-
-    this.historyButton =
-      this.shadowRoot.querySelector(".chat-history-button");
-
-    this.historyLinks =
-      this.shadowRoot.querySelectorAll(".chat-history-link");
-
-    this.handleHistoryButton =
-      this.handleHistoryButton.bind(this);
-
-    this.handleHistoryLink =
-      this.handleHistoryLink.bind(this);
+    this.data = [];
+    this.historyButton = this.shadowRoot.querySelector(".chat-history-button");
+    this.historyList = this.shadowRoot.querySelector(".chat-history-list");
+    this.handleHistoryButton = this.handleHistoryButton.bind(this);
+    this.handleHistoryLink = this.handleHistoryLink.bind(this);
   }
-
   connectedCallback() {
-    this.historyButton.addEventListener("click", this.handleHistoryButton);
-    this.historyLinks.forEach((link) => {
-      link.addEventListener("click", this.handleHistoryLink);
-    });
+    this.loadData();
     this.syncWithSidebar();
   }
-
   disconnectedCallback() {
     this.historyButton.removeEventListener("click", this.handleHistoryButton);
     this.historyLinks.forEach((link) => {
       link.removeEventListener("click", this.handleHistoryLink);
     });
   }
-
+  async loadData() {
+    const respuesta = await fetch(this.getAttribute("src"));
+    this.data = await respuesta.json();
+    this.renderLinks();
+    this.historyButton.addEventListener("click", this.handleHistoryButton);
+    this.historyLinks.forEach((link) => {
+      link.addEventListener("click", this.handleHistoryLink);
+    });
+  }
+  renderLinks() {
+    this.historyList.innerHTML = "";
+    this.renderData(this.data, this.historyList);
+    this.historyLinks = this.shadowRoot.querySelectorAll(".chat-history-link");
+  }
+  renderData(datos, contenedor, ruta = "") {
+    if (Array.isArray(datos)) {
+      if (!datos.length) {
+        this.crearEnlace("[]", contenedor);
+        return;
+      }
+      datos.forEach((dato, indice) => {
+        this.renderData(dato, contenedor, ruta ? `${ruta}[${indice}]` : `[${indice}]`);
+      });
+      return;
+    }
+    if (datos && typeof datos === "object") {
+      const claves = Object.keys(datos);
+      if (!claves.length) {
+        this.crearEnlace(`${ruta || "objeto"}: {}`, contenedor);
+        return;
+      }
+      const href = typeof datos.href === "string" ? datos.href : "#";
+      claves.forEach((clave) => {
+        if (clave === "href") {
+          return;
+        }
+        const valor = datos[clave];
+        const nuevaRuta = ruta ? `${ruta}.${clave}` : clave;
+        if (valor && typeof valor === "object") {
+          this.crearEnlace(clave, contenedor, href);
+          this.renderData(valor, contenedor, nuevaRuta);
+        } else {
+          this.crearEnlace(
+            clave === "nombre" && Object.keys(datos).length <= 2
+              ? this.formatearValor(valor)
+              : `${clave}: ${this.formatearValor(valor)}`,
+            contenedor,
+            href
+          );
+        }
+      });
+      return;
+    }
+    this.crearEnlace(`${ruta ? `${ruta}: ` : ""}${this.formatearValor(datos)}`, contenedor);
+  }
+  crearEnlace(texto, contenedor, href = "#") {
+    const item = document.createElement("div");
+    item.className = "chat-history-item";
+    const enlace = document.createElement("a");
+    enlace.href = href;
+    enlace.classList.add("chat-history-link");
+    enlace.textContent = texto;
+    item.append(enlace);
+    contenedor.append(item);
+  }
+  formatearValor(valor) {
+    if (valor === null) {
+      return "null";
+    }
+    if (valor === undefined) {
+      return "undefined";
+    }
+    return String(valor);
+  }
   handleHistoryButton(event) {
     event.preventDefault();
     if (window.innerWidth > 1024 && this.hasAttribute("collapsed")) {
@@ -504,7 +380,6 @@ class ChatHistory extends HTMLElement {
       );
     }
   }
-
   handleHistoryLink(event) {
     event.preventDefault();
     if (window.innerWidth <= 1024) {
@@ -517,10 +392,8 @@ class ChatHistory extends HTMLElement {
       );
     }
   }
-
   syncWithSidebar() {
-    const sidebar =
-      this.closest("chat-sidebar");
+    const sidebar = this.closest("chat-sidebar");
     if (!sidebar) {
       return;
     }
@@ -534,7 +407,5 @@ class ChatHistory extends HTMLElement {
 
     }
   }
-
 }
-
 customElements.define("chat-history", ChatHistory);
